@@ -45,23 +45,19 @@
     <div class="container">
         <div class="page-header">
             <div>
-                <h2>🎯 Configuração de Parâmetros por Empresa</h2>
-                <p class="subtitle">Defina versões e funcionalidades para cada cliente</p>
+                <h2>🎯 Configuração de Parâmetros da Empresa</h2>
             </div>
         </div>
 
-        <!-- Seletor de Empresa -->
-        <div class="empresa-selector">
-            <div class="selector-header">
-                <label for="selectEmpresa">📌 Selecione a Empresa:</label>
-                <button class="btn btn-refresh" onclick="carregarEmpresas()" title="Atualizar lista">
+        <!-- Informações da Empresa -->
+        <div id="empresaInfo" class="empresa-info">
+            <div class="info-header">
+                <h3>🏢 Empresa Atual</h3>
+                <button class="btn btn-refresh" onclick="carregarEmpresaAtual()" title="Atualizar empresa">
                     🔄 Atualizar
                 </button>
             </div>
-            <select id="selectEmpresa" onchange="carregarParametrosEmpresa()">
-                <option value="">-- Selecione uma empresa --</option>
-            </select>
-            <div id="empresaInfo" class="empresa-info" style="display: none;">
+            <div class="info-content">
                 <div class="info-item">
                     <strong>Razão Social:</strong> <span id="empresaRazao">-</span>
                 </div>
@@ -103,8 +99,7 @@
         <!-- Empty State -->
         <div id="emptyState" class="empty-state">
             <div class="empty-icon">🏢</div>
-            <h3>Selecione uma Empresa</h3>
-            <p>Escolha uma empresa acima para configurar seus parâmetros</p>
+            <h3>Carregando...</h3>
         </div>
     </div>
 
