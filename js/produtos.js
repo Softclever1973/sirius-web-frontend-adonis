@@ -208,7 +208,7 @@ function renderizarTabela(produtos) {
                     <button class="btn-small btn-ativo"
                             onclick="confirmarToggleStatus(${p.id}, '${p.descricao.replace(/'/g, "\\'")}', '${p.ativo}')"
                             title="${p.ativo === 'S' ? 'Inativar' : 'Ativar'}">
-                        ${p.ativo === 'S' ? '⚪' : '🟢'}
+                        ${p.ativo === 'S' ? '🟢' : '⚪'}
                     </button>
                 </td>
             </tr>
