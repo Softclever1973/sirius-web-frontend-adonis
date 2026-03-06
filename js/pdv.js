@@ -1138,6 +1138,11 @@ function mostrarRelatorioPedido(pedidoFinalizado) {
     // Mostrar modal
     document.getElementById('modalRelatorioPedido').style.display = 'flex';
 
+    // Focar no botão imprimir
+    setTimeout(() => {
+        document.querySelector('.btn-imprimir').focus();
+    }, 100);
+
     // Imprimir automaticamente
     setTimeout(() => {
         window.print();
@@ -1292,13 +1297,21 @@ function configurarEventosGlobais() {
         }
     });
 
-    // ----- Pagamentos: Enter na forma de pagamento -----
-    document.getElementById('formaPagamento').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            document.getElementById('valorPagamento').focus();
-        }
+    // ----- Pagamentos: foco na forma de pagamento abre dropdown -----
+    document.getElementById('formaPagamento').addEventListener('focus', (e) => {
+        // Pequeno delay para garantir que o foco seja aplicado antes de abrir
+        setTimeout(() => {
+            e.target.click();
+        }, 10);
     });
+
+    // ----- Pagamentos: Enter na forma de pagamento -----
+    // document.getElementById('formaPagamento').addEventListener('keydown', (e) => {
+    //     if (e.key === 'Enter') {
+    //         e.preventDefault();
+    //         document.getElementById('valorPagamento').focus();
+    //     }
+    // });
 
     document.getElementById('valorPagamento').addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
