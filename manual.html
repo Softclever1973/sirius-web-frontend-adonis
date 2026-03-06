@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRIUS WEB - Manual do Usuário</title>
-    <link rel="stylesheet" href="css/manual.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="page-manual">
     <!-- Header -->
-    <div class="header">
-        <div class="header-content">
+    <div class="manual-header">
+        <div class="manual-header-content">
             <h1>📚 SIRIUS WEB - Manual do Usuário</h1>
-            <div class="header-actions">
+            <div class="manual-header-actions">
                 <span id="userName">Carregando...</span>
                 <a href="dashboard.html" class="btn-back">← Voltar ao Dashboard</a>
             </div>
@@ -19,38 +19,38 @@
     </div>
 
     <!-- Container -->
-    <div class="container">
+    <div class="manual-container">
         <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
+        <aside class="manual-sidebar">
+            <div class="manual-sidebar-header">
                 <h3>📑 Índice</h3>
             </div>
-            <nav class="sidebar-nav">
-                <a href="#introducao" class="nav-item active">
+            <nav class="manual-sidebar-nav">
+                <a href="#href="#introducao" class="manual-nav-item active">
                     <span class="nav-icon">🏠</span>
                     Introdução
                 </a>
-                <a href="#hierarquia" class="nav-item">
+                <a href="#href="#hierarquia" class="manual-nav-item">
                     <span class="nav-icon">👥</span>
                     Hierarquia de Permissões
                 </a>
-                <a href="#parametros" class="nav-item">
+                <a href="#href="#parametros" class="manual-nav-item">
                     <span class="nav-icon">⚙️</span>
                     Sistema de Parâmetros
                 </a>
-                <a href="#configuracao" class="nav-item">
+                <a href="#href="#configuracao" class="manual-nav-item">
                     <span class="nav-icon">🎯</span>
                     Como Configurar
                 </a>
-                <a href="#casos-uso" class="nav-item">
+                <a href="#href="#casos-uso" class="manual-nav-item">
                     <span class="nav-icon">💡</span>
                     Casos de Uso
                 </a>
-                <a href="#faq" class="nav-item">
+                <a href="#href="#faq" class="manual-nav-item">
                     <span class="nav-icon">❓</span>
                     Perguntas Frequentes
                 </a>
-                <a href="#glossario" class="nav-item">
+                <a href="#href="#glossario" class="manual-nav-item">
                     <span class="nav-icon">📖</span>
                     Glossário
                 </a>
@@ -58,9 +58,9 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="main-content">
+        <main class="manual-content">
             <!-- Introdução -->
-            <section id="introducao" class="section">
+            <section id="introducao" class="manual-section">
                 <h2>🏠 Introdução ao SIRIUS WEB</h2>
                 
                 <div class="info-box">
@@ -95,7 +95,7 @@
             </section>
 
             <!-- Hierarquia -->
-            <section id="hierarquia" class="section">
+            <section id="hierarquia" class="manual-section">
                 <h2>👥 Hierarquia de Permissões</h2>
 
                 <p>O sistema possui 3 níveis hierárquicos de usuários, cada um com permissões específicas:</p>
@@ -194,7 +194,7 @@
             </section>
 
             <!-- Parâmetros -->
-            <section id="parametros" class="section">
+            <section id="parametros" class="manual-section">
                 <h2>⚙️ Sistema de Parâmetros</h2>
 
                 <h3>🎯 O que são Parâmetros?</h3>
@@ -306,7 +306,7 @@
             </section>
 
             <!-- Configuração -->
-            <section id="configuracao" class="section">
+            <section id="configuracao" class="manual-section">
                 <h2>🎯 Como Configurar Parâmetros</h2>
 
                 <div class="success-box">
@@ -319,18 +319,18 @@
 
                 <h3>📍 Passo a Passo</h3>
 
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
+                <div class="manual-step">
+                    <div class="manual-step-number">1</div>
+                    <div class="manual-step-content">
                         <h4>Acessar a Tela de Configuração</h4>
                         <p>No menu principal, clique em: <strong>Configurações → ⚙️ Parâmetros</strong></p>
                         <p class="note">💡 Ou acesse diretamente: <code>parametros-config.html</code></p>
                     </div>
                 </div>
 
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
+                <div class="manual-step">
+                    <div class="manual-step-number">2</div>
+                    <div class="manual-step-content">
                         <h4>Selecionar a Empresa</h4>
                         <p>No topo da tela, use o dropdown para selecionar qual empresa deseja configurar:</p>
                         <ul>
@@ -341,9 +341,9 @@
                     </div>
                 </div>
 
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
+                <div class="manual-step">
+                    <div class="manual-step-number">3</div>
+                    <div class="manual-step-content">
                         <h4>Visualizar Informações da Empresa</h4>
                         <p>Após selecionar, você verá:</p>
                         <ul>
@@ -354,9 +354,9 @@
                     </div>
                 </div>
 
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
+                <div class="manual-step">
+                    <div class="manual-step-number">4</div>
+                    <div class="manual-step-content">
                         <h4>Alterar Valores dos Parâmetros</h4>
                         <p>Para cada parâmetro você verá:</p>
                         <ul>
@@ -365,13 +365,13 @@
                             <li><strong>Dropdown de valores:</strong> S/N ou outras opções</li>
                             <li><strong>Badge:</strong> "PADRÃO" ou "CUSTOMIZADO"</li>
                         </ul>
-                        <p>Clique no dropdown e escolha o novo valor. O campo ficará <span style="background: #fffbeb; color: #92400e; padding: 2px 8px; border-radius: 4px;">amarelo</span> indicando modificação.</p>
+                        <p>Clique no dropdown e escolha o novo valor. O campo ficará <span class="highlight-warning">amarelo</span> indicando modificação.</p>
                     </div>
                 </div>
 
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
+                <div class="manual-step">
+                    <div class="manual-step-number">5</div>
+                    <div class="manual-step-content">
                         <h4>Salvar Alterações</h4>
                         <p>Após alterar os valores desejados, clique em:</p>
                         <p><strong>💾 Salvar Todas Alterações</strong></p>
@@ -379,9 +379,9 @@
                     </div>
                 </div>
 
-                <div class="step">
-                    <div class="step-number">6</div>
-                    <div class="step-content">
+                <div class="manual-step">
+                    <div class="manual-step-number">6</div>
+                    <div class="manual-step-content">
                         <h4>Resetar para Padrão (Opcional)</h4>
                         <p>Para voltar um parâmetro ao valor padrão:</p>
                         <ul>
@@ -401,7 +401,7 @@
             </section>
 
             <!-- Casos de Uso -->
-            <section id="casos-uso" class="section">
+            <section id="casos-uso" class="manual-section">
                 <h2>💡 Casos de Uso Práticos</h2>
 
                 <h3>Cenário 1: Empresa com Controle Rígido de Estoque</h3>
@@ -488,7 +488,7 @@
             </section>
 
             <!-- FAQ -->
-            <section id="faq" class="section">
+            <section id="faq" class="manual-section">
                 <h2>❓ Perguntas Frequentes (FAQ)</h2>
 
                 <div class="faq-item">
@@ -531,7 +531,7 @@
                     <p>Execute no banco de dados PostgreSQL:</p>
                     <pre><code>UPDATE usuarios 
 SET is_super_admin = true 
-WHERE email = 'email@domembro.com';</code></pre>
+WHERE email = '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43262e222a2f03272c2e262e21312c6d202c2e">[email&#160;protected]</a>';</code></pre>
                     <p><strong>⚠️ Cuidado:</strong> Super Admin tem acesso a TUDO!</p>
                 </div>
 
@@ -547,7 +547,7 @@ WHERE email = 'email@domembro.com';</code></pre>
             </section>
 
             <!-- Glossário -->
-            <section id="glossario" class="section">
+            <section id="glossario" class="manual-section">
                 <h2>📖 Glossário de Termos</h2>
 
                 <dl class="glossary">
@@ -593,14 +593,7 @@ WHERE email = 'email@domembro.com';</code></pre>
             </section>
 
             <!-- Footer -->
-            <div class="footer">
+            <div class="manual-footer">
                 <p>📚 SIRIUS WEB - Manual do Usuário</p>
                 <p>© 2026 Soft Clever Informática Ltda - Todos os direitos reservados</p>
-                <p>Versão 1.0 - Última atualização: Fevereiro 2026</p>
-            </div>
-        </main>
-    </div>
-
-    <script src="js/manual.js"></script>
-</body>
-</html>
+                <p>Versão 1.0 - Última atualização: Fevereiro

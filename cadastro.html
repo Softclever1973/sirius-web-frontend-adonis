@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRIUS WEB - Criar Conta</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/cadastro.css">
 </head>
-<body>
+<body class="page-centered">
     <div class="cadastro-container">
         <div class="cadastro-box">
             <!-- Logo e Título -->
@@ -128,7 +127,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group" style="flex: 0 0 120px;">
+                        <div class="form-group form-group--lg">
                             <label for="logradouro_tipo">Tipo *</label>
                             <select id="logradouro_tipo" name="logradouro_tipo" required>
                                 <option value="Rua">Rua</option>
@@ -139,12 +138,12 @@
                             </select>
                         </div>
                         
-                        <div class="form-group" style="flex: 1;">
+                        <div class="form-group">
                             <label for="logradouro">Logradouro *</label>
                             <input type="text" id="logradouro" name="logradouro" required>
                         </div>
                         
-                        <div class="form-group" style="flex: 0 0 100px;">
+                        <div class="form-group form-group--md">
                             <label for="numero">Número *</label>
                             <input type="text" id="numero" name="numero" required>
                         </div>
@@ -166,7 +165,7 @@
                             <input type="text" id="municipio" name="municipio" required>
                         </div>
                         
-                        <div class="form-group" style="flex: 0 0 80px;">
+                        <div class="form-group form-group--sm">
                             <label for="uf">UF *</label>
                             <input type="text" id="uf" name="uf" maxlength="2" required>
                         </div>
