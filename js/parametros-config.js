@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('userName').textContent = usuario.nome;
     }
     
-    await carregarEmpresas();
+    await carregarEmpresaAtual();
 });
 
 // =====================================================
@@ -55,9 +55,9 @@ function logout() {
 }
 
 // =====================================================
-// CARREGAR EMPRESAS
+// CARREGAR EMPRESA ATUAL DO USUÁRIO
 // =====================================================
-async function carregarEmpresas() {
+async function carregarEmpresaAtual() {
     try {
         const token = localStorage.getItem('sirius_token');
         
@@ -75,58 +75,50 @@ async function carregarEmpresas() {
                 window.location.href = 'dashboard.html';
                 return;
             }
-            throw new Error(data.message || 'Erro ao carregar empresas');
+            throw new Error(data.message || 'Erro ao carregar empresa');
         }
         
-        if (data.success) {
-            preencherSelectEmpresas(data.data);
+        if (data.success && data.data.length > 0) {
+            // Pegar a primeira empresa (ou única) relacionada ao usuário
+            const empresa = data.data[0];
+            empresaAtual = empresa;
+            
+            // Mostrar informações da empresa
+            document.getElementById('empresaRazao').textContent = empresa.razao_social;
+            document.getElementById('empresaCnpj').textContent = empresa.cnpj;
+            document.getElementById('empresaPlano').textContent = empresa.plano;
+            
+            // Carregar parâmetros desta empresa
+            await carregarParametrosEmpresa(empresa.id_empresa);
+        } else {
+            // Usuário não tem empresas associadas
+            document.getElementById('empresaInfo').style.display = 'none';
+            document.getElementById('parametrosContainer').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'block';
+            document.getElementById('emptyState').innerHTML = `
+                <div class="empty-icon">🚫</div>
+                <h3>Empresa Não Encontrada</h3>
+                <p>Você não possui empresas associadas para configurar parâmetros.</p>
+            `;
         }
         
     } catch (error) {
         console.error('Erro:', error);
-        mostrarMensagem('Erro ao carregar empresas: ' + error.message, 'error');
+        mostrarMensagem('Erro ao carregar empresa: ' + error.message, 'error');
     }
-}
-
-function preencherSelectEmpresas(empresas) {
-    const select = document.getElementById('selectEmpresa');
-    select.innerHTML = '<option value="">-- Selecione uma empresa --</option>';
-    
-    empresas.forEach(empresa => {
-        const option = document.createElement('option');
-        option.value = empresa.id_empresa;
-        option.textContent = `${empresa.razao_social} (${empresa.cnpj})`;
-        option.dataset.empresa = JSON.stringify(empresa);
-        select.appendChild(option);
-    });
 }
 
 // =====================================================
 // CARREGAR PARÂMETROS DA EMPRESA
 // =====================================================
-async function carregarParametrosEmpresa() {
-    const select = document.getElementById('selectEmpresa');
-    const empresaId = select.value;
-    
+async function carregarParametrosEmpresa(empresaId) {
     if (!empresaId) {
         // Limpar tela
-        document.getElementById('empresaInfo').style.display = 'none';
         document.getElementById('parametrosContainer').style.display = 'none';
         document.getElementById('emptyState').style.display = 'block';
         parametrosModificados.clear();
         return;
     }
-    
-    // Pegar dados da empresa
-    const option = select.options[select.selectedIndex];
-    const empresa = JSON.parse(option.dataset.empresa);
-    empresaAtual = empresa;
-    
-    // Mostrar info da empresa
-    document.getElementById('empresaRazao').textContent = empresa.razao_social;
-    document.getElementById('empresaCnpj').textContent = empresa.cnpj;
-    document.getElementById('empresaPlano').textContent = empresa.plano;
-    document.getElementById('empresaInfo').style.display = 'flex';
     
     // Carregar parâmetros
     document.getElementById('loading').style.display = 'block';
