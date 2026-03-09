@@ -236,7 +236,7 @@ function renderizarTabela() {
                 </span>
             </td>
             <td>
-                <button class="btn-small btn-view" onclick="visualizarDetalhes(${vendedor.id_vendedor})" title="Ver detalhes">📄</button>
+                <button class="btn-small btn-view" onclick="visualizarDetalhes(${vendedor.id_vendedor})" title="Ver detalhes">👁️</button>
                 <button class="btn-small btn-edit" onclick="editarVendedor(${vendedor.id_vendedor})" title="Editar">✏️</button>
                 <button class="btn-small btn-delete" onclick="confirmarExclusao(${vendedor.id_vendedor})" title="Excluir">🗑️</button>
             </td>

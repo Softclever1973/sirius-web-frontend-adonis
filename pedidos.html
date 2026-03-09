@@ -10,61 +10,28 @@
 
 <div class="app-layout">
 
-    <!-- ============================================================
-         SIDEBAR DE ÍCONES — compacta, exclusiva do módulo Pedidos
-         ============================================================ -->
     <aside class="sidebar-icones">
-
-        <!-- Ícone/logo do módulo -->
         <div class="sidebar-modulo-logo" title="Pedidos de Venda">📋</div>
-
         <div class="sidebar-divisor"></div>
-
-        <!-- Ordenação -->
-        <button class="sidebar-btn"
-                id="btnOrdenacao"
-                data-tooltip="Ordenação"
-                onclick="toggleDrop('dropOrdenacao', this)">
+        <button class="sidebar-btn" id="btnOrdenacao" data-tooltip="Ordenação" onclick="toggleDrop('dropOrdenacao', this)">
             <span class="btn-icone">📊</span>
             <span class="btn-label">Ordenar</span>
         </button>
-
-        <!-- Filtros -->
-        <button class="sidebar-btn"
-                id="btnFiltros"
-                data-tooltip="Filtros"
-                onclick="toggleDrop('dropFiltros', this)">
+        <button class="sidebar-btn" id="btnFiltros" data-tooltip="Filtros" onclick="toggleDrop('dropFiltros', this)">
             <span class="btn-icone">🔍</span>
             <span class="btn-label">Filtros</span>
         </button>
-
-        <!-- Relatórios -->
-        <button class="sidebar-btn"
-                id="btnRelatorios"
-                data-tooltip="Relatórios"
-                onclick="toggleDrop('dropRelatorios', this)">
+        <button class="sidebar-btn" id="btnRelatorios" data-tooltip="Relatórios" onclick="toggleDrop('dropRelatorios', this)">
             <span class="btn-icone">📄</span>
             <span class="btn-label">Relat.</span>
         </button>
-
-        <!-- Espaçador empurra Voltar para o rodapé -->
         <div class="sidebar-spacer"></div>
-
         <div class="sidebar-divisor"></div>
-
-        <!-- Voltar ao Menu Principal -->
-        <button class="sidebar-btn btn-voltar"
-                data-tooltip="Voltar ao Menu"
-                onclick="window.location.href='menu-principal.html'">
+        <button class="sidebar-btn btn-voltar" data-tooltip="Voltar ao Menu" onclick="window.location.href='menu-principal.html'">
             <span class="btn-icone">↩</span>
             <span class="btn-label">Voltar</span>
         </button>
-
     </aside>
-
-    <!-- ============================================================
-         DROPDOWNS FLUTUANTES (surgem à direita da sidebar)
-         ============================================================ -->
 
     <div id="dropOrdenacao" class="dropdown-flutuante">
         <div class="dropdown-flutuante-titulo">📊 Ordenação</div>
@@ -85,35 +52,25 @@
         <a href="#" onclick="gerarRelatorioPedidos(); fecharDropdowns(); return false;">📊 Pedidos sob Filtro Atual</a>
     </div>
 
-    <!-- ============================================================
-         ÁREA PRINCIPAL
-         ============================================================ -->
     <div class="main-area">
-
-        <!-- Barra de título (painel superior azul) -->
         <div class="page-topbar">
             <span class="page-titulo">📋 Pedidos de Venda</span>
             <span class="page-subtitulo">/ Visualização e controle de pedidos</span>
-            <!-- Elemento exigido pelo pedidos.js para exibir o nome do usuário logado -->
             <span id="userName" style="margin-left:auto; font-size:12px; color:#475569; font-weight:600;"></span>
         </div>
 
-        <!-- Conteúdo com scroll -->
         <div class="content-scroll">
             <div class="card">
 
-                <!-- Filtro Ativo -->
                 <div id="filtroAtivo" class="filtro-ativo" style="display:none;">
                     <span id="filtroTexto"></span>
                     <button class="btn-limpar-filtro" onclick="limparFiltros()">✖ Limpar Filtro</button>
                 </div>
 
-                <!-- Mensagem de feedback -->
                 <div id="mensagem" class="mensagem" style="display:none;"></div>
 
-                <!-- Tabela de Pedidos -->
-                <div id="tabelaContainer">
-                    <table class="pedidos-tabela">
+                <div id="tabelaContainer" class="table-container">
+                    <table>
                         <thead>
                             <tr>
                                 <th>Número</th>
@@ -133,7 +90,6 @@
                     </table>
                 </div>
 
-                <!-- Paginação -->
                 <div id="paginacao" class="pagination" style="display:none;"></div>
 
             </div>
@@ -142,9 +98,6 @@
 
 </div><!-- /.app-layout -->
 
-<!-- ============================================================
-     MODAL: FILTRO POR NÚMERO
-     ============================================================ -->
 <div id="modalFiltroNumero" class="modal">
     <div class="modal-content modal-small">
         <div class="modal-header">
@@ -164,9 +117,6 @@
     </div>
 </div>
 
-<!-- ============================================================
-     MODAL: FILTRO POR DATA
-     ============================================================ -->
 <div id="modalFiltroData" class="modal">
     <div class="modal-content modal-small">
         <div class="modal-header">
@@ -186,9 +136,6 @@
     </div>
 </div>
 
-<!-- ============================================================
-     MODAL: FILTRO POR CLIENTE
-     ============================================================ -->
 <div id="modalFiltroCliente" class="modal">
     <div class="modal-content modal-small">
         <div class="modal-header">
@@ -209,18 +156,13 @@
     </div>
 </div>
 
-<!-- ============================================================
-     MODAL: VISUALIZAÇÃO DO PEDIDO
-     ============================================================ -->
 <div id="modalVisualizarPedido" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3>📋 Detalhes do Pedido</h3>
             <span class="modal-close" onclick="fecharModal('modalVisualizarPedido')">&times;</span>
         </div>
-        <div class="modal-body" id="conteudoPedido">
-            <!-- Conteúdo preenchido dinamicamente pelo JS -->
-        </div>
+        <div class="modal-body" id="conteudoPedido"></div>
         <div class="modal-footer">
             <button class="btn-cancel" onclick="fecharModal('modalVisualizarPedido')">Fechar</button>
             <button class="btn-relatorio" onclick="imprimirPedidoAtual()">🖨️ Reimprimir Pedido</button>
@@ -231,18 +173,11 @@
 <script src="js/auth.js"></script>
 <script src="js/pedidos.js"></script>
 <script>
-    /* ============================================================
-       CONTROLE DOS DROPDOWNS FLUTUANTES (padrão produtos.html)
-       ============================================================ */
     function toggleDrop(id, btn) {
         const drop = document.getElementById(id);
         const jaAberto = drop.classList.contains('visivel');
-
-        // Fecha todos primeiro
         fecharDropdowns();
-
         if (!jaAberto) {
-            // Posiciona verticalmente alinhado ao botão clicado
             const rect = btn.getBoundingClientRect();
             drop.style.top = `${rect.top}px`;
             drop.classList.add('visivel');
@@ -255,34 +190,17 @@
         document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('ativo'));
     }
 
-    // Fecha dropdowns ao clicar fora
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.sidebar-btn') && !e.target.closest('.dropdown-flutuante')) {
             fecharDropdowns();
         }
     });
 
-    /* ============================================================
-       CONTROLE DOS MODAIS
-       Mantém compatibilidade com as chamadas existentes em pedidos.js
-       ============================================================ */
-    // pedidos.js abre modais via style.display = 'block'
-    // fecharModal deve usar style.display = 'none' para compatibilidade
     function fecharModal(id) {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
     }
-    // TODO: remover trecho abaixo
-    // Fecha modal ao clicar fora do conteúdo
-    // document.querySelectorAll('.modal').forEach(function(modal) {
-    //     modal.addEventListener('click', function(e) {
-    //         if (e.target === modal) fecharModal(modal.id);
-    //     });
-    // });
 
-    /* ============================================================
-       FUNÇÕES AUXILIARES QUE O pedidos.js PODE PRECISAR
-       ============================================================ */
     function showMessage(msg) {
         const el = document.getElementById('mensagem');
         if (!el) return;
@@ -291,7 +209,6 @@
         el.className = 'mensagem';
         setTimeout(() => { el.style.display = 'none'; }, 4000);
     }
-
 </script>
 </body>
 </html>

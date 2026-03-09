@@ -110,13 +110,13 @@
                 </div>
 
                 <!-- Mensagem -->
-                <div id="mensagem" class="mensagem"></div>
+                <div id="mensagem" class="mensagem" style="display:none;"></div>
 
                 <!-- Loading -->
                 <div id="loading" class="loading" style="display:none;">⏳ Carregando formas de pagamento...</div>
 
                 <!-- Tabela -->
-                <div id="tabelaContainer">
+                <div id="tabelaContainer" class="table-container">
                     <table>
                         <thead>
                             <tr>
@@ -133,11 +133,12 @@
                         </tbody>
                     </table>
 
-                    <div class="pagination">
-                        <button id="btnPrev" onclick="mudarPagina(-1)">◀ Anterior</button>
-                        <span id="pageInfo">Página 1 de 1</span>
-                        <button id="btnNext" onclick="mudarPagina(1)">Próximo ▶</button>
-                    </div>
+                </div>
+
+                <div class="pagination">
+                    <button id="btnPrev" onclick="mudarPagina(-1)">◀ Anterior</button>
+                    <span id="pageInfo">Página 1 de 1</span>
+                    <button id="btnNext" onclick="mudarPagina(1)">Próximo ▶</button>
                 </div>
 
             </div>
