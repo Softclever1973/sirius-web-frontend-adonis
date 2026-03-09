@@ -8776,35 +8776,142 @@ body.page-promo .fundo::after {
    ───────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
-    .dash-topbar {
+    /* Topbar compacta */
+    body.page-dashboard .topbar {
+        height: 52px;
         padding: 0 14px;
-        gap: 10px;
+        gap: 8px;
     }
 
-    .dash-topbar-logo-text { display: none; }
+    body.page-dashboard .logo-nome { font-size: 16px; }
+    body.page-dashboard .logo-sub  { display: none; }
 
-    .dash-clock { font-size: 20px; }
-    .dash-date  { font-size: 10px; }
+    body.page-dashboard .relogio-hora { font-size: 15px; }
+    body.page-dashboard .relogio-data { font-size: 9px; letter-spacing: 0.5px; }
 
-    .kpi-grid   { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .kpi-card   { padding: 14px; }
-    .kpi-valor  { font-size: 24px; }
+    body.page-dashboard .topbar-divisor { display: none; }
+    body.page-dashboard .usuario-nome   { display: none; }
+    body.page-dashboard .usuario-tipo   { display: none; }
 
-    .graficos-row { grid-template-columns: 1fr; }
-    .bottom-row   { grid-template-columns: 1fr; }
+    /* Corpo com menos padding */
+    body.page-dashboard .dash-body {
+        padding: 14px 12px 24px;
+    }
 
-    .periodo-btns { flex-wrap: wrap; gap: 6px; }
-    .periodo-btn  { padding: 6px 14px; font-size: 12px; }
+    /* Título empresa */
+    .boas-vindas { font-size: 20px; letter-spacing: 1px; }
 
-    .boas-vindas { font-size: 22px; }
+    /* Período: flex-wrap para inputs de data empilharem */
+    .periodo-tabs {
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 14px;
+    }
+
+    .periodo-btn {
+        white-space: nowrap;
+        padding: 5px 12px;
+        font-size: 11px;
+        flex-shrink: 0;
+    }
+
+    /* Inputs de data: largura total para empilhar sozinhos */
+    .periodo-input {
+        width: 100%;
+        flex: 1 1 100%;
+        box-sizing: border-box;
+        margin-left: 0;
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    #intervaloConfirm {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* KPI: 2 colunas */
+    .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .kpi-card   { padding: 14px 12px; border-radius: 12px; }
+    .kpi-label  { font-size: 10px; }
+    .kpi-valor  { font-size: 22px; }
+    .kpi-rodape { font-size: 10px; flex-wrap: wrap; gap: 2px; }
+    .kpi-icone  { width: 32px; height: 32px; font-size: 14px; }
+
+    /* Gráficos e bottom: 1 coluna */
+    .graficos-row { grid-template-columns: 1fr; gap: 12px; }
+    .bottom-row   { grid-template-columns: 1fr; gap: 12px; }
+
+    /* Cards de gráfico: padding reduzido, sem overflow lateral */
+    .graf-card,
+    .resumo-card,
+    .pedidos-card {
+        padding: 14px 12px;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    /* Legenda do gráfico: quebra se necessário */
+    .graf-header {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .graf-legend {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    /* Canvas do gráfico de linha: altura menor para caber na tela */
+    body.page-dashboard #canvasLinha {
+        max-height: 140px;
+    }
+
+    /* Tabela de últimos pedidos: scroll horizontal DENTRO do card */
+    .pedidos-card {
+        overflow: hidden;
+    }
+
+    .pedidos-card .pedidos-table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    body.page-dashboard .pedidos-table {
+        display: table;
+        min-width: 460px;
+        overflow-x: auto;
+    }
+
+    /* Wrapper de scroll para a tabela */
+    body.page-dashboard .pedidos-card > table,
+    body.page-dashboard .pedidos-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        min-width: 460px;
+    }
 }
 
 @media (max-width: 480px) {
-    .kpi-grid  { grid-template-columns: 1fr; gap: 8px; }
-    .kpi-valor { font-size: 28px; }
-    .boas-vindas { font-size: 18px; }
+    body.page-dashboard .topbar { height: 48px; padding: 0 10px; }
+    body.page-dashboard .logo-badge { width: 28px; height: 28px; font-size: 13px; }
+    body.page-dashboard .relogio-hora { font-size: 13px; }
 
-    .dash-clock { font-size: 16px; }
+    body.page-dashboard .dash-body { padding: 10px 10px 20px; }
+
+    .boas-vindas { font-size: 16px; }
+
+    .kpi-grid { gap: 8px; }
+    .kpi-card { padding: 12px 10px; }
+    .kpi-valor { font-size: 20px; }
+
+    body.page-dashboard #canvasLinha { max-height: 120px; }
 }
 
 /* ─────────────────────────────────────────────────────
@@ -8834,42 +8941,23 @@ body.page-promo .fundo::after {
         flex-direction: column;
     }
 
+    /* Em mobile: oculta a área central (mandala) — só o menu lateral */
+    body.page-menu .menu-main-area {
+        display: none;
+    }
+
     body.page-menu .sidebar {
         width: 100%;
         min-width: unset;
-        height: auto;
-        min-height: unset;
+        height: 100dvh;
         border-right: none;
-        border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+        overflow-y: auto;
     }
 
-    body.page-menu .sidebar-logo    { padding: 14px 16px; }
-    body.page-menu .sidebar-user    { padding: 10px 16px; }
-    body.page-menu .sidebar-nav     { max-height: 180px; overflow-y: auto; }
-    body.page-menu .sidebar-footer  { padding: 10px 16px; }
-
-    .menu-main-area { min-height: 60vh; }
-
-    .main-tagline h2 { font-size: 20px; }
-    .main-tagline p  { font-size: 11px; }
-
-    .mandala-wrapper {
-        width: 320px;
-        height: 290px;
-    }
-
-    .erp-hub {
-        width: 80px;
-        height: 80px;
-    }
-
-    .hub-icone  { font-size: 20px; }
-    .hub-titulo { font-size: 9px; }
-
-    .erp-node {
-        width: 56px;
-        height: 56px;
-    }
+    body.page-menu .sidebar-logo    { padding: 16px 20px; }
+    body.page-menu .sidebar-user    { padding: 12px 20px; }
+    body.page-menu .sidebar-nav     { max-height: unset; overflow-y: visible; }
+    body.page-menu .sidebar-footer  { padding: 12px 20px; }
 
     .painel-overlay {
         width: 100%;
@@ -8879,10 +8967,7 @@ body.page-promo .fundo::after {
 }
 
 @media (max-width: 480px) {
-    .mandala-wrapper { width: 260px; height: 240px; }
-    .erp-hub { width: 64px; height: 64px; }
-    .hub-icone { font-size: 16px; }
-    .erp-node  { width: 44px; height: 44px; }
+    /* mandala oculta em mobile — sem ajustes necessários */
 }
 
 /* ─────────────────────────────────────────────────────
