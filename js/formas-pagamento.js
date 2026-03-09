@@ -2,19 +2,16 @@
 // SIRIUS WEB - Formas de Pagamento
 // =====================================================
 
-// Detecta se está em desenvolvimento (local) ou produção (Vercel)
 const isDev = window.location.hostname === 'localhost' 
            || window.location.hostname === '127.0.0.1'
            || window.location.hostname === ''
            || window.location.protocol === 'file:';
 
-// Configuração da API (automática: local em dev, Vercel em produção)
 const API_URL = isDev ? 'http://localhost:3000' : 'https://sirius-web-api-adonis.vercel.app';
 
 console.log('🔍 Ambiente:', isDev ? 'DESENVOLVIMENTO' : 'PRODUÇÃO');
 console.log('📡 API URL:', API_URL);
 
-// Estado da aplicação
 let formasPagamento = [];
 let formasPagamentoFiltradas = [];
 let formaPagamentoEditando = null;
@@ -59,9 +56,7 @@ function toggleDropdown(event, element) {
     const allDropdowns = document.querySelectorAll('.dropdown-content');
     
     allDropdowns.forEach(d => {
-        if (d !== dropdown) {
-            d.style.display = 'none';
-        }
+        if (d !== dropdown) d.style.display = 'none';
     });
     
     dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
@@ -69,8 +64,7 @@ function toggleDropdown(event, element) {
 
 document.addEventListener('click', (event) => {
     if (!event.target.closest('.dropdown')) {
-        const allDropdowns = document.querySelectorAll('.dropdown-content');
-        allDropdowns.forEach(d => d.style.display = 'none');
+        document.querySelectorAll('.dropdown-content').forEach(d => d.style.display = 'none');
     }
 });
 
@@ -143,9 +137,9 @@ function renderizarTabela() {
                 </span>
             </td>
             <td>
-                <button class="btn-icon" onclick="visualizarFormaPagamento(${fp.id_forma_pagamento})" title="Visualizar">👁️</button>
-                <button class="btn-icon" onclick="editarFormaPagamento(${fp.id_forma_pagamento})" title="Editar">✏️</button>
-                <button class="btn-icon btn-danger" onclick="confirmarExclusao(${fp.id_forma_pagamento})" title="Excluir">🗑️</button>
+                <button class="btn-small btn-view"   onclick="visualizarFormaPagamento(${fp.id_forma_pagamento})" title="Visualizar">👁️</button>
+                <button class="btn-small btn-edit"   onclick="editarFormaPagamento(${fp.id_forma_pagamento})"    title="Editar">✏️</button>
+                <button class="btn-small btn-delete" onclick="confirmarExclusao(${fp.id_forma_pagamento})"       title="Excluir">🗑️</button>
             </td>
         </tr>
     `).join('');
@@ -171,10 +165,8 @@ function atualizarPaginacao() {
 function mudarPagina(direcao) {
     const totalPaginas = Math.ceil(formasPagamentoFiltradas.length / itensPorPagina);
     paginaAtual += direcao;
-    
     if (paginaAtual < 1) paginaAtual = 1;
     if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
-    
     renderizarTabela();
 }
 
@@ -196,11 +188,8 @@ async function aplicarFiltro(tipo) {
     filtroAtivo = { tipo, termo };
     
     formasPagamentoFiltradas = formasPagamento.filter(fp => {
-        if (tipo === 'descricao') {
-            return fp.descricao.toLowerCase().includes(termo.toLowerCase());
-        } else if (tipo === 'codigo') {
-            return fp.codigo.toLowerCase().includes(termo.toLowerCase());
-        }
+        if (tipo === 'descricao') return fp.descricao.toLowerCase().includes(termo.toLowerCase());
+        if (tipo === 'codigo')    return fp.codigo.toLowerCase().includes(termo.toLowerCase());
         return true;
     });
     
@@ -219,27 +208,21 @@ function limparFiltro() {
 }
 
 function mostrarFiltroAtivo(tipo, termo) {
-    const filtroAtivo = document.getElementById('filtroAtivo');
-    const textoFiltro = document.getElementById('textoFiltro');
-    
+    const filtroAtivoEl = document.getElementById('filtroAtivo');
+    const textoFiltro   = document.getElementById('textoFiltro');
     const tipoTexto = tipo === 'descricao' ? 'Descrição' : 'Código';
     textoFiltro.textContent = `${tipoTexto}: "${termo}"`;
-    filtroAtivo.style.display = 'flex';
+    filtroAtivoEl.style.display = 'flex';
 }
 
 function aplicarOrdenacao(tipo) {
     ordenacaoAtiva = tipo;
     
     formasPagamentoFiltradas.sort((a, b) => {
-        if (tipo === 'codigo') {
-            return a.codigo.localeCompare(b.codigo);
-        } else if (tipo === 'descricao') {
-            return a.descricao.localeCompare(b.descricao);
-        } else if (tipo === 'data_criacao') {
-            return new Date(a.created_at) - new Date(b.created_at);
-        } else if (tipo === 'ultimos') {
-            return new Date(b.created_at) - new Date(a.created_at);
-        }
+        if (tipo === 'codigo')       return a.codigo.localeCompare(b.codigo);
+        if (tipo === 'descricao')    return a.descricao.localeCompare(b.descricao);
+        if (tipo === 'data_criacao') return new Date(a.created_at) - new Date(b.created_at);
+        if (tipo === 'ultimos')      return new Date(b.created_at) - new Date(a.created_at);
         return 0;
     });
     
@@ -248,7 +231,7 @@ function aplicarOrdenacao(tipo) {
 }
 
 // =====================================================
-// MODAL
+// MODAL CADASTRO / EDIÇÃO
 // =====================================================
 
 function abrirModal() {
@@ -274,21 +257,18 @@ async function salvarFormaPagamento(event) {
     const idEmpresa = empresas[0]?.id;
     
     const dados = {
-        codigo: document.getElementById('codigo').value.trim(),
-        descricao: document.getElementById('descricao').value.trim(),
+        codigo:        document.getElementById('codigo').value.trim(),
+        descricao:     document.getElementById('descricao').value.trim(),
         permite_troco: document.getElementById('permite_troco').checked,
-        ativo: document.getElementById('ativo').checked
+        ativo:         document.getElementById('ativo').checked
     };
     
     try {
-        const url = formaPagamentoEditando 
-            ? `${API_URL}/formas-pagamento/${formaPagamentoEditando}` 
-            : `${API_URL}/formas-pagamento`;
-        
+        const url    = formaPagamentoEditando ? `${API_URL}/formas-pagamento/${formaPagamentoEditando}` : `${API_URL}/formas-pagamento`;
         const method = formaPagamentoEditando ? 'PUT' : 'POST';
         
         const response = await fetch(url, {
-            method: method,
+            method,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
@@ -323,10 +303,7 @@ async function editarFormaPagamento(id) {
     
     try {
         const response = await fetch(`${API_URL}/formas-pagamento/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'X-Empresa-Id': idEmpresa
-            }
+            headers: { 'Authorization': `Bearer ${token}`, 'X-Empresa-Id': idEmpresa }
         });
         
         const data = await response.json();
@@ -334,14 +311,12 @@ async function editarFormaPagamento(id) {
         if (data.success) {
             const fp = data.data;
             formaPagamentoEditando = id;
-            
             document.getElementById('modalTitle').textContent = 'Editar Forma de Pagamento';
-            document.getElementById('codigo').value = fp.codigo;
-            document.getElementById('descricao').value = fp.descricao;
-            document.getElementById('permite_troco').checked = fp.permite_troco;
-            document.getElementById('ativo').checked = fp.ativo;
-            
-            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('codigo').value            = fp.codigo;
+            document.getElementById('descricao').value         = fp.descricao;
+            document.getElementById('permite_troco').checked   = fp.permite_troco;
+            document.getElementById('ativo').checked           = fp.ativo;
+            document.getElementById('modal').style.display     = 'flex';
         } else {
             mostrarMensagem(data.message || 'Erro ao buscar forma de pagamento', 'erro');
         }
@@ -362,49 +337,26 @@ async function visualizarFormaPagamento(id) {
     
     try {
         const response = await fetch(`${API_URL}/formas-pagamento/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'X-Empresa-Id': idEmpresa
-            }
+            headers: { 'Authorization': `Bearer ${token}`, 'X-Empresa-Id': idEmpresa }
         });
         
         const data = await response.json();
         
         if (data.success) {
             const fp = data.data;
-            
-            const detalhesHTML = `
+            document.getElementById('detalhesConteudo').innerHTML = `
                 <div class="detalhes-grid">
-                    <div class="detalhe-item">
-                        <strong>ID:</strong>
-                        <span>${fp.id_forma_pagamento}</span>
-                    </div>
-                    <div class="detalhe-item">
-                        <strong>Código:</strong>
-                        <span>${fp.codigo}</span>
-                    </div>
-                    <div class="detalhe-item">
-                        <strong>Descrição:</strong>
-                        <span>${fp.descricao}</span>
-                    </div>
-                    <div class="detalhe-item">
-                        <strong>Permite Troco:</strong>
-                        <span>${fp.permite_troco ? 'Sim' : 'Não'}</span>
-                    </div>
+                    <div class="detalhe-item"><strong>ID:</strong><span>${fp.id_forma_pagamento}</span></div>
+                    <div class="detalhe-item"><strong>Código:</strong><span>${fp.codigo}</span></div>
+                    <div class="detalhe-item"><strong>Descrição:</strong><span>${fp.descricao}</span></div>
+                    <div class="detalhe-item"><strong>Permite Troco:</strong><span>${fp.permite_troco ? 'Sim' : 'Não'}</span></div>
                     <div class="detalhe-item">
                         <strong>Status:</strong>
-                        <span class="badge ${fp.ativo ? 'badge-ativo' : 'badge-inativo'}">
-                            ${fp.ativo ? 'Ativo' : 'Inativo'}
-                        </span>
+                        <span class="badge ${fp.ativo ? 'badge-ativo' : 'badge-inativo'}">${fp.ativo ? 'Ativo' : 'Inativo'}</span>
                     </div>
-                    <div class="detalhe-item">
-                        <strong>Criado em:</strong>
-                        <span>${new Date(fp.created_at).toLocaleString('pt-BR')}</span>
-                    </div>
+                    <div class="detalhe-item"><strong>Criado em:</strong><span>${new Date(fp.created_at).toLocaleString('pt-BR')}</span></div>
                 </div>
             `;
-            
-            document.getElementById('detalhesConteudo').innerHTML = detalhesHTML;
             document.getElementById('modalDetalhes').style.display = 'flex';
         } else {
             mostrarMensagem(data.message || 'Erro ao buscar forma de pagamento', 'erro');
@@ -431,10 +383,9 @@ let idFormaPagamentoExcluir = null;
 
 function confirmarExclusao(id) {
     idFormaPagamentoExcluir = id;
-    const formaPagamento = formasPagamento.find(fp => fp.id_forma_pagamento === id);
-    
+    const fp = formasPagamento.find(fp => fp.id_forma_pagamento === id);
     mostrarModalConfirmacao(
-        `Deseja realmente excluir a forma de pagamento "${formaPagamento.descricao}"?`,
+        `Deseja realmente excluir a forma de pagamento "${fp.descricao}"?`,
         excluirFormaPagamento
     );
 }
@@ -447,10 +398,7 @@ async function excluirFormaPagamento() {
     try {
         const response = await fetch(`${API_URL}/formas-pagamento/${idFormaPagamentoExcluir}`, {
             method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'X-Empresa-Id': idEmpresa
-            }
+            headers: { 'Authorization': `Bearer ${token}`, 'X-Empresa-Id': idEmpresa }
         });
         
         const data = await response.json();
@@ -475,9 +423,7 @@ async function excluirFormaPagamento() {
 function mostrarModalConfirmacao(mensagem, callback) {
     document.getElementById('mensagemConfirmacao').textContent = mensagem;
     document.getElementById('modalConfirmacao').style.display = 'flex';
-    
-    const btnConfirmar = document.getElementById('btnConfirmar');
-    btnConfirmar.onclick = callback;
+    document.getElementById('btnConfirmar').onclick = callback;
 }
 
 function fecharModalConfirmacao() {
@@ -494,26 +440,20 @@ function mostrarPromptPersonalizado(mensagem) {
         document.getElementById('inputValor').value = '';
         document.getElementById('modalInput').style.display = 'flex';
         
-        // Focar no input
-        setTimeout(() => {
-            document.getElementById('inputValor').focus();
-        }, 100);
+        setTimeout(() => document.getElementById('inputValor').focus(), 100);
         
         const btnConfirmar = document.getElementById('btnConfirmarInput');
-        const inputValor = document.getElementById('inputValor');
+        const inputValor   = document.getElementById('inputValor');
         
-        // Remover listeners antigos
         const novoBtn = btnConfirmar.cloneNode(true);
         btnConfirmar.parentNode.replaceChild(novoBtn, btnConfirmar);
         
-        // Adicionar novo listener
         novoBtn.onclick = () => {
             const valor = inputValor.value.trim();
             fecharModalInput();
             resolve(valor || null);
         };
         
-        // Enter para confirmar
         inputValor.onkeypress = (e) => {
             if (e.key === 'Enter') {
                 const valor = inputValor.value.trim();
@@ -537,10 +477,7 @@ function mostrarMensagem(texto, tipo) {
     mensagem.textContent = texto;
     mensagem.className = `mensagem ${tipo}`;
     mensagem.style.display = 'block';
-    
-    setTimeout(() => {
-        mensagem.style.display = 'none';
-    }, 5000);
+    setTimeout(() => { mensagem.style.display = 'none'; }, 5000);
 }
 
 // =====================================================
@@ -556,19 +493,9 @@ function gerarRelatorio() {
 // =====================================================
 
 window.onclick = function(event) {
-    const modal = document.getElementById('modal');
-    const modalDetalhes = document.getElementById('modalDetalhes');
-    const modalConfirmacao = document.getElementById('modalConfirmacao');
-    
-    if (event.target === modal) {
-        fecharModal();
-    }
-    if (event.target === modalDetalhes) {
-        fecharModalDetalhes();
-    }
-    if (event.target === modalConfirmacao) {
-        fecharModalConfirmacao();
-    }
-}
+    if (event.target === document.getElementById('modal'))             fecharModal();
+    if (event.target === document.getElementById('modalDetalhes'))     fecharModalDetalhes();
+    if (event.target === document.getElementById('modalConfirmacao'))  fecharModalConfirmacao();
+};
 
 console.log('✅ Módulo Formas de Pagamento carregado');

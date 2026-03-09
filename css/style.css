@@ -2069,6 +2069,19 @@ canvas { display: block; }
 
 .pedidos-table { width: 100%; border-collapse: collapse; }
 
+/* Scopar para evitar vazamento de regras genéricas de table/thead */
+body.page-dashboard .pedidos-table {
+    background: transparent;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+body.page-dashboard .pedidos-table thead,
+body.page-dashboard .pedidos-table th {
+    background: transparent;
+    color: var(--texto-3);
+}
+
 .pedidos-table th {
     font-size: 9px; font-weight: 700; letter-spacing: 2px;
     text-transform: uppercase; color: var(--texto-3);
@@ -2082,6 +2095,7 @@ canvas { display: block; }
     color: var(--texto);
 }
 
+body.page-dashboard .pedidos-table tbody tr { background: transparent; }
 .pedidos-table tbody tr:last-child td { border-bottom: none; }
 .pedidos-table tbody tr               { transition: background 0.15s; }
 .pedidos-table tbody tr:hover         { background: rgba(37,99,235,0.06); }
@@ -5349,7 +5363,14 @@ body.pdv-page html {
 }
 
 .modal-header-aviso { background: var(--amarelo); }
-.modal-header-sucesso { background: var(--verde); }
+
+.modal-header.modal-header-sucesso,
+.modal-header-sucesso {
+    background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 60%, #0a1e38 100%) !important;
+    border-bottom: 2px solid var(--verde) !important;
+    box-shadow: 0 2px 16px rgba(0, 200, 120, 0.12) !important;
+    padding: 16px 20px !important;
+}
 
 .modal-fechar {
     background: rgba(255,255,255,0.2);
@@ -5440,10 +5461,6 @@ body.pdv-page html {
     max-width: 95vw;
 }
 
-.modal-header.modal-header-sucesso {
-    padding: 16px 20px;
-}
-
 .relatorio-acoes-header {
     display: flex;
     gap: 10px;
@@ -5451,9 +5468,9 @@ body.pdv-page html {
 }
 
 .btn-imprimir {
-    background: rgba(255,255,255,0.2);
-    border: 1px solid rgba(255,255,255,0.4);
-    color: white;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.85);
     padding: 8px 16px;
     border-radius: var(--raio-sm);
     cursor: pointer;
@@ -5462,21 +5479,25 @@ body.pdv-page html {
     transition: background var(--transicao);
 }
 
-.btn-imprimir:hover { background: rgba(255,255,255,0.35); }
+.btn-imprimir:hover { background: rgba(255,255,255,0.16); }
 
 .btn-modal-fechar-relatorio {
-    background: rgba(255,255,255,0.9);
+    background: var(--verde);
     border: none;
-    color: var(--verde);
-    padding: 8px 16px;
+    color: white;
+    padding: 8px 20px;
     border-radius: var(--raio-sm);
     cursor: pointer;
     font-size: 14px;
     font-weight: 700;
-    transition: background var(--transicao);
+    transition: all var(--transicao);
+    box-shadow: 0 0 12px rgba(0,200,120,0.3);
 }
 
-.btn-modal-fechar-relatorio:hover { background: white; }
+.btn-modal-fechar-relatorio:hover {
+    background: #059669;
+    box-shadow: 0 0 20px rgba(0,200,120,0.5);
+}
 
 .relatorio-corpo {
     font-size: 14px;
@@ -6565,7 +6586,7 @@ input[type="number"] { -moz-appearance: textfield; }
    de gestão. Variáveis próprias com prefixo --acento.
    ===================================================== */
 
-.fundo {
+body.page-promo .fundo {
     width: 100vw; height: 100vh;
     background:
         radial-gradient(ellipse 75% 55% at 65% 30%, rgba(249,115,22,0.22) 0%, transparent 65%),
@@ -6575,7 +6596,7 @@ input[type="number"] { -moz-appearance: textfield; }
     align-items: center; justify-content: center; overflow: hidden;
 }
 
-.fundo::before {
+body.page-promo .fundo::before {
     content: ''; position: absolute; inset: -10%;
     background-image: radial-gradient(circle, rgba(249,115,22,0.32) 1px, transparent 1px);
     background-size: 38px 38px;
@@ -6583,7 +6604,7 @@ input[type="number"] { -moz-appearance: textfield; }
 }
 @keyframes moverGrade { 0%{transform:translate(0,0);} 100%{transform:translate(38px,38px);} }
 
-.fundo::after {
+body.page-promo .fundo::after {
     content: ''; position: absolute; left: 0; top: 40%; width: 100%; height: 1px;
     background: linear-gradient(90deg, transparent 0%, #ea580c 30%, #fb923c 60%, transparent 100%);
     opacity: 0.18; filter: blur(2px);
@@ -8372,3 +8393,736 @@ input[type="number"] { -moz-appearance: textfield; }
 .btn-fale-xml:hover::before { opacity: 1; }
 .btn-fale-xml span { position: relative; z-index: 1; }
 .btn-fale-xml:hover { color: white; border-color: transparent; box-shadow: 0 0 20px rgba(244,63,94,0.5); }
+
+/* =====================================================
+   RESPONSIVO GLOBAL — Dark App Layout e Módulos
+   Cobre: sidebar-icones, topbar, módulos dark (Pedidos,
+   Produtos, Movimentações, Regimes, Vendedores), PDV,
+   Menu Principal, Outros Módulos e páginas Promo.
+   Breakpoints: 1024px · 768px · 480px
+   ===================================================== */
+
+/* ─────────────────────────────────────────────────────
+   1. DARK APP LAYOUT — sidebar-icones + topbar
+   (compartilhado por todos os módulos dark)
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    /* Sidebar um pouco mais estreita em tablets */
+    .sidebar-icones {
+        width: 64px;
+        min-width: 64px;
+    }
+    .sidebar-modulo-logo {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Sidebar vira barra inferior no mobile */
+    body.page-app {
+        overflow: hidden;
+    }
+
+    .app-layout {
+        flex-direction: column-reverse; /* sidebar vai para o fundo */
+        height: 100dvh;
+    }
+
+    .sidebar-icones {
+        width: 100%;
+        min-width: unset;
+        height: 60px;
+        flex-direction: row;
+        padding: 0 12px;
+        border-right: none;
+        border-top: 1px solid rgba(37, 99, 235, 0.25);
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+        justify-content: space-around;
+        overflow-x: auto;
+        flex-shrink: 0;
+    }
+
+    .sidebar-icones::after {
+        display: none;
+    }
+
+    .sidebar-modulo-logo {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .sidebar-divisor,
+    .sidebar-spacer {
+        display: none;
+    }
+
+    .sidebar-btn {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        font-size: 16px;
+    }
+
+    /* Topbar compacta */
+    .page-topbar {
+        padding: 10px 14px;
+    }
+
+    .page-titulo   { font-size: 14px; }
+    .page-subtitulo { font-size: 10px; }
+
+    /* Área de conteúdo usa restante da tela */
+    .app-main {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content-scroll {
+        padding: 12px 14px 20px;
+    }
+
+    /* Card mobile */
+    .card {
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    /* Toolbar dark */
+    .toolbar {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .toolbar-actions {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .toolbar-actions .btn,
+    .toolbar-actions .btn-primary,
+    .toolbar-actions .btn-secondary,
+    .toolbar-actions .btn-success {
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
+        justify-content: center;
+    }
+
+    /* Modal dark (modal-overlay / modal-caixa) */
+    .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .modal-caixa {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 16px 16px 0 0;
+        max-height: 90dvh;
+        overflow-y: auto;
+    }
+
+    /* Filtro ativo */
+    .filtro-ativo {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-icones {
+        height: 54px;
+        padding: 0 8px;
+    }
+
+    .sidebar-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
+
+    .content-scroll {
+        padding: 10px 10px 16px;
+    }
+}
+
+/* ─────────────────────────────────────────────────────
+   2. PEDIDOS DE VENDA
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .pedidos-tabela-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+    .pedidos-tabela { min-width: 640px; font-size: 12px; }
+
+    .pedidos-tabela th,
+    .pedidos-tabela td { padding: 8px 6px; }
+
+    .badge-aberto,
+    .badge-faturado,
+    .badge-cancelado,
+    .badge-pendente,
+    .badge-finalizado { font-size: 10px; padding: 2px 8px; }
+
+    .btn-small { padding: 4px 7px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+    .pedidos-tabela { min-width: 560px; font-size: 11px; }
+    .pedidos-tabela th,
+    .pedidos-tabela td { padding: 6px 4px; }
+}
+
+/* ─────────────────────────────────────────────────────
+   3. GESTÃO DE PRODUTOS
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .produtos-tabela-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .produtos-tabela { min-width: 620px; font-size: 12px; }
+    .produtos-tabela th,
+    .produtos-tabela td { padding: 8px 6px; }
+}
+
+@media (max-width: 480px) {
+    .produtos-tabela { min-width: 540px; font-size: 11px; }
+}
+
+/* ─────────────────────────────────────────────────────
+   4. MOVIMENTAÇÕES DE ESTOQUE
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .mov-tabela-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .mov-tabela { min-width: 600px; font-size: 12px; }
+    .mov-tabela th,
+    .mov-tabela td { padding: 8px 6px; }
+
+    .detail-view { flex-direction: column; gap: 10px; }
+    .detail-card { min-width: unset; width: 100%; }
+
+    .mov-pagination {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .mov-tabela { min-width: 500px; font-size: 11px; }
+}
+
+/* ─────────────────────────────────────────────────────
+   5. REGIMES TRIBUTÁRIOS
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .regimes-tabela-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .regimes-tabela { min-width: 560px; font-size: 12px; }
+    .regimes-tabela th,
+    .regimes-tabela td { padding: 8px 6px; }
+}
+
+@media (max-width: 480px) {
+    .regimes-tabela { min-width: 480px; font-size: 11px; }
+}
+
+/* ─────────────────────────────────────────────────────
+   6. VENDEDORES
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .vendedores-tabela-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .vendedores-tabela { min-width: 560px; font-size: 12px; }
+    .vendedores-tabela th,
+    .vendedores-tabela td { padding: 8px 6px; }
+
+    .detalhes-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+    .vendedores-tabela { min-width: 480px; font-size: 11px; }
+}
+
+/* ─────────────────────────────────────────────────────
+   7. PDV — Ponto de Venda
+   POS fullscreen. Prioridade: tablet (balcão de venda).
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    /* Header PDV */
+    .pdv-header {
+        padding: 0 12px;
+        gap: 10px;
+        height: 50px;
+    }
+
+    .pdv-header-esquerda { min-width: unset; gap: 12px; }
+    .pdv-logo-mini        { display: none; } /* oculta logo no tablet */
+
+    .pdv-header-centro {
+        flex: 1;
+        overflow: hidden;
+    }
+
+    /* Abas: scroll horizontal se necessário */
+    .pdv-abas {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+    }
+
+    .pdv-aba-btn { white-space: nowrap; padding: 0 14px; font-size: 13px; }
+}
+
+@media (max-width: 768px) {
+    /* Tela inicial PDV */
+    .tela-inicial-logo { flex-direction: column; gap: 4px; }
+    .logo-sirius { font-size: 42px; }
+
+    .tela-inicial-conteudo { padding: 20px; }
+    .tela-inicial-empresa  { font-size: 14px; }
+
+    /* Header PDV compacto */
+    .pdv-header { height: 46px; padding: 0 10px; }
+
+    .pdv-header-direita {
+        gap: 6px;
+    }
+
+    /* Aba Cliente: empilha verticalmente */
+    .tab-cliente-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        overflow-y: auto;
+    }
+
+    .cliente-painel-busca {
+        padding: 16px;
+        border-right: none;
+        border-bottom: 1px solid var(--cinza-3);
+    }
+
+    /* Aba Produtos: tabela com scroll */
+    .produtos-tabela-pdv,
+    .tab-produtos-tabela {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Aba Pagamentos: empilha */
+    .pagamentos-layout,
+    .tab-pagamentos-layout {
+        flex-direction: column;
+    }
+
+    /* Botões de ação principais (Finalizar, Cancelar...) */
+    .pdv-acoes {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .btn-pdv-finalizar,
+    .btn-pdv-cancelar,
+    .btn-pdv-acao {
+        width: 100%;
+        font-size: 15px;
+        padding: 14px;
+    }
+
+    /* Modais PDV */
+    .pdv-modal-caixa,
+    .modal-caixa {
+        width: 95vw !important;
+        max-height: 88dvh;
+        overflow-y: auto;
+    }
+
+    /* Spinner + / - */
+    .spinner-pdv { gap: 6px; }
+    .spinner-pdv button { width: 30px; height: 30px; font-size: 16px; }
+    .spinner-pdv input  { width: 52px; font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+    .pdv-header { height: 42px; }
+    .logo-sirius { font-size: 32px; }
+
+    .cliente-painel-busca { padding: 12px; }
+
+    .pdv-aba-btn { padding: 0 10px; font-size: 12px; }
+
+    .btn-pdv-finalizar,
+    .btn-pdv-cancelar,
+    .btn-pdv-acao { font-size: 14px; padding: 12px; }
+}
+
+/* ─────────────────────────────────────────────────────
+   8. DASHBOARD — complemento mobile
+   (tablet 1100px já existe; aqui: 768px e 480px)
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .dash-topbar {
+        padding: 0 14px;
+        gap: 10px;
+    }
+
+    .dash-topbar-logo-text { display: none; }
+
+    .dash-clock { font-size: 20px; }
+    .dash-date  { font-size: 10px; }
+
+    .kpi-grid   { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .kpi-card   { padding: 14px; }
+    .kpi-valor  { font-size: 24px; }
+
+    .graficos-row { grid-template-columns: 1fr; }
+    .bottom-row   { grid-template-columns: 1fr; }
+
+    .periodo-btns { flex-wrap: wrap; gap: 6px; }
+    .periodo-btn  { padding: 6px 14px; font-size: 12px; }
+
+    .boas-vindas { font-size: 22px; }
+}
+
+@media (max-width: 480px) {
+    .kpi-grid  { grid-template-columns: 1fr; gap: 8px; }
+    .kpi-valor { font-size: 28px; }
+    .boas-vindas { font-size: 18px; }
+
+    .dash-clock { font-size: 16px; }
+}
+
+/* ─────────────────────────────────────────────────────
+   9. MENU PRINCIPAL
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    /* Sidebar recolhe */
+    body.page-menu .sidebar {
+        width: 220px;
+        min-width: 220px;
+    }
+
+    body.page-menu .mandala-wrapper {
+        width: 420px;
+        height: 380px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Sidebar escondida, overlay ao abrir */
+    body.page-menu {
+        overflow: auto;
+    }
+
+    body.page-menu .menu-app-layout {
+        flex-direction: column;
+    }
+
+    body.page-menu .sidebar {
+        width: 100%;
+        min-width: unset;
+        height: auto;
+        min-height: unset;
+        border-right: none;
+        border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    body.page-menu .sidebar-logo    { padding: 14px 16px; }
+    body.page-menu .sidebar-user    { padding: 10px 16px; }
+    body.page-menu .sidebar-nav     { max-height: 180px; overflow-y: auto; }
+    body.page-menu .sidebar-footer  { padding: 10px 16px; }
+
+    .menu-main-area { min-height: 60vh; }
+
+    .main-tagline h2 { font-size: 20px; }
+    .main-tagline p  { font-size: 11px; }
+
+    .mandala-wrapper {
+        width: 320px;
+        height: 290px;
+    }
+
+    .erp-hub {
+        width: 80px;
+        height: 80px;
+    }
+
+    .hub-icone  { font-size: 20px; }
+    .hub-titulo { font-size: 9px; }
+
+    .erp-node {
+        width: 56px;
+        height: 56px;
+    }
+
+    .painel-overlay {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid rgba(37,99,235,0.2);
+    }
+}
+
+@media (max-width: 480px) {
+    .mandala-wrapper { width: 260px; height: 240px; }
+    .erp-hub { width: 64px; height: 64px; }
+    .hub-icone { font-size: 16px; }
+    .erp-node  { width: 44px; height: 44px; }
+}
+
+/* ─────────────────────────────────────────────────────
+   10. OUTROS MÓDULOS (página "em desenvolvimento")
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    body.page-outros-modulos {
+        overflow-y: auto;
+    }
+
+    .outros-modulos-layout {
+        flex-direction: column;
+        height: auto;
+        min-height: 100dvh;
+    }
+
+    .outros-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(37,99,235,0.15);
+        padding: 16px;
+    }
+
+    .outros-conteudo { padding: 24px 16px; }
+
+    .modulos-grid,
+    .outros-modulos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .outros-secao-modulos { flex-wrap: wrap; }
+
+    .hex-deco { display: none; }
+}
+
+@media (max-width: 480px) {
+    .modulos-grid,
+    .outros-modulos-grid { grid-template-columns: 1fr; }
+}
+
+/* ─────────────────────────────────────────────────────
+   11. PÁGINAS PROMO (body.page-promo)
+   Foco em legibilidade mobile — decorativos ocultados.
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    body.page-promo .fundo {
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+    }
+
+    /* Decorativos absolutos: reduz tamanho */
+    .deco-tablet,
+    .deco-phone,
+    .deco-truck,
+    .deco-hexs,
+    .deco-shelf,
+    .deco-caixas,
+    .deco-cupom,
+    .deco-cupom2,
+    .doc-deco,
+    .doc-deco2,
+    .deco-blocos,
+    .deco-xml,
+    .deco-mapa,
+    .deco-entrega,
+    .deco-caixa,
+    .deco-moeda,
+    .deco-rede,
+    .engrenagem,
+    .deco-grafico,
+    .deco-linha-tendencia,
+    .deco-signal {
+        transform: scale(0.75) translateY(-50%);
+        right: 3vw;
+        opacity: 0.7;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Oculta decorativos — foco no conteúdo */
+    .deco-tablet,
+    .deco-phone,
+    .deco-truck,
+    .deco-hexs,
+    .deco-shelf,
+    .deco-caixas,
+    .deco-cupom,
+    .deco-cupom2,
+    .doc-deco,
+    .doc-deco2,
+    .deco-blocos,
+    .deco-xml,
+    .deco-mapa,
+    .deco-entrega,
+    .deco-caixa,
+    .deco-moeda,
+    .deco-rede,
+    .engrenagem,
+    .engrenagem-1,
+    .engrenagem-2,
+    .engrenagem-3,
+    .deco-grafico,
+    .deco-linha-tendencia,
+    .deco-signal,
+    .deco-estrada {
+        display: none !important;
+    }
+
+    body.page-promo .fundo {
+        padding: 32px 20px;
+        min-height: 100dvh;
+    }
+
+    .conteudo {
+        max-width: 100%;
+        padding: 0 4px;
+    }
+
+    .pre-titulo  { font-size: 11px; letter-spacing: 2px; }
+
+    /* Títulos */
+    .promo-titulo-comandas,
+    .promo-titulo-comissoes,
+    .promo-titulo-compras,
+    .promo-titulo-caixa,
+    .promo-titulo-cte,
+    .promo-titulo-delivery,
+    .promo-titulo-erp,
+    .promo-titulo-estoque,
+    .promo-titulo-financeiro,
+    .promo-titulo-fvendas,
+    .promo-titulo-mdfe,
+    .promo-titulo-nfce,
+    .promo-titulo-nfe,
+    .promo-titulo-producao,
+    .promo-titulo-sped,
+    .promo-titulo-xml {
+        font-size: clamp(36px, 10vw, 58px);
+    }
+
+    .chips { flex-wrap: wrap; gap: 8px; }
+
+    /* Linha de recursos */
+    .linha-texto { font-size: 14px; }
+    .linha-icone { font-size: 14px; }
+
+    /* Botão CTA */
+    .btn-seta,
+    .btn-fale-comandas,
+    .btn-fale-comissoes,
+    .btn-fale-compras,
+    .btn-fale-caixa,
+    .btn-fale-cte,
+    .btn-fale-delivery,
+    .btn-fale-erp,
+    .btn-fale-estoque,
+    .btn-fale-financeiro,
+    .btn-fale-fvendas,
+    .btn-fale-mdfe,
+    .btn-fale-nfce,
+    .btn-fale-nfe,
+    .btn-fale-producao,
+    .btn-fale-sped,
+    .btn-fale-xml {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+
+    .rodape { flex-direction: column; gap: 8px; text-align: center; }
+    .rodape-marca { margin: 0; }
+}
+
+@media (max-width: 480px) {
+    body.page-promo .fundo { padding: 24px 14px; }
+
+    .promo-marca { font-size: 13px; }
+
+    .promo-titulo-comandas,
+    .promo-titulo-comissoes,
+    .promo-titulo-compras,
+    .promo-titulo-caixa,
+    .promo-titulo-cte,
+    .promo-titulo-delivery,
+    .promo-titulo-erp,
+    .promo-titulo-estoque,
+    .promo-titulo-financeiro,
+    .promo-titulo-fvendas,
+    .promo-titulo-mdfe,
+    .promo-titulo-nfce,
+    .promo-titulo-nfe,
+    .promo-titulo-producao,
+    .promo-titulo-sped,
+    .promo-titulo-xml {
+        font-size: clamp(28px, 9vw, 42px);
+    }
+}
+
+/* ─────────────────────────────────────────────────────
+   12. LOGIN E CADASTRO — complemento para dvh
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    body.page-centered {
+        min-height: 100dvh;
+        padding: 16px;
+    }
+}
+
+/* ─────────────────────────────────────────────────────
+   13. SCROLL HORIZONTAL UNIVERSAL (tabelas dark)
+   Garante que qualquer tabela dentro de .card
+   em body.page-app tenha scroll horizontal seguro.
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    body.page-app .card table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+
+    body.page-app .card table thead,
+    body.page-app .card table tbody,
+    body.page-app .card table tr {
+        min-width: max-content;
+    }
+
+    /* Paginação empilhada */
+    body.page-app .paginacao,
+    body.page-app .pagination {
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+    }
+}

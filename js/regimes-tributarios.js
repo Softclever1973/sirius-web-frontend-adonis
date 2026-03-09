@@ -147,9 +147,9 @@ function renderizarTabela() {
             <td><strong>${rt.nome}</strong></td>
             <td>${rt.descricao || '-'}</td>
             <td>
-                <button class="btn-small btn-view"   onclick="visualizarRegimeTributario(${rt.id_rt})">👁️ Ver</button>
-                <button class="btn-small btn-edit"   onclick="editarRegimeTributario(${rt.id_rt})">✏️ Editar</button>
-                <button class="btn-small btn-delete" onclick="confirmarExclusao(${rt.id_rt})">🗑️ Excluir</button>
+                <button class="btn-small btn-view"   onclick="visualizarRegimeTributario(${rt.id_rt})">👁️</button>
+                <button class="btn-small btn-edit"   onclick="editarRegimeTributario(${rt.id_rt})">✏️</button>
+                <button class="btn-small btn-delete" onclick="confirmarExclusao(${rt.id_rt})">🗑️</button>
             </td>
         </tr>
     `).join('');
