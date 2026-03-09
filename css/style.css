@@ -1695,7 +1695,7 @@ html:has(body.page-dashboard) {
     background: rgba(4, 9, 26, 0.9);
     border-bottom: 1px solid rgba(37, 99, 235, 0.2);
     backdrop-filter: blur(12px);
-    gap: 0;
+    gap: 12px;
     position: relative;
 }
 
@@ -1755,7 +1755,7 @@ html:has(body.page-dashboard) {
 
 .topbar-spacer { flex: 1; }
 
-.topbar-right { display: flex; align-items: center; gap: 20px; }
+.topbar-right { display: flex; align-items: center; gap: 16px; padding-left: 8px; }
 
 .relogio { text-align: right; }
 
@@ -1771,8 +1771,9 @@ html:has(body.page-dashboard) {
 }
 
 .topbar-divisor {
-    width: 1px; height: 30px;
-    background: rgba(255,255,255,0.07);
+    width: 1px; height: 28px;
+    background: rgba(255,255,255,0.12);
+    flex-shrink: 0;
 }
 
 .usuario-info {

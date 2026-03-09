@@ -330,6 +330,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } catch(e) {}
 
+    // Redesenha gráfico ao redimensionar janela
+    window.addEventListener('resize', () => {
+        const periodo = document.querySelector('.periodo-btn.ativo');
+        if (periodo) periodo.click();
+    });
+
     // Empresa
     try {
         const emps = JSON.parse(localStorage.getItem('sirius_empresas') || '[]');
@@ -709,8 +715,9 @@ function renderizarFormasPgto(totalFat, pedidos) {
 function desenharGraficoLinha(labels, valores, qtds) {
     const canvas = document.getElementById('canvasLinha');
     const parent = canvas.parentElement;
-    canvas.width  = parent.clientWidth - 44;
-    canvas.height = 180;
+    const availW  = parent.clientWidth - 44;
+    canvas.width  = availW;
+    canvas.height = Math.max(120, Math.min(180, Math.round(availW * 0.35)));
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
