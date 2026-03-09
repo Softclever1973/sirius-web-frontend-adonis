@@ -1775,19 +1775,42 @@ html:has(body.page-dashboard) {
     background: rgba(255,255,255,0.07);
 }
 
-.usuario-info { display: flex; align-items: center; gap: 10px; }
-
-.usuario-avatar {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--azul), var(--verde));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 700; color: white;
-    box-shadow: 0 0 12px var(--azul-glow);
+.usuario-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    cursor: default;
     flex-shrink: 0;
 }
 
-.usuario-nome  { font-size: 13px; font-weight: 600; color: var(--texto); line-height: 1.2; }
-.usuario-cargo { font-size: 10px; color: var(--texto-3); letter-spacing: 1px; }
+.usuario-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--azul), var(--verde));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: white;
+    box-shadow: 0 0 12px var(--azul-glow), 0 0 0 2px rgba(37,99,235,0.25);
+    flex-shrink: 0;
+    transition: box-shadow 0.2s;
+}
+
+.usuario-avatar:hover {
+    box-shadow: 0 0 18px var(--azul-glow), 0 0 0 3px rgba(37,99,235,0.4);
+}
+
+.usuario-nome {
+    font-size: 9px; font-weight: 500;
+    color: var(--texto-3);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60px;
+    text-align: center;
+    line-height: 1;
+}
+
+.usuario-cargo { display: none; }
 
 .btn-sair {
     padding: 7px 14px; border-radius: 8px;
@@ -8790,8 +8813,7 @@ body.page-promo .fundo::after {
     body.page-dashboard .relogio-data { font-size: 9px; letter-spacing: 0.5px; }
 
     body.page-dashboard .topbar-divisor { display: none; }
-    body.page-dashboard .usuario-nome   { display: none; }
-    body.page-dashboard .usuario-tipo   { display: none; }
+    /* usuario-info já é vertical — sem ajustes mobile necessários */
 
     /* Corpo com menos padding */
     body.page-dashboard .dash-body {

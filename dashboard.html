@@ -84,7 +84,7 @@
                 <div class="usuario-avatar" id="userAvatar">?</div>
                 <div>
                     <div class="usuario-nome" id="userNome">Carregando...</div>
-                    <div class="usuario-cargo">Usuário</div>
+                    <div class="usuario-cargo" id="userCargo">Usuário</div>
                 </div>
             </div>
             <!--<button class="btn-sair" onclick="logout()">↩ Sair</button>-->
@@ -324,6 +324,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (usr.nome) {
             document.getElementById('userNome').textContent = usr.nome;
             document.getElementById('userAvatar').textContent = usr.nome.charAt(0).toUpperCase();
+            // Cargo/perfil: usa campo tipo, perfil, cargo ou role — o que existir
+            const cargo = usr.tipo || usr.perfil || usr.cargo || usr.role || 'Usuário';
+            document.getElementById('userCargo').textContent = cargo;
         }
     } catch(e) {}
 
