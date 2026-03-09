@@ -5846,6 +5846,388 @@ body.pdv-page html {
 }
 
 
+/* ─────────────────────────────────────────────────────
+   PDV — Responsivo
+   Estratégia mobile (≤ 768px):
+   • Header: 2 linhas — info do pedido + steps
+   • Aba Produtos: 2 painéis com toggle (botão
+     "Ver Itens ↕" / "Buscar Produto ↕") — PURO CSS
+     usando .painel-busca-ativo / .painel-itens-ativo
+     adicionadas pelo JS existente em tela cheia
+   • Scroll natural — nada fica cortado
+   ───────────────────────────────────────────────────── */
+
+/* ── Tablet / Mobile (≤ 768px) ────────────────────── */
+@media (max-width: 768px) {
+
+    /* ===== TELA INICIAL ============================= */
+    .tela-inicial-conteudo {
+        padding: 32px 20px;
+    }
+
+    .tela-inicial-logo { gap: 10px; margin-bottom: 10px; }
+
+    .logo-sirius { font-size: 52px; }
+    .logo-pdv    { font-size: 28px; letter-spacing: 6px; }
+
+    .tela-inicial-subtitulo {
+        font-size: 13px;
+        letter-spacing: 3px;
+        margin-bottom: 40px;
+    }
+
+    .tela-inicial-acoes { width: 100%; padding: 0 16px; }
+
+    .btn-inicial {
+        width: 100%;
+        max-width: 100%;
+        height: 60px;
+        font-size: 17px;
+        border-radius: 14px;
+    }
+
+    /* ===== HEADER PDV =============================== */
+    .pdv-header {
+        height: auto;
+        padding: 8px 12px;
+        flex-wrap: wrap;
+        row-gap: 6px;
+        column-gap: 8px;
+        align-items: center;
+    }
+
+    /* Linha 1: pedido + total + cancelar */
+    .pdv-header-esquerda {
+        order: 1;
+        flex: 1;
+        min-width: unset;
+        gap: 10px;
+    }
+
+    .pdv-header-direita {
+        order: 2;
+        min-width: unset;
+        gap: 8px;
+    }
+
+    /* Linha 2: steps centralizado ocupa largura toda */
+    .pdv-header-centro {
+        order: 3;
+        flex: 0 0 100%;
+        justify-content: center;
+        padding-top: 2px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Ocultar logo e data — desnecessários no mobile */
+    .pdv-logo-mini { display: none; }
+    .pdv-data      { display: none; }
+
+    /* Steps mais compactos mas legíveis */
+    .pdv-step {
+        padding: 6px 14px;
+        gap: 7px;
+    }
+
+    .step-label { font-size: 12px; }
+
+    .step-numero { width: 22px; height: 22px; font-size: 12px; }
+
+    .pdv-step-seta { font-size: 16px; }
+
+    /* Total e cancelar */
+    .total-valor  { font-size: 18px; }
+    .total-label  { font-size: 9px; }
+
+    .btn-cancelar-pdv {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    /* ===== PDV CORPO ================================ */
+    /* Corpo vira scroll normal (não mais overflow hidden) */
+    .pdv-corpo {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* Tabs ocupam altura natural do conteúdo */
+    .pdv-tab {
+        height: auto;
+        min-height: 0;
+    }
+
+    /* ===== ABA 1 — CLIENTE ========================= */
+    .tab-cliente-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .cliente-painel-busca {
+        padding: 20px 16px;
+        border-right: none;
+        border-bottom: 1px solid var(--cinza-3);
+    }
+
+    .cliente-busca-header { margin-bottom: 20px; }
+
+    .tab-titulo    { font-size: 18px; }
+    .tab-subtitulo { font-size: 13px; line-height: 1.5; }
+
+    .input-busca-cliente,
+    .input-busca-produto {
+        font-size: 16px;
+        padding: 14px 0;
+    }
+
+    .resultados-lista {
+        max-height: 50vh;
+    }
+
+    .resultado-nome  { font-size: 15px; }
+
+    .cliente-painel-selecionado {
+        padding: 16px;
+        gap: 14px;
+    }
+
+    /* Botão avançar para próxima aba */
+    .cliente-acoes .btn-confirmar-aba {
+        width: 100%;
+        justify-content: center;
+        height: 52px;
+        font-size: 15px;
+    }
+
+    /* ===== ABA 2 — PRODUTOS ======================== */
+    /* Empilhado em coluna: busca em cima, itens embaixo */
+    .tab-produtos-layout {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+
+    /* Painel busca: altura fixa com scroll interno */
+    .produtos-painel-busca {
+        border-right: none;
+        border-bottom: 2px solid rgba(255,255,255,0.08);
+        padding: 14px 14px 12px;
+        gap: 10px;
+        height: auto;
+        min-height: 260px;
+        max-height: 50vh;
+        overflow: hidden;
+    }
+
+    .produtos-busca-header {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .produtos-painel-busca .tab-titulo { font-size: 15px; }
+
+    .cliente-badge {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    /* Resultados de busca com scroll */
+    .resultados-produtos {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+    }
+
+    .resultado-item { padding: 12px 14px; }
+
+    /* Painel itens: altura natural */
+    .produtos-painel-itens {
+        display: flex;
+        flex-direction: column;
+        min-height: 320px;
+        overflow: visible;
+    }
+
+    .itens-header {
+        padding: 14px 16px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .itens-tabela-wrapper {
+        flex: unset;
+        overflow: visible;
+    }
+
+    /* Tabela de itens compacta mas legível */
+    .itens-tabela { font-size: 13px; }
+
+    .itens-tabela thead th { padding: 9px 10px; font-size: 11px; }
+    .itens-tabela td       { padding: 9px 10px; }
+
+    /* Ocultar coluna seq (número de linha) */
+    .itens-tabela th:first-child,
+    .itens-tabela td:first-child { display: none; }
+
+    .itens-rodape { position: sticky; bottom: 0; z-index: 10; }
+
+    .itens-totais { padding: 12px 16px; }
+
+    .total-linha { font-size: 13px; }
+
+    .total-final { font-size: 16px; }
+    .total-final span:last-child { font-size: 18px; }
+
+    .produtos-acoes {
+        padding: 12px 16px;
+        gap: 10px;
+    }
+
+    .btn-confirmar-aba {
+        flex: 1;
+        height: 52px;
+        font-size: 15px;
+    }
+
+    /* ===== ABA 3 — PAGAMENTOS ====================== */
+    .tab-pagamentos-layout {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .pagamentos-painel-form {
+        border-right: none;
+        border-bottom: 2px solid var(--cinza-3);
+        padding: 16px;
+        gap: 14px;
+        overflow: visible;
+    }
+
+    .pagamentos-form-header .tab-titulo { font-size: 17px; }
+
+    .pagamento-resumo-pedido { padding: 12px; }
+
+    .resumo-linha       { font-size: 14px; }
+    .faltante span:last-child { font-size: 18px; }
+
+    .form-grupo label   { font-size: 13px; }
+    .form-grupo select  { font-size: 15px; padding: 12px; }
+
+    .input-grande       { font-size: 28px; height: 56px; }
+
+    .pagamentos-painel-lista {
+        padding: 16px;
+        overflow: visible;
+    }
+
+    .pagamentos-lista-header { padding: 12px 14px; }
+
+    .pagamentos-acoes {
+        padding: 12px 14px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-finalizar {
+        width: 100%;
+        justify-content: center;
+        height: 56px;
+        font-size: 16px;
+    }
+
+    .btn-voltar-aba {
+        width: 100%;
+        justify-content: center;
+        height: 48px;
+        font-size: 14px;
+    }
+
+    /* ===== MODAIS ================================== */
+    .modal-overlay { padding: 16px; }
+
+    .modal-pequeno {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 16px;
+    }
+
+    .modal-header { padding: 16px 18px; }
+    .modal-corpo  { padding: 16px 18px; }
+
+    .input-spinner-wrapper { gap: 10px; }
+
+    .spinner-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+        border-radius: 10px;
+    }
+
+    .input-grande {
+        font-size: 32px;
+        height: 56px;
+    }
+
+    .modal-acoes {
+        gap: 10px;
+        padding-top: 6px;
+    }
+
+    .btn-modal-cancelar,
+    .btn-modal-confirmar,
+    .btn-modal-perigo {
+        flex: 1;
+        height: 46px;
+        font-size: 14px;
+    }
+
+    /* Modal relatório */
+    .modal-relatorio {
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100dvh - 32px);
+        border-radius: 16px;
+    }
+
+    .relatorio-corpo { padding: 16px; }
+
+    .relatorio-acoes-header {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .btn-imprimir,
+    .btn-modal-fechar-relatorio {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+        height: 40px;
+        font-size: 13px;
+    }
+}
+
+/* ── Mobile pequeno (≤ 400px) ─────────────────────── */
+@media (max-width: 400px) {
+
+    .logo-sirius { font-size: 42px; }
+    .logo-pdv    { font-size: 22px; letter-spacing: 4px; }
+
+    .btn-hint    { display: none; }
+
+    .pdv-header  { padding: 6px 10px; }
+
+    /* Steps: só números, sem label */
+    .step-label  { display: none; }
+    .pdv-step    { padding: 5px 10px; }
+
+    .produtos-painel-busca { max-height: 44vh; }
+
+    .total-valor { font-size: 15px; }
+}
+
 /* =====================================================
    Pedidos de Venda
    Estilos extraídos do inline de pedidos.html.
@@ -8861,43 +9243,211 @@ body.page-promo .fundo::after {
 }
 
 /* ─────────────────────────────────────────────────────
-   10. OUTROS MÓDULOS (página "em desenvolvimento")
+   10. OUTROS MÓDULOS — Responsivo
+   Corrige: .topicos-grid (5→2→1 cols), .secao overflow,
+   .intro-conteudo, .modulo-conteudo, .deco-hexs,
+   .titulo-principal, .modulo-titulo, .nav-rodape abas
    ───────────────────────────────────────────────────── */
 
+/* Tablet largo */
+@media (max-width: 1100px) {
+    .topicos-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+    .deco-hexs { right: 2vw; }
+}
+
+/* Tablet */
 @media (max-width: 768px) {
+    /* Página permite scroll vertical */
     body.page-outros-modulos {
+        overflow-y: auto;
+        height: auto;
+    }
+    html:has(body.page-outros-modulos) {
+        height: auto;
         overflow-y: auto;
     }
 
-    .outros-modulos-layout {
-        flex-direction: column;
+    /* .pagina deixa de ser fullscreen */
+    .pagina {
         height: auto;
         min-height: 100dvh;
+        flex-direction: column;
     }
 
-    .outros-sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid rgba(37,99,235,0.15);
-        padding: 16px;
+    /* Área de conteúdo cresce com o conteúdo */
+    .area-conteudo {
+        overflow: visible;
+        flex: unset;
     }
 
-    .outros-conteudo { padding: 24px 16px; }
+    /* Seção vira bloco estático (não mais position:absolute) */
+    .secao {
+        position: static;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 32px 20px 20px;
+        min-height: unset;
+    }
+    .secao.ativa { display: flex; }
 
-    .modulos-grid,
-    .outros-modulos-grid {
+    /* Fundo base: posição fixed para cobrir a tela */
+    .fundo-base {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+    }
+
+    /* Conteúdo da introdução */
+    .intro-conteudo {
+        align-items: center;
+        text-align: center;
+        max-width: 100%;
+        padding-top: 20px;
+    }
+
+    /* Título e subtítulo */
+    .titulo-principal {
+        font-size: clamp(48px, 14vw, 80px);
+        letter-spacing: -1px;
+        line-height: 0.92;
+    }
+
+    .subtitulo {
+        font-size: clamp(11px, 3vw, 15px);
+        letter-spacing: 3px;
+        margin-bottom: 24px;
+    }
+
+    /* Grid de tópicos: 2 colunas — cards mesma altura por linha */
+    .topicos-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 10px;
+        align-items: stretch;
     }
 
-    .outros-secao-modulos { flex-wrap: wrap; }
+    .topico-card {
+        padding: 16px 12px;
+        border-radius: 12px;
+        height: 100%;
+        box-sizing: border-box;
+    }
 
-    .hex-deco { display: none; }
+    .topico-icone-wrap {
+        width: 42px; height: 42px;
+        font-size: 20px; margin-bottom: 10px;
+    }
+
+    .topico-titulo  { font-size: 11px; }
+    .topico-desc    { font-size: 11px; line-height: 1.4; }
+
+    /* Seções de módulo */
+    .modulo-conteudo {
+        max-width: 100%;
+        padding: 0 4px;
+        align-items: flex-start;
+    }
+
+    .modulo-titulo {
+        font-size: clamp(42px, 12vw, 72px);
+        letter-spacing: -1px;
+        margin-bottom: 8px;
+    }
+
+    .modulo-subtitulo {
+        font-size: 12px;
+        letter-spacing: 2px;
+        margin-bottom: 18px;
+    }
+
+    .modulo-separador { margin-bottom: 18px; }
+
+    .modulo-chips { gap: 8px; }
+    .chip-item { font-size: 11px; padding: 5px 12px; }
+
+    /* Hexágonos decorativos: ocultos no mobile */
+    .deco-hexs { display: none; }
+
+    /* Nav rodapé: 2 linhas no mobile
+       Linha 1: abas com scroll horizontal (ocupa 100%)
+       Linha 2: Anterior | Próxima | Voltar lado a lado */
+    .nav-rodape {
+        height: auto;
+        padding: 6px 10px 8px;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+    }
+
+    /* Abas ocupam a primeira linha inteira */
+    .nav-abas {
+        order: 0;
+        flex: 0 0 100%;
+        width: 100%;
+        gap: 4px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+    }
+    .nav-abas::-webkit-scrollbar { display: none; }
+
+    /* Botões ficam na segunda linha, distribuídos */
+    .nav-btn        { order: 1; flex: 1; justify-content: center; padding: 7px 10px; font-size: 12px; }
+    .nav-btn-voltar { order: 1; flex: 1; justify-content: center; padding: 7px 10px; font-size: 12px; }
+
+    .nav-aba {
+        padding: 5px 11px;
+        font-size: 12px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
 }
 
+/* Mobile pequeno */
 @media (max-width: 480px) {
-    .modulos-grid,
-    .outros-modulos-grid { grid-template-columns: 1fr; }
+    .secao { padding: 24px 14px 16px; }
+
+    .titulo-principal {
+        font-size: clamp(38px, 13vw, 56px);
+    }
+
+    /* Grid de tópicos: 1 coluna */
+    .topicos-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .topico-card {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 12px;
+        padding: 12px 14px;
+        height: auto; /* row layout — altura natural */
+    }
+
+    /* 1 coluna: stretch não faz sentido em linha única */
+    .topicos-grid { align-items: start; }
+
+    .topico-icone-wrap { margin-bottom: 0; flex-shrink: 0; }
+    .topico-divisor    { display: none; }
+    .topico-titulo     { font-size: 12px; margin-bottom: 4px; }
+    .topico-desc       { font-size: 11px; }
+
+    .modulo-titulo {
+        font-size: clamp(34px, 11vw, 50px);
+    }
+
+    .chip-item { font-size: 10px; padding: 4px 10px; }
+
+    .nav-aba     { padding: 5px 10px; font-size: 11px; }
+    .nav-btn,
+    .nav-btn-voltar { padding: 5px 10px; font-size: 11px; }
 }
 
 /* ─────────────────────────────────────────────────────
