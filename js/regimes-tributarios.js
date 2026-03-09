@@ -3,12 +3,11 @@
 // =====================================================
 
 // Detecta se está em desenvolvimento (local) ou produção (Vercel)
-const isDev = window.location.hostname === 'localhost' 
+const isDev = window.location.hostname === 'localhost'
            || window.location.hostname === '127.0.0.1'
            || window.location.hostname === ''
            || window.location.protocol === 'file:';
 
-// Configuração da API (automática: local em dev, Vercel em produção)
 const API_URL = isDev ? 'http://localhost:3000' : 'https://sirius-web-api-adonis.vercel.app';
 
 console.log('🔍 Ambiente:', isDev ? 'DESENVOLVIMENTO' : 'PRODUÇÃO');
@@ -30,49 +29,65 @@ let ordenacaoAtiva = 'nome';
 document.addEventListener('DOMContentLoaded', () => {
     verificarAutenticacao();
     carregarRegimesTributarios();
+
+    // Fechar dropdowns ao clicar fora
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.sidebar-icones') &&
+            !e.target.closest('.dropdown-flutuante')) {
+            fecharDropdowns();
+        }
+    });
+
+    // Fechar modal de aviso ao clicar fora
+    document.getElementById('modalAviso').addEventListener('click', function (e) {
+        if (e.target === this) closeMessage();
+    });
+
+    console.log('✅ Regimes Tributários | Sidebar ícones compacta | SIRIUS WEB');
 });
 
 function verificarAutenticacao() {
     const token = localStorage.getItem('sirius_token');
     if (!token) {
         window.location.href = 'index.html';
-        return;
     }
 }
 
 // =====================================================
-// MENU TOGGLE MOBILE
+// DROPDOWNS FLUTUANTES (sidebar)
 // =====================================================
 
-function toggleMenu() {
-    const toolbar = document.getElementById('toolbar');
-    toolbar.classList.toggle('active');
-}
+const IDS_DROPS = ['dropFiltros', 'dropOrdenacao', 'dropRelatorios'];
 
-// =====================================================
-// DROPDOWN
-// =====================================================
-
-function toggleDropdown(event, element) {
-    event.stopPropagation();
-    const dropdown = element.querySelector('.dropdown-content');
-    const allDropdowns = document.querySelectorAll('.dropdown-content');
-    
-    allDropdowns.forEach(d => {
-        if (d !== dropdown) {
-            d.style.display = 'none';
-        }
+function fecharDropdowns() {
+    IDS_DROPS.forEach(id => {
+        document.getElementById(id).classList.remove('visivel');
     });
-    
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
 
-document.addEventListener('click', (event) => {
-    if (!event.target.closest('.dropdown')) {
-        const allDropdowns = document.querySelectorAll('.dropdown-content');
-        allDropdowns.forEach(d => d.style.display = 'none');
-    }
-});
+function toggleDrop(idDrop, btnEl) {
+    const drop   = document.getElementById(idDrop);
+    const aberto = drop.classList.contains('visivel');
+    fecharDropdowns();
+    if (aberto) return;
+    const rect   = btnEl.getBoundingClientRect();
+    const maxTop = window.innerHeight - 180;
+    drop.style.top = Math.min(rect.top, maxTop) + 'px';
+    drop.classList.add('visivel');
+}
+
+// =====================================================
+// MODAL DE AVISO
+// =====================================================
+
+function showMessage(msg) {
+    document.getElementById('mensagemAviso').textContent = msg;
+    document.getElementById('modalAviso').classList.add('visivel');
+}
+
+function closeMessage() {
+    document.getElementById('modalAviso').classList.remove('visivel');
+}
 
 // =====================================================
 // CARREGAR REGIMES TRIBUTÁRIOS
@@ -82,19 +97,17 @@ async function carregarRegimesTributarios() {
     const token = localStorage.getItem('sirius_token');
     const loading = document.getElementById('loading');
     const tbody = document.getElementById('tbody');
-    
+
     loading.style.display = 'block';
     tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 40px;">⏳ Carregando...</td></tr>';
-    
+
     try {
         const response = await fetch(`${API_URL}/regimes-tributarios`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            headers: { 'Authorization': `Bearer ${token}` }
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
             regimesTributarios = data.data;
             regimesTributariosFiltrados = [...regimesTributarios];
@@ -121,26 +134,26 @@ function renderizarTabela() {
     const inicio = (paginaAtual - 1) * itensPorPagina;
     const fim = inicio + itensPorPagina;
     const itensPagina = regimesTributariosFiltrados.slice(inicio, fim);
-    
+
     if (itensPagina.length === 0) {
         tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 40px;">Nenhum regime tributário encontrado</td></tr>';
         atualizarPaginacao();
         return;
     }
-    
+
     tbody.innerHTML = itensPagina.map(rt => `
         <tr>
             <td>${rt.id_rt}</td>
             <td><strong>${rt.nome}</strong></td>
             <td>${rt.descricao || '-'}</td>
             <td>
-                <button class="btn-icon" onclick="visualizarRegimeTributario(${rt.id_rt})" title="Visualizar">👁️</button>
-                <button class="btn-icon" onclick="editarRegimeTributario(${rt.id_rt})" title="Editar">✏️</button>
-                <button class="btn-icon btn-danger" onclick="confirmarExclusao(${rt.id_rt})" title="Excluir">🗑️</button>
+                <button class="btn-small btn-view"   onclick="visualizarRegimeTributario(${rt.id_rt})">👁️ Ver</button>
+                <button class="btn-small btn-edit"   onclick="editarRegimeTributario(${rt.id_rt})">✏️ Editar</button>
+                <button class="btn-small btn-delete" onclick="confirmarExclusao(${rt.id_rt})">🗑️ Excluir</button>
             </td>
         </tr>
     `).join('');
-    
+
     atualizarPaginacao();
 }
 
@@ -150,22 +163,14 @@ function renderizarTabela() {
 
 function atualizarPaginacao() {
     const totalPaginas = Math.ceil(regimesTributariosFiltrados.length / itensPorPagina);
-    const btnPrev = document.getElementById('btnPrev');
-    const btnNext = document.getElementById('btnNext');
-    const pageInfo = document.getElementById('pageInfo');
-    
-    pageInfo.textContent = `Página ${paginaAtual} de ${totalPaginas || 1}`;
-    btnPrev.disabled = paginaAtual === 1;
-    btnNext.disabled = paginaAtual >= totalPaginas;
+    document.getElementById('btnPrev').disabled = paginaAtual === 1;
+    document.getElementById('btnNext').disabled = paginaAtual >= totalPaginas;
+    document.getElementById('pageInfo').textContent = `Página ${paginaAtual} de ${totalPaginas || 1}`;
 }
 
 function mudarPagina(direcao) {
     const totalPaginas = Math.ceil(regimesTributariosFiltrados.length / itensPorPagina);
-    paginaAtual += direcao;
-    
-    if (paginaAtual < 1) paginaAtual = 1;
-    if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
-    
+    paginaAtual = Math.max(1, Math.min(paginaAtual + direcao, totalPaginas));
     renderizarTabela();
 }
 
@@ -174,27 +179,18 @@ function mudarPagina(direcao) {
 // =====================================================
 
 async function aplicarFiltro(tipo) {
-    let termo;
-    
-    if (tipo === 'nome') {
-        termo = await mostrarPromptPersonalizado('Digite o nome para filtrar:');
-    } else if (tipo === 'id') {
-        termo = await mostrarPromptPersonalizado('Digite o ID para filtrar:');
-    }
-    
+    const label = tipo === 'nome' ? 'Digite o nome para filtrar:' : 'Digite o ID para filtrar:';
+    const termo = await mostrarPromptPersonalizado(label);
     if (!termo) return;
-    
+
     filtroAtivo = { tipo, termo };
-    
+
     regimesTributariosFiltrados = regimesTributarios.filter(rt => {
-        if (tipo === 'nome') {
-            return rt.nome.toLowerCase().includes(termo.toLowerCase());
-        } else if (tipo === 'id') {
-            return rt.id_rt.toString() === termo;
-        }
+        if (tipo === 'nome') return rt.nome.toLowerCase().includes(termo.toLowerCase());
+        if (tipo === 'id')   return rt.id_rt.toString() === termo;
         return true;
     });
-    
+
     paginaAtual = 1;
     renderizarTabela();
     mostrarFiltroAtivo(tipo, termo);
@@ -210,34 +206,27 @@ function limparFiltro() {
 }
 
 function mostrarFiltroAtivo(tipo, termo) {
-    const filtroAtivo = document.getElementById('filtroAtivo');
-    const textoFiltro = document.getElementById('textoFiltro');
-    
     const tipoTexto = tipo === 'nome' ? 'Nome' : 'ID';
-    textoFiltro.textContent = `${tipoTexto}: "${termo}"`;
-    filtroAtivo.style.display = 'flex';
+    document.getElementById('textoFiltro').textContent = `${tipoTexto}: "${termo}"`;
+    document.getElementById('filtroAtivo').style.display = 'flex';
 }
 
 function aplicarOrdenacao(tipo) {
     ordenacaoAtiva = tipo;
-    
+
     regimesTributariosFiltrados.sort((a, b) => {
-        if (tipo === 'nome') {
-            return a.nome.localeCompare(b.nome);
-        } else if (tipo === 'data_criacao') {
-            return new Date(a.created_at) - new Date(b.created_at);
-        } else if (tipo === 'ultimos') {
-            return new Date(b.created_at) - new Date(a.created_at);
-        }
+        if (tipo === 'nome')         return a.nome.localeCompare(b.nome);
+        if (tipo === 'data_criacao') return new Date(a.created_at) - new Date(b.created_at);
+        if (tipo === 'ultimos')      return new Date(b.created_at) - new Date(a.created_at);
         return 0;
     });
-    
+
     paginaAtual = 1;
     renderizarTabela();
 }
 
 // =====================================================
-// MODAL
+// MODAL CADASTRO / EDIÇÃO
 // =====================================================
 
 function abrirModal() {
@@ -251,38 +240,32 @@ function fecharModal() {
     document.getElementById('modal').style.display = 'none';
 }
 
-// =====================================================
-// SALVAR REGIME TRIBUTÁRIO
-// =====================================================
-
 async function salvarRegimeTributario(event) {
     event.preventDefault();
-    
     const token = localStorage.getItem('sirius_token');
-    
+
     const dados = {
-        nome: document.getElementById('nome').value.trim(),
+        nome:      document.getElementById('nome').value.trim(),
         descricao: document.getElementById('descricao').value.trim()
     };
-    
+
     try {
-        const url = regimeTributarioEditando 
-            ? `${API_URL}/regimes-tributarios/${regimeTributarioEditando}` 
+        const url    = regimeTributarioEditando
+            ? `${API_URL}/regimes-tributarios/${regimeTributarioEditando}`
             : `${API_URL}/regimes-tributarios`;
-        
         const method = regimeTributarioEditando ? 'PUT' : 'POST';
-        
+
         const response = await fetch(url, {
-            method: method,
+            method,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(dados)
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
             mostrarMensagem(data.message, 'sucesso');
             fecharModal();
@@ -302,24 +285,22 @@ async function salvarRegimeTributario(event) {
 
 async function editarRegimeTributario(id) {
     const token = localStorage.getItem('sirius_token');
-    
+
     try {
         const response = await fetch(`${API_URL}/regimes-tributarios/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            headers: { 'Authorization': `Bearer ${token}` }
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
             const rt = data.data;
             regimeTributarioEditando = id;
-            
+
             document.getElementById('modalTitle').textContent = 'Editar Regime Tributário';
-            document.getElementById('nome').value = rt.nome;
+            document.getElementById('nome').value      = rt.nome;
             document.getElementById('descricao').value = rt.descricao || '';
-            
+
             document.getElementById('modal').style.display = 'flex';
         } else {
             mostrarMensagem(data.message || 'Erro ao buscar regime tributário', 'erro');
@@ -336,20 +317,18 @@ async function editarRegimeTributario(id) {
 
 async function visualizarRegimeTributario(id) {
     const token = localStorage.getItem('sirius_token');
-    
+
     try {
         const response = await fetch(`${API_URL}/regimes-tributarios/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            headers: { 'Authorization': `Bearer ${token}` }
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
             const rt = data.data;
-            
-            const detalhesHTML = `
+
+            document.getElementById('detalhesConteudo').innerHTML = `
                 <div class="detalhes-grid">
                     <div class="detalhe-item">
                         <strong>ID:</strong>
@@ -369,8 +348,6 @@ async function visualizarRegimeTributario(id) {
                     </div>
                 </div>
             `;
-            
-            document.getElementById('detalhesConteudo').innerHTML = detalhesHTML;
             document.getElementById('modalDetalhes').style.display = 'flex';
         } else {
             mostrarMensagem(data.message || 'Erro ao buscar regime tributário', 'erro');
@@ -397,27 +374,24 @@ let idRegimeTributarioExcluir = null;
 
 function confirmarExclusao(id) {
     idRegimeTributarioExcluir = id;
-    const regimeTributario = regimesTributarios.find(rt => rt.id_rt === id);
-    
+    const rt = regimesTributarios.find(r => r.id_rt === id);
     mostrarModalConfirmacao(
-        `Deseja realmente excluir o regime tributário "${regimeTributario.nome}"?`,
+        `Deseja realmente excluir o regime tributário "${rt.nome}"?`,
         excluirRegimeTributario
     );
 }
 
 async function excluirRegimeTributario() {
     const token = localStorage.getItem('sirius_token');
-    
+
     try {
         const response = await fetch(`${API_URL}/regimes-tributarios/${idRegimeTributarioExcluir}`, {
             method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            headers: { 'Authorization': `Bearer ${token}` }
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
             mostrarMensagem(data.message, 'sucesso');
             fecharModalConfirmacao();
@@ -438,9 +412,7 @@ async function excluirRegimeTributario() {
 function mostrarModalConfirmacao(mensagem, callback) {
     document.getElementById('mensagemConfirmacao').textContent = mensagem;
     document.getElementById('modalConfirmacao').style.display = 'flex';
-    
-    const btnConfirmar = document.getElementById('btnConfirmar');
-    btnConfirmar.onclick = callback;
+    document.getElementById('btnConfirmar').onclick = callback;
 }
 
 function fecharModalConfirmacao() {
@@ -456,34 +428,24 @@ function mostrarPromptPersonalizado(mensagem) {
         document.getElementById('mensagemInput').textContent = mensagem;
         document.getElementById('inputValor').value = '';
         document.getElementById('modalInput').style.display = 'flex';
-        
-        // Focar no input
-        setTimeout(() => {
-            document.getElementById('inputValor').focus();
-        }, 100);
-        
+
+        setTimeout(() => document.getElementById('inputValor').focus(), 100);
+
         const btnConfirmar = document.getElementById('btnConfirmarInput');
-        const inputValor = document.getElementById('inputValor');
-        
-        // Remover listeners antigos
+        const inputValor   = document.getElementById('inputValor');
+
+        // Recriar botão para remover listeners antigos
         const novoBtn = btnConfirmar.cloneNode(true);
         btnConfirmar.parentNode.replaceChild(novoBtn, btnConfirmar);
-        
-        // Adicionar novo listener
-        novoBtn.onclick = () => {
+
+        const confirmar = () => {
             const valor = inputValor.value.trim();
             fecharModalInput();
             resolve(valor || null);
         };
-        
-        // Enter para confirmar
-        inputValor.onkeypress = (e) => {
-            if (e.key === 'Enter') {
-                const valor = inputValor.value.trim();
-                fecharModalInput();
-                resolve(valor || null);
-            }
-        };
+
+        novoBtn.onclick = confirmar;
+        inputValor.onkeypress = (e) => { if (e.key === 'Enter') confirmar(); };
     });
 }
 
@@ -500,10 +462,7 @@ function mostrarMensagem(texto, tipo) {
     mensagem.textContent = texto;
     mensagem.className = `mensagem ${tipo}`;
     mensagem.style.display = 'block';
-    
-    setTimeout(() => {
-        mensagem.style.display = 'none';
-    }, 5000);
+    setTimeout(() => { mensagem.style.display = 'none'; }, 5000);
 }
 
 // =====================================================
@@ -518,20 +477,8 @@ function gerarRelatorio() {
 // FECHAR MODAIS AO CLICAR FORA
 // =====================================================
 
-window.onclick = function(event) {
-    const modal = document.getElementById('modal');
-    const modalDetalhes = document.getElementById('modalDetalhes');
-    const modalConfirmacao = document.getElementById('modalConfirmacao');
-    
-    if (event.target === modal) {
-        fecharModal();
-    }
-    if (event.target === modalDetalhes) {
-        fecharModalDetalhes();
-    }
-    if (event.target === modalConfirmacao) {
-        fecharModalConfirmacao();
-    }
-}
-
-console.log('✅ Módulo Regimes Tributários carregado');
+window.onclick = function (event) {
+    if (event.target === document.getElementById('modal'))             fecharModal();
+    if (event.target === document.getElementById('modalDetalhes'))     fecharModalDetalhes();
+    if (event.target === document.getElementById('modalConfirmacao'))  fecharModalConfirmacao();
+};
