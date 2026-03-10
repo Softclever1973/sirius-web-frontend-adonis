@@ -324,7 +324,8 @@ async function salvarVendedor(event) {
         comissao: parseFloat(document.getElementById('comissao').value) || null,
         meta_vendas: parseFloat(document.getElementById('meta_vendas').value) || null,
         observacoes: document.getElementById('observacoes').value.trim() || null,
-        status: document.getElementById('ativo').checked ? 'A' : 'I'
+        status: document.getElementById('ativo').checked ? 'A' : 'I',
+        senha: document.getElementById('password').value || null
     };
     
     try {
