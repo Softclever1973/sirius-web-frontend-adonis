@@ -405,3 +405,84 @@ async function resetarTodosValores() {
 // MENSAGENS
 // =====================================================
 // mostrarMensagem() fornecido por js/libs/ui.js
+
+// ─────────────────────────────────────────────────────
+// PARTÍCULAS
+// ─────────────────────────────────────────────────────
+
+(function() {
+    const canvas = document.getElementById('particulas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    const cores = ['37,99,235','96,165,250','16,185,129','14,165,233','99,102,241'];
+    const ps = Array.from({length: 35}, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.8 + 0.3,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: -(Math.random() * 0.35 + 0.08),
+        a: Math.random() * 0.35 + 0.08,
+        cor: cores[Math.floor(Math.random() * cores.length)]
+    }));
+    function anim() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ps.forEach(p => {
+            p.x += p.vx; p.y += p.vy;
+            if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
+            if (p.x < -10) p.x = canvas.width + 10;
+            if (p.x > canvas.width + 10) p.x = -10;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${p.cor},${p.a})`; ctx.fill();
+        });
+        requestAnimationFrame(anim);
+    }
+    anim();
+})();
+
+// ─────────────────────────────────────────────────────
+// RELÓGIO
+// ─────────────────────────────────────────────────────
+
+(function() {
+    const diasSemana = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+    const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    function tick() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2,'0');
+        const m = String(now.getMinutes()).padStart(2,'0');
+        const s = String(now.getSeconds()).padStart(2,'0');
+        const elHora = document.getElementById('relogioHora');
+        const elData = document.getElementById('relogioData');
+        if (elHora) elHora.textContent = `${h}:${m}:${s}`;
+        if (elData) elData.textContent =
+            `${diasSemana[now.getDay()]} · ${now.getDate()} ${meses[now.getMonth()]} ${now.getFullYear()}`;
+    }
+    tick(); setInterval(tick, 1000);
+})();
+
+// ─────────────────────────────────────────────────────
+// INICIALIZAÇÃO
+// ─────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const usr = JSON.parse(localStorage.getItem('sirius_usuario') || '{}');
+        if (usr.nome) {
+            const elNome   = document.getElementById('userNome');
+            const elAvatar = document.getElementById('userAvatar');
+            if (elNome)   elNome.textContent   = usr.nome;
+            if (elAvatar) elAvatar.textContent = usr.nome.charAt(0).toUpperCase();
+        }
+    } catch(e) {}
+
+    ocultarLoading();
+});
+
+function ocultarLoading() {
+    setTimeout(() => {
+        const el = document.getElementById('loadingOverlay');
+        if (el) el.classList.add('oculto');
+    }, 600);
+}

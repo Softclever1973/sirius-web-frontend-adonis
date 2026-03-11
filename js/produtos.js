@@ -706,3 +706,30 @@ async function toggleStatusProduto(id) {
 // }
 
 console.log('🚀 Produtos JS - VERSÃO CORRIGIDA COM ORDENAÇÃO FUNCIONANDO ✅');
+
+// ─────────────────────────────────────────────────────
+// MODAL DE AVISO
+// ─────────────────────────────────────────────────────
+
+function showMessage(msg) {
+    document.getElementById('mensagemAviso').textContent = msg;
+    document.getElementById('modalAviso').classList.add('visivel');
+}
+
+function closeMessage() {
+    document.getElementById('modalAviso').classList.remove('visivel');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const modalAviso = document.getElementById('modalAviso');
+    if (modalAviso) {
+        modalAviso.addEventListener('click', function(e) { if (e.target === this) closeMessage(); });
+    }
+});
+
+// Fecha ao clicar fora da sidebar ou do dropdown
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.sidebar-icones') && !e.target.closest('.dropdown-flutuante')) {
+        fecharDropdowns();
+    }
+});

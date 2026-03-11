@@ -1,77 +1,88 @@
 // =====================================================
-// SIRIUS WEB - Manual do Usuário JavaScript
+// SIRIUS WEB - Manual do Usuário
+// Depende de: marked.js (CDN)
 // =====================================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Carregar nome do usuário
-    carregarNomeUsuario();
-    
-    // Configurar navegação do sidebar
-    configurarNavegacao();
-    
-    // Highlight automático das seções
-    configurarScrollSpy();
+// ── Autenticação ──────────────────────────────────────────
+(function verificarAutenticacao() {
+    const token = localStorage.getItem('sirius_token');
+    if (!token) { window.location.href = 'index.html'; return; }
+    try {
+        const usuario = JSON.parse(localStorage.getItem('sirius_usuario') || '{}');
+        const el = document.getElementById('userName');
+        if (el) el.textContent = usuario.nome || '';
+    } catch(e) {}
+})();
+
+// ── Configurar marked ────────────────────────────────────
+marked.setOptions({
+    breaks: true,
+    gfm: true,
 });
 
-// =====================================================
-// CARREGAR NOME DO USUÁRIO
-// =====================================================
-function carregarNomeUsuario() {
-    const usuario = JSON.parse(localStorage.getItem('sirius_usuario'));
-    if (usuario) {
-        document.getElementById('userName').textContent = usuario.nome;
+// ── Carregar e renderizar o .md ──────────────────────────
+async function carregarManual() {
+    try {
+        const res = await fetch('manual.md');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const texto = await res.text();
+
+        document.getElementById('conteudo').innerHTML = marked.parse(texto);
+
+        gerarSidebar();
+        ativarScrollSpy();
+
+    } catch (e) {
+        document.getElementById('conteudo').innerHTML =
+            `<p style="color:var(--vermelho)">⚠️ Erro ao carregar o manual: ${e.message}</p>`;
+        console.error('Erro manual:', e);
     }
 }
 
-// =====================================================
-// CONFIGURAR NAVEGAÇÃO
-// =====================================================
-function configurarNavegacao() {
-    const navItems = document.querySelectorAll('.nav-item');
-    
-    navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            // Remover active de todos
-            navItems.forEach(nav => nav.classList.remove('active'));
-            
-            // Adicionar active no clicado
-            item.classList.add('active');
-        });
+// ── Gerar índice lateral a partir dos H2 do .md ─────────
+const ICONES = ['🏠','👥','⚙️','🎯','💡','❓','📖'];
+
+function gerarSidebar() {
+    const titulos = document.querySelectorAll('#conteudo h2');
+    const nav     = document.getElementById('sidebar-nav');
+
+    let html = '';
+    titulos.forEach((h, i) => {
+        const id = `secao-${i}`;
+        h.id = id;
+        const texto = h.textContent.replace(/[\u{1F000}-\u{1FFFF}]|[\u2600-\u27BF]/gu, '').trim();
+        html += `
+            <a href="#${id}" class="manual-nav-item" data-secao="${id}">
+                <span class="nav-icon">${ICONES[i] || '📄'}</span>
+                ${texto}
+            </a>`;
     });
+
+    nav.innerHTML = html || '<p style="padding:12px;color:var(--cinza-5)">Nenhuma seção encontrada.</p>';
+
+    const primeiro = nav.querySelector('.manual-nav-item');
+    if (primeiro) primeiro.classList.add('active');
 }
 
-// =====================================================
-// SCROLL SPY (Destacar seção atual no menu)
-// =====================================================
-function configurarScrollSpy() {
-    const sections = document.querySelectorAll('.section');
-    const navItems = document.querySelectorAll('.nav-item');
-    
-    window.addEventListener('scroll', () => {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 120;
-            const sectionHeight = section.clientHeight;
-            
-            if (window.pageYOffset >= sectionTop) {
-                current = section.getAttribute('id');
+// ── ScrollSpy: destacar item do índice conforme scroll ───
+function ativarScrollSpy() {
+    const secoes = document.querySelectorAll('#conteudo h2');
+    if (!secoes.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                document.querySelectorAll('.manual-nav-item').forEach(a => a.classList.remove('active'));
+                const link = document.querySelector(`.manual-nav-item[data-secao="${entry.target.id}"]`);
+                if (link) {
+                    link.classList.add('active');
+                    link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
             }
         });
-        
-        navItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('href') === `#${current}`) {
-                item.classList.add('active');
-            }
-        });
-    });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    secoes.forEach(s => observer.observe(s));
 }
 
-// =====================================================
-// BUSCA NO MANUAL (OPCIONAL - IMPLEMENTAR FUTURAMENTE)
-// =====================================================
-function buscarNoManual(termo) {
-    // TODO: Implementar busca de texto nas seções
-    console.log('Buscar:', termo);
-}
+carregarManual();

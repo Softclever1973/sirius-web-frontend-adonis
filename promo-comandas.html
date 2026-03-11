@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -40,31 +40,9 @@
         </a>
     </div>
 
-    <canvas id="particulas" style="position:absolute;inset:0;pointer-events:none;z-index:5;"></canvas>
+    <canvas id="particulas" data-cor1="249,115,22" data-cor2="251,146,60" style="position:absolute;inset:0;pointer-events:none;z-index:5;"></canvas>
 </div>
 
-<script>
-    const canvas = document.getElementById('particulas');
-    const ctx = canvas.getContext('2d');
-    function redimensionar() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    redimensionar(); window.addEventListener('resize', redimensionar);
-    const particulas = Array.from({ length: 26 }, () => ({
-        x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
-        r: Math.random() * 1.8 + 0.4, vx: (Math.random() - 0.5) * 0.4,
-        vy: -(Math.random() * 0.6 + 0.2), alpha: Math.random() * 0.5 + 0.1,
-        cor: Math.random() > 0.5 ? '249,115,22' : '251,146,60'
-    }));
-    function animar() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particulas.forEach(p => {
-            p.x += p.vx; p.y += p.vy;
-            if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
-            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${p.cor},${p.alpha})`; ctx.fill();
-        });
-        requestAnimationFrame(animar);
-    }
-    animar();
-</script>
+<script src="js/promo-particles.js"></script>
 </body>
 </html>

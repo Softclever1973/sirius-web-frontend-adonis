@@ -840,3 +840,28 @@ window.onclick = function(event) {
 // obterToken(), obterEmpresaId(), verificarAutenticacao()
 // e logout() estão definidos globalmente em auth.js
 // =====================================================
+
+// ─────────────────────────────────────────────────────
+// MODAL E MENSAGEM
+// ─────────────────────────────────────────────────────
+
+function fecharModal(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+}
+
+function showMessage(msg) {
+    const el = document.getElementById('mensagem');
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = 'block';
+    el.className = 'mensagem';
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+// Fecha dropdowns ao clicar fora
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.sidebar-btn') && !e.target.closest('.dropdown-flutuante')) {
+        fecharDropdowns();
+    }
+});

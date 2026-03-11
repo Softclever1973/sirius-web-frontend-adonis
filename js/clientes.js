@@ -806,3 +806,31 @@ async function gerarRelatorioIndividual(id) {
 // }
 
 console.log('🚀 Clientes JS - VERSÃO FINAL CORRIGIDA - TODOS OS PROBLEMAS RESOLVIDOS ✅');
+
+// ─────────────────────────────────────────────────────
+// MODAIS DE AVISO E CONFIRMAÇÃO
+// ─────────────────────────────────────────────────────
+
+function mostrarAviso(titulo, msg) {
+    document.getElementById('avisoTitulo').textContent = titulo;
+    document.getElementById('avisoMensagem').textContent = msg;
+    document.getElementById('modalAviso').classList.add('visivel');
+}
+function fecharAviso() { document.getElementById('modalAviso').classList.remove('visivel'); }
+function fecharAvisoFora(e) { if (e.target === document.getElementById('modalAviso')) fecharAviso(); }
+
+let _confirmCallback = null;
+function confirmarAcao(msg, callback) {
+    document.getElementById('confirmMensagem').textContent = msg;
+    document.getElementById('btnConfirmSim').onclick = function() { fecharConfirm(); callback(); };
+    document.getElementById('modalConfirm').classList.add('visivel');
+}
+function fecharConfirm() { document.getElementById('modalConfirm').classList.remove('visivel'); }
+function fecharConfirmFora(e) { if (e.target === document.getElementById('modalConfirm')) fecharConfirm(); }
+
+// Fecha dropdowns ao clicar fora
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.sidebar-btn') && !e.target.closest('.dropdown-flutuante')) {
+        fecharDropdowns();
+    }
+});

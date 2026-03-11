@@ -410,3 +410,47 @@ function formatDateTime(datetime) {
 document.addEventListener('DOMContentLoaded', init);
 
 console.log('🚀 Movimentações carregado - VERSÃO CORRIGIDA ✅');
+
+// ─────────────────────────────────────────────────────
+// WRAPPER DE ORDENAÇÃO (sincroniza ícone da sidebar)
+// ─────────────────────────────────────────────────────
+
+async function toggleOrdenacaoUI() {
+    await toggleOrdenacao();
+    const iconeAtualizado = document.getElementById('ordenacaoIcon').textContent;
+    const iconeSidebar    = document.getElementById('ordenacaoIconSidebar');
+    if (iconeSidebar) iconeSidebar.textContent = iconeAtualizado;
+}
+
+// ─────────────────────────────────────────────────────
+// SINCRONIZAÇÃO DA TOPBAR VIA MUTATIONOBSERVER
+// ─────────────────────────────────────────────────────
+
+function iniciarSincronizacaoTopbar() {
+    const elDesc = document.getElementById('produtoDescricao');
+    if (elDesc) {
+        new MutationObserver(() => {
+            const sub = document.getElementById('produtoSubtitulo');
+            if (sub) sub.textContent = '/ ' + elDesc.textContent;
+        }).observe(elDesc, { childList: true, characterData: true, subtree: true });
+    }
+
+    const elSaldo = document.getElementById('produtoSaldo');
+    if (elSaldo) {
+        new MutationObserver(() => {
+            const badge = document.getElementById('badgeSaldo');
+            if (badge && elSaldo.textContent.trim() !== '-') {
+                badge.style.display = 'inline-flex';
+            }
+        }).observe(elSaldo, { childList: true, characterData: true, subtree: true });
+    }
+}
+
+// Fechar ao clicar fora da sidebar ou do dropdown
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.sidebar-icones') && !e.target.closest('.dropdown-flutuante')) {
+        fecharDropdowns();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', iniciarSincronizacaoTopbar);

@@ -356,35 +356,5 @@
 <script src="js/libs/validations.js"></script>
 <script src="js/libs/ui.js"></script>
 <script src="js/produtos.js"></script>
-
-<script>
-    /* fecharDropdowns() e toggleDrop() fornecidos por js/libs/ui.js */
-
-    // Fecha ao clicar fora da sidebar ou do dropdown
-    document.addEventListener('click', function (e) {
-        if (!e.target.closest('.sidebar-icones') &&
-            !e.target.closest('.dropdown-flutuante')) {
-            fecharDropdowns();
-        }
-    });
-
-    /* ============================================================
-       MODAL DE AVISO
-       ============================================================ */
-    function showMessage(msg) {
-        document.getElementById('mensagemAviso').textContent = msg;
-        document.getElementById('modalAviso').classList.add('visivel');
-    }
-
-    function closeMessage() {
-        document.getElementById('modalAviso').classList.remove('visivel');
-    }
-
-    document.getElementById('modalAviso').addEventListener('click', function (e) {
-        if (e.target === this) closeMessage();
-    });
-
-    console.log('✅ Produtos | Sidebar ícones compacta | SIRIUS WEB');
-</script>
 </body>
 </html>

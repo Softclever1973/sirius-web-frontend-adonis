@@ -174,43 +174,5 @@
 <script src="js/libs/ui.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/pedidos.js"></script>
-<script>
-    function toggleDrop(id, btn) {
-        const drop = document.getElementById(id);
-        const jaAberto = drop.classList.contains('visivel');
-        fecharDropdowns();
-        if (!jaAberto) {
-            const rect = btn.getBoundingClientRect();
-            drop.style.top = `${rect.top}px`;
-            drop.classList.add('visivel');
-            if (btn) btn.classList.add('ativo');
-        }
-    }
-
-    function fecharDropdowns() {
-        document.querySelectorAll('.dropdown-flutuante').forEach(d => d.classList.remove('visivel'));
-        document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('ativo'));
-    }
-
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.sidebar-btn') && !e.target.closest('.dropdown-flutuante')) {
-            fecharDropdowns();
-        }
-    });
-
-    function fecharModal(id) {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
-    }
-
-    function showMessage(msg) {
-        const el = document.getElementById('mensagem');
-        if (!el) return;
-        el.textContent = msg;
-        el.style.display = 'block';
-        el.className = 'mensagem';
-        setTimeout(() => { el.style.display = 'none'; }, 4000);
-    }
-</script>
 </body>
 </html>
