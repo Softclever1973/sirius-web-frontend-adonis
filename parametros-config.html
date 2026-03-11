@@ -4,45 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRIUS WEB - Configuração de Parâmetros</title>
-    <link rel="stylesheet" href="css/parametros-config.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <!-- Header -->
-    <div class="header">
-        <div class="header-content">
-            <h1>⚙️ SIRIUS WEB - Configuração de Parâmetros</h1>
-            <div class="user-info">
-                <span class="badge-super-admin">SUPER ADMIN</span>
-                <span id="userName">Carregando...</span>
-                <button class="btn-logout" onclick="logout()">Sair</button>
-            </div>
-        </div>
-    </div>
+<body class="page-dashboard">
 
-    <!-- Navigation -->
-    <div class="nav">
-        <div class="nav-content">
-            <a href="dashboard.html">Dashboard</a>
-            <a href="produtos.html">Produtos</a>
-            <a href="clientes.html">Clientes</a>
-            <a href="pdv.html">PDV</a>
-            <a href="pedidos.html">Pedidos</a>
-            
-            <!-- Dropdown Configurações -->
-            <div class="nav-dropdown">
-                <button class="nav-dropdown-btn">⚙️ Configurações ▼</button>
-                <div class="nav-dropdown-content">
-                    <a href="vendedores.html">👨‍💼 Vendedores</a>
-                    <a href="formas-pagamento.html">💳 Formas de Pagamento</a>
-                    <a href="regimes-tributarios.html">📋 Regimes Tributários</a>
-                    <a href="parametros-config.html" class="active">⚙️ Parâmetros</a>
+<!-- ============================================================
+     LOADING OVERLAY
+     ============================================================ -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-logo">SIRIUS WEB</div>
+    <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+    <div class="loading-txt">Carregando parâmetros...</div>
+</div>
+
+<!-- ============================================================
+     FUNDO ANIMADO
+     ============================================================ -->
+<div class="fundo"></div>
+<canvas id="particulas"></canvas>
+
+<!-- ============================================================
+     APP
+     ============================================================ -->
+<div class="app-layout">
+
+    <!-- menu lateral -->
+    <aside class="sidebar-icones">
+
+        <!-- Ícone/logo do módulo -->
+        <div class="sidebar-modulo-logo" title="Parâmetros">⚙️</div>
+
+        <div class="sidebar-divisor"></div>
+        <!-- Espaçador empurra Voltar para o rodapé -->
+        <div class="sidebar-spacer"></div>
+
+        <div class="sidebar-divisor"></div>
+
+        <!-- Voltar ao Menu Principal -->
+        <button class="sidebar-btn btn-voltar"
+                data-tooltip="Voltar ao Menu"
+                onclick="window.location.href='menu-principal.html'">
+            <span class="btn-icone">↩</span>
+            <span class="btn-label">Voltar</span>
+        </button>
+
+    </aside>
+
+    <div class="app">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <a href="dashboard.html" class="topbar-logo">
+            <div class="logo-badge">🚀</div>
+            <div>
+                <div class="logo-nome">SIRIUS WEB</div>
+                <div class="logo-sub">PARÂMETROS</div>
+            </div>
+        </a>
+        <!-- <nav class="topbar-nav">
+            <a href="dashboard.html"   class="nav-link ativo">Dashboard</a>
+            <a href="pedidos.html"     class="nav-link">Pedidos</a>
+            <a href="produtos.html"    class="nav-link">Produtos</a>
+            <a href="clientes.html"    class="nav-link">Clientes</a>
+            <a href="outros-modulos.html" class="nav-link">Outros Módulos</a>
+        </nav> -->
+
+        <div class="topbar-spacer"></div>
+
+        <div class="topbar-right">
+            <div class="relogio">
+                <div class="relogio-hora" id="relogioHora">00:00:00</div>
+                <div class="relogio-data" id="relogioData">—</div>
+            </div>
+            <div class="topbar-divisor"></div>
+            <div class="usuario-info">
+                <div class="usuario-avatar" id="userAvatar">?</div>
+                <div>
+                    <div class="usuario-nome" id="userNome">Carregando...</div>
+                    <div class="usuario-cargo">Usuário</div>
                 </div>
             </div>
+            <!--<button class="btn-sair" onclick="logout()">↩ Sair</button>-->
         </div>
-    </div>
+    </header>
 
-    <!-- Container -->
-    <div class="container">
+    <!-- CORPO -->
+    <div class="dash-body">
         <div class="page-header">
             <div>
                 <h2>🎯 Configuração de Parâmetros da Empresa</h2>
@@ -87,7 +137,7 @@
                         🔄 Resetar Todos para Padrão
                     </button>
                     <button class="btn btn-success" onclick="salvarTodasAlteracoes()">
-                        💾 Salvar Todas Alterações
+                        💾 Salvar Alterações
                     </button>
                 </div>
             </div>
@@ -101,8 +151,99 @@
             <div class="empty-icon">🏢</div>
             <h3>Carregando...</h3>
         </div>
-    </div>
+    </div><!-- /dash-body -->
+</div><!-- /app -->
 
-    <script src="js/parametros-config.js"></script>
+</div><!-- /.app-layout -->
+
+<script src="js/libs/api.js"></script>
+<script src="js/libs/ui.js"></script>
+<script src="js/auth.js"></script>
+<script>
+/* ============================================================
+   PARTÍCULAS
+   ============================================================ */
+(function() {
+    const canvas = document.getElementById('particulas');
+    const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    const cores = ['37,99,235','96,165,250','16,185,129','14,165,233','99,102,241'];
+    const ps = Array.from({length: 35}, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.8 + 0.3,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: -(Math.random() * 0.35 + 0.08),
+        a: Math.random() * 0.35 + 0.08,
+        cor: cores[Math.floor(Math.random() * cores.length)]
+    }));
+    function anim() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ps.forEach(p => {
+            p.x += p.vx; p.y += p.vy;
+            if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
+            if (p.x < -10) p.x = canvas.width + 10;
+            if (p.x > canvas.width + 10) p.x = -10;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${p.cor},${p.a})`; ctx.fill();
+        });
+        requestAnimationFrame(anim);
+    }
+    anim();
+})();
+
+/* ============================================================
+   RELÓGIO
+   ============================================================ */
+(function() {
+    const diasSemana = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+    const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    function tick() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2,'0');
+        const m = String(now.getMinutes()).padStart(2,'0');
+        const s = String(now.getSeconds()).padStart(2,'0');
+        document.getElementById('relogioHora').textContent = `${h}:${m}:${s}`;
+        document.getElementById('relogioData').textContent =
+            `${diasSemana[now.getDay()]} · ${now.getDate()} ${meses[now.getMonth()]} ${now.getFullYear()}`;
+    }
+    tick(); setInterval(tick, 1000);
+})();
+
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', async () => {
+    // Usuário
+    try {
+        const usr = JSON.parse(localStorage.getItem('sirius_usuario') || '{}');
+        if (usr.nome) {
+            document.getElementById('userNome').textContent = usr.nome;
+            document.getElementById('userAvatar').textContent = usr.nome.charAt(0).toUpperCase();
+        }
+    } catch(e) {}
+
+    // Empresa
+    try {
+        const emps = JSON.parse(localStorage.getItem('sirius_empresas') || '[]');
+        if (emps.length > 0) {
+            // For parameters, perhaps load empresa info
+        }
+    } catch(e) {}
+
+    ocultarLoading();
+});
+
+/* ============================================================
+   OCULTAR LOADING
+   ============================================================ */
+function ocultarLoading() {
+    setTimeout(() => {
+        document.getElementById('loadingOverlay').classList.add('oculto');
+    }, 600);
+}
+</script>
+<script src="js/parametros-config.js"></script>
 </body>
 </html>

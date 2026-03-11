@@ -2,13 +2,7 @@
 // SIRIUS WEB - Configuração de Parâmetros (Super Admin)
 // =====================================================
 
-// Configuração da API
-const isDev = window.location.hostname === 'localhost' 
-           || window.location.hostname === '127.0.0.1'
-           || window.location.hostname === ''
-           || window.location.protocol === 'file:';
-
-const API_URL = isDev ? 'http://localhost:3000' : 'https://sirius-web-api-adonis.vercel.app';
+// Configuração da API (usando isDev e API_URL do auth.js)
 
 console.log('🚀 Configuração de Parâmetros - Super Admin');
 console.log('📡 API:', API_URL);
@@ -26,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const usuario = JSON.parse(localStorage.getItem('sirius_usuario'));
     if (usuario) {
-        document.getElementById('userName').textContent = usuario.nome;
+        document.getElementById('userNome').textContent = usuario.nome;
     }
     
     await carregarEmpresaAtual();
@@ -272,6 +266,7 @@ function atualizarContadorModificacoes() {
 // SALVAR ALTERAÇÕES
 // =====================================================
 async function salvarTodasAlteracoes() {
+    const btnSalvar = document.querySelector('.btn-success');
     if (parametrosModificados.size === 0) {
         mostrarMensagem('Nenhuma alteração para salvar', 'info');
         return;
@@ -318,10 +313,11 @@ async function salvarTodasAlteracoes() {
     if (erros === 0) {
         mostrarMensagem(`✅ ${sucessos} parâmetro(s) salvo(s) com sucesso!`, 'success');
         parametrosModificados.clear();
-        await carregarParametrosEmpresa(); // Recarregar
+        await carregarEmpresaAtual(); // Recarregar empresa e parâmetros
     } else {
         mostrarMensagem(`⚠️ ${sucessos} salvo(s), ${erros} erro(s)`, 'error');
     }
+    btnSalvar.textContent = `💾 Salvar Alterações`;
 }
 
 // =====================================================
@@ -351,7 +347,7 @@ async function resetarValor(idParametro) {
         
         if (data.success) {
             mostrarMensagem('Valor resetado para o padrão!', 'success');
-            await carregarParametrosEmpresa();
+            await carregarEmpresaAtual();
         } else {
             throw new Error(data.message);
         }
@@ -402,19 +398,10 @@ async function resetarTodosValores() {
     }
     
     mostrarMensagem(`${sucessos} parâmetro(s) resetado(s)!`, 'success');
-    await carregarParametrosEmpresa();
+    await carregarEmpresaAtual();
 }
 
 // =====================================================
 // MENSAGENS
 // =====================================================
-function mostrarMensagem(texto, tipo = 'info') {
-    const div = document.getElementById('mensagem');
-    div.textContent = texto;
-    div.className = `mensagem ${tipo}`;
-    div.style.display = 'block';
-    
-    setTimeout(() => {
-        div.style.display = 'none';
-    }, 5000);
-}
+// mostrarMensagem() fornecido por js/libs/ui.js

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRIUS WEB - PDV</title>
-    <link rel="stylesheet" href="css/pdv.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -72,7 +72,7 @@
                 <span class="total-label">TOTAL</span>
                 <span class="total-valor" id="totalMini">R$ 0,00</span>
             </div>
-            <button class="btn-cancelar-pdv" onclick="cancelarVendaConfirmar()" title="Cancelar Venda (ESC)">✕ Cancelar</button>
+            <button class="btn-cancelar-pdv" onclick="cancelarVendaConfirmar()" title="Cancelar Venda (ESC)" tabindex="0">✕ Cancelar</button>
         </div>
     </div>
 
@@ -198,7 +198,7 @@
                                 id="btnFinalizarProdutos"
                                 class="btn-confirmar-aba"
                                 onclick="confirmarProdutos()"
-                                tabindex="2"
+                                tabindex="0"
                             >
                                 Finalizar Produtos e Ir para Pagamentos
                                 <span class="btn-tecla">F5</span>
@@ -246,7 +246,7 @@
                     <div class="pagamento-form">
                         <div class="form-grupo">
                             <label for="formaPagamento">Forma de Pagamento</label>
-                            <select id="formaPagamento" tabindex="0" onchange="onFormaChange()">
+                            <select id="formaPagamento" tabindex="1" onchange="onFormaChange()">
                                 <option value="">Selecione...</option>
                             </select>
                         </div>
@@ -274,7 +274,7 @@
                             <label for="valorTroco">Troco</label>
                             <div class="input-valor-wrapper">
                                 <span class="moeda-prefix">R$</span>
-                                <input type="number" id="valorTroco" readonly tabindex="-1">
+                                <input type="number" id="valorTroco" readonly tabindex="1">
                             </div>
                         </div>
 
@@ -499,6 +499,8 @@
     </div>
 </div>
 
+<script src="js/libs/api.js"></script>
+<script src="js/libs/ui.js"></script>
 <script src="js/pdv.js"></script>
 </body>
 </html>

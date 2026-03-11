@@ -2,15 +2,7 @@
 // SIRIUS WEB - Cadastro
 // =====================================================
 
-// Configuração da API
-//const API_URL = 'https://sirius-web-api-adonis.vercel.app';
-
-const isDev = window.location.hostname === 'localhost' 
-           || window.location.hostname === '127.0.0.1'
-           || window.location.hostname === ''
-           || window.location.protocol === 'file:';
-
-const API_URL = isDev ? 'http://localhost:3000' : 'https://sirius-web-api-adonis.vercel.app';
+// isDev e API_URL fornecidos por js/libs/api.js
 
 // Elementos
 const cadastroForm = document.getElementById('cadastroForm');

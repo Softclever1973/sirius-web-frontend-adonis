@@ -2,12 +2,7 @@
 // SIRIUS WEB - Movimentações de Estoque - VERSÃO CORRIGIDA
 // =====================================================
 
-const isDev = window.location.hostname === 'localhost' 
-           || window.location.hostname === '127.0.0.1'
-           || window.location.hostname === ''
-           || window.location.protocol === 'file:';
-
-const API_URL = isDev ? 'http://localhost:3000' : 'https://sirius-web-api-adonis.vercel.app';
+// isDev e API_URL fornecidos por js/libs/api.js
 
 let state = {
     produtoId: null,
@@ -33,12 +28,7 @@ function checkAuth() {
     return token;
 }
 
-function logout() {
-    localStorage.removeItem('sirius_token');
-    localStorage.removeItem('sirius_usuario');
-    localStorage.removeItem('sirius_empresas');
-    window.location.href = 'index.html';
-}
+// logout() fornecido por js/libs/api.js (ou auth.js)
 
 // ✅ CORREÇÃO: Navegar direto sem usar history.back()
 function voltarProdutos() {
@@ -415,69 +405,7 @@ function formatDateTime(datetime) {
     });
 }
 
-function siriusAlert(mensagem, titulo = 'Atenção') {
-    return new Promise((resolve) => {
-        const existente = document.getElementById('siriusAlert');
-        if (existente) existente.remove();
-        
-        const overlay = document.createElement('div');
-        overlay.id = 'siriusAlert';
-        overlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        `;
-        
-        const box = document.createElement('div');
-        box.style.cssText = `
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            max-width: 500px;
-            width: 90%;
-        `;
-        
-        box.innerHTML = `
-            <h3 style="color: #2563eb; margin: 0 0 20px 0; font-size: 1.5em;">${titulo}</h3>
-            <p style="color: #333; font-size: 1.1em; margin: 0 0 25px 0; line-height: 1.5;">${mensagem}</p>
-            <button onclick="document.getElementById('siriusAlert').remove()" 
-                    style="background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); 
-                           color: white; 
-                           border: none; 
-                           padding: 12px 30px; 
-                           border-radius: 8px; 
-                           cursor: pointer; 
-                           font-size: 16px;
-                           font-weight: bold;
-                           width: 100%;">
-                OK
-            </button>
-        `;
-        
-        overlay.appendChild(box);
-        document.body.appendChild(overlay);
-        
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.remove();
-                resolve();
-            }
-        });
-        
-        box.querySelector('button').addEventListener('click', () => {
-            overlay.remove();
-            resolve();
-        });
-    });
-}
+// siriusAlert() fornecido por js/libs/ui.js
 
 document.addEventListener('DOMContentLoaded', init);
 
