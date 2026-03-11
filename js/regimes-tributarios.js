@@ -2,16 +2,7 @@
 // SIRIUS WEB - Regimes Tributários
 // =====================================================
 
-// Detecta se está em desenvolvimento (local) ou produção (Vercel)
-const isDev = window.location.hostname === 'localhost'
-           || window.location.hostname === '127.0.0.1'
-           || window.location.hostname === ''
-           || window.location.protocol === 'file:';
-
-const API_URL = isDev ? 'http://localhost:3000' : 'https://sirius-web-api-adonis.vercel.app';
-
-console.log('🔍 Ambiente:', isDev ? 'DESENVOLVIMENTO' : 'PRODUÇÃO');
-console.log('📡 API URL:', API_URL);
+// isDev e API_URL fornecidos por js/libs/api.js
 
 // Estado da aplicação
 let regimesTributarios = [];
@@ -59,22 +50,7 @@ function verificarAutenticacao() {
 
 const IDS_DROPS = ['dropFiltros', 'dropOrdenacao', 'dropRelatorios'];
 
-function fecharDropdowns() {
-    IDS_DROPS.forEach(id => {
-        document.getElementById(id).classList.remove('visivel');
-    });
-}
-
-function toggleDrop(idDrop, btnEl) {
-    const drop   = document.getElementById(idDrop);
-    const aberto = drop.classList.contains('visivel');
-    fecharDropdowns();
-    if (aberto) return;
-    const rect   = btnEl.getBoundingClientRect();
-    const maxTop = window.innerHeight - 180;
-    drop.style.top = Math.min(rect.top, maxTop) + 'px';
-    drop.classList.add('visivel');
-}
+// fecharDropdowns() e toggleDrop() fornecidos por js/libs/ui.js
 
 // =====================================================
 // MODAL DE AVISO
@@ -457,13 +433,7 @@ function fecharModalInput() {
 // MENSAGENS
 // =====================================================
 
-function mostrarMensagem(texto, tipo) {
-    const mensagem = document.getElementById('mensagem');
-    mensagem.textContent = texto;
-    mensagem.className = `mensagem ${tipo}`;
-    mensagem.style.display = 'block';
-    setTimeout(() => { mensagem.style.display = 'none'; }, 5000);
-}
+// mostrarMensagem() fornecido por js/libs/ui.js
 
 // =====================================================
 // RELATÓRIO

@@ -833,16 +833,7 @@ window.onclick = function(event) {
 // =====================================================
 // MENSAGENS
 // =====================================================
-function mostrarMensagem(texto, tipo = 'success') {
-    const mensagemDiv = document.getElementById('mensagem');
-    mensagemDiv.textContent = texto;
-    mensagemDiv.className = `mensagem ${tipo}`;
-    mensagemDiv.style.display = 'block';
-
-    setTimeout(() => {
-        mensagemDiv.style.display = 'none';
-    }, 5000);
-}
+// mostrarMensagem() fornecido por js/libs/ui.js
 
 // =====================================================
 // UTILITÁRIOS

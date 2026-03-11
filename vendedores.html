@@ -317,33 +317,14 @@
     </div>
 </div>
 
+<script src="js/libs/api.js"></script>
+<script src="js/libs/masks.js"></script>
+<script src="js/libs/validations.js"></script>
+<script src="js/libs/ui.js"></script>
 <script src="js/vendedores.js"></script>
 
 <script>
-    /* ============================================================
-       DROPDOWNS FLUTUANTES
-       ============================================================ */
-    const IDS_DROPS = ['dropFiltros', 'dropOrdenacao', 'dropRelatorios'];
-
-    function fecharDropdowns() {
-        IDS_DROPS.forEach(id => {
-            document.getElementById(id).classList.remove('visivel');
-        });
-    }
-
-    function toggleDrop(idDrop, btnEl) {
-        const drop   = document.getElementById(idDrop);
-        const aberto = drop.classList.contains('visivel');
-
-        fecharDropdowns();
-
-        if (aberto) return;
-
-        const rect   = btnEl.getBoundingClientRect();
-        const maxTop = window.innerHeight - 180;
-        drop.style.top = Math.min(rect.top, maxTop) + 'px';
-        drop.classList.add('visivel');
-    }
+    /* fecharDropdowns() e toggleDrop() fornecidos por js/libs/ui.js */
 
     document.addEventListener('click', function (e) {
         if (!e.target.closest('.sidebar-icones') &&

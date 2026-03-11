@@ -2,17 +2,7 @@
 // SIRIUS WEB - Vendedores
 // =====================================================
 
-// Detecta se está em desenvolvimento (local) ou produção (Vercel)
-const isDev = window.location.hostname === 'localhost' 
-           || window.location.hostname === '127.0.0.1'
-           || window.location.hostname === ''
-           || window.location.protocol === 'file:';
-
-// Configuração da API (automática: local em dev, Vercel em produção)
-const API_URL = isDev ? 'http://localhost:3000' : 'https://sirius-web-api-adonis.vercel.app';
-
-console.log('🔍 Ambiente:', isDev ? 'DESENVOLVIMENTO' : 'PRODUÇÃO');
-console.log('📡 API URL:', API_URL);
+// isDev e API_URL fornecidos por js/libs/api.js
 
 // Estado da aplicação
 let vendedores = [];
@@ -45,94 +35,15 @@ function verificarAutenticacao() {
 // MÁSCARAS E VALIDAÇÕES
 // =====================================================
 
+// mascaraCPF(), mascaraTelefone(), mascaraCEP(), aplicarMascara() fornecidos por js/libs/masks.js
+// validarCPF() fornecido por js/libs/validations.js
+
 function aplicarMascaras() {
-    const cpfInput = document.getElementById('cpf');
-    const foneInput = document.getElementById('fone');
-    const cepInput = document.getElementById('cep');
+    aplicarMascara(document.getElementById('cpf'),  mascaraCPF);
+    aplicarMascara(document.getElementById('fone'), mascaraTelefone);
+    aplicarMascara(document.getElementById('cep'),  mascaraCEP);
     const ufInput = document.getElementById('uf');
-    
-    if (cpfInput) {
-        cpfInput.addEventListener('input', (e) => {
-            e.target.value = mascaraCPF(e.target.value);
-        });
-    }
-    
-    if (foneInput) {
-        foneInput.addEventListener('input', (e) => {
-            e.target.value = mascaraTelefone(e.target.value);
-        });
-    }
-    
-    if (cepInput) {
-        cepInput.addEventListener('input', (e) => {
-            e.target.value = mascaraCEP(e.target.value);
-        });
-    }
-    
-    if (ufInput) {
-        ufInput.addEventListener('input', (e) => {
-            e.target.value = e.target.value.toUpperCase();
-        });
-    }
-}
-
-function mascaraCPF(valor) {
-    valor = valor.replace(/\D/g, '');
-    valor = valor.substring(0, 11);
-    valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-    valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-    valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-    return valor;
-}
-
-function mascaraTelefone(valor) {
-    valor = valor.replace(/\D/g, '');
-    valor = valor.substring(0, 11);
-    if (valor.length <= 10) {
-        valor = valor.replace(/(\d{2})(\d)/, '($1) $2');
-        valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
-    } else {
-        valor = valor.replace(/(\d{2})(\d)/, '($1) $2');
-        valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
-    }
-    return valor;
-}
-
-function mascaraCEP(valor) {
-    valor = valor.replace(/\D/g, '');
-    valor = valor.substring(0, 8);
-    valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
-    return valor;
-}
-
-function validarCPF(cpf) {
-    cpf = cpf.replace(/\D/g, '');
-    
-    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
-        return false;
-    }
-    
-    let soma = 0;
-    let resto;
-    
-    for (let i = 1; i <= 9; i++) {
-        soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
-    }
-    
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(9, 10))) return false;
-    
-    soma = 0;
-    for (let i = 1; i <= 10; i++) {
-        soma += parseInt(cpf.substring(i-1, i)) * (12 - i);
-    }
-    
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(10, 11))) return false;
-    
-    return true;
+    if (ufInput) ufInput.addEventListener('input', e => { e.target.value = e.target.value.toUpperCase(); });
 }
 
 // =====================================================
@@ -282,19 +193,7 @@ function fecharModal() {
     vendedorEditando = null;
 }
 
-function mudarAba(nomeAba) {
-    // Desativar todas as abas
-    document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    document.querySelectorAll('.tab-content').forEach(content => {
-        content.classList.remove('active');
-    });
-    
-    // Ativar aba selecionada
-    document.querySelector(`[data-tab="${nomeAba}"]`).classList.add('active');
-    document.getElementById(`tab-${nomeAba}`).classList.add('active');
-}
+// mudarAba() fornecido por js/libs/ui.js
 
 // =====================================================
 // SALVAR VENDEDOR
@@ -304,7 +203,7 @@ async function salvarVendedor(event) {
     event.preventDefault();
     
     const cpf = document.getElementById('cpf').value;
-    if (cpf && !validarCPF(cpf)) {
+    if (cpf && !validarCPF(cpf).valido) {
         mostrarMensagem('CPF inválido!', 'error');
         mudarAba('basico');
         document.getElementById('cpf').focus();
@@ -814,20 +713,7 @@ function gerarRelatorio() {
 // UTILITÁRIOS
 // =====================================================
 
-function mostrarLoading(mostrar) {
-    document.getElementById('loading').style.display = mostrar ? 'block' : 'none';
-}
-
-function mostrarMensagem(texto, tipo = 'success') {
-    const mensagemEl = document.getElementById('mensagem');
-    mensagemEl.textContent = texto;
-    mensagemEl.className = `mensagem ${tipo}`;
-    mensagemEl.style.display = 'block';
-    
-    setTimeout(() => {
-        mensagemEl.style.display = 'none';
-    }, 5000);
-}
+// mostrarLoading() e mostrarMensagem() fornecidos por js/libs/ui.js
 
 function toggleMenu() {
     const toolbar = document.getElementById('toolbar');

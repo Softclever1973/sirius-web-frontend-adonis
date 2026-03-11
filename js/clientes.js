@@ -3,12 +3,7 @@
 // VERSÃO FINAL CORRIGIDA - TODOS OS PROBLEMAS RESOLVIDOS
 // =====================================================
 
-const isDev = window.location.hostname === 'localhost' 
-           || window.location.hostname === '127.0.0.1'
-           || window.location.hostname === ''
-           || window.location.protocol === 'file:';
-
-const API_URL = isDev ? 'http://localhost:3000' : 'https://sirius-web-api-adonis.vercel.app';
+// isDev e API_URL fornecidos por js/libs/api.js
 
 let token = null;
 let empresaId = null;
@@ -46,134 +41,12 @@ function verificarAutenticacao() {
 // MÁSCARAS AUTOMÁTICAS
 // =====================================================
 function configurarMascaras() {
-    // Máscara CPF
-    document.getElementById('cpf').addEventListener('input', function(e) {
-        let valor = e.target.value.replace(/\D/g, '');
-        if (valor.length <= 11) {
-            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-            valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-        }
-        e.target.value = valor;
-    });
-    
-    // Máscara CNPJ
-    document.getElementById('cnpj').addEventListener('input', function(e) {
-        let valor = e.target.value.replace(/\D/g, '');
-        if (valor.length <= 14) {
-            valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
-            valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-            valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
-            valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
-        }
-        e.target.value = valor;
-    });
-    
-    // Máscara Telefone
-    document.getElementById('contato').addEventListener('input', function(e) {
-        let valor = e.target.value.replace(/\D/g, '');
-        if (valor.length <= 11) {
-            if (valor.length <= 10) {
-                valor = valor.replace(/^(\d{2})(\d)/, '($1) $2');
-                valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
-            } else {
-                valor = valor.replace(/^(\d{2})(\d)/, '($1) $2');
-                valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
-            }
-        }
-        e.target.value = valor;
-    });
+    aplicarMascara(document.getElementById('cpf'),     mascaraCPF);
+    aplicarMascara(document.getElementById('cnpj'),    mascaraCNPJ);
+    aplicarMascara(document.getElementById('contato'), mascaraTelefone);
 }
 
-// =====================================================
-// VALIDAÇÃO DE CPF
-// =====================================================
-function validarCPF(cpf) {
-    cpf = cpf.replace(/\D/g, '');
-    
-    if (cpf.length !== 11) {
-        return { valido: false, mensagem: 'CPF deve conter 11 dígitos.' };
-    }
-    
-    // Verifica se todos os dígitos são iguais
-    if (/^(\d)\1{10}$/.test(cpf)) {
-        return { valido: false, mensagem: 'CPF inválido.' };
-    }
-    
-    // ✅ CÁLCULO CORRETO DO PRIMEIRO DÍGITO VERIFICADOR
-    let soma = 0;
-    for (let i = 0; i < 9; i++) {
-        soma += parseInt(cpf.charAt(i)) * (10 - i);
-    }
-    let resto = soma % 11;
-    let digito1 = resto < 2 ? 0 : 11 - resto;
-    
-    if (digito1 !== parseInt(cpf.charAt(9))) {
-        return { valido: false, mensagem: 'CPF inválido! Primeiro dígito verificador incorreto.' };
-    }
-    
-    // ✅ CÁLCULO CORRETO DO SEGUNDO DÍGITO VERIFICADOR
-    soma = 0;
-    for (let i = 0; i < 10; i++) {
-        soma += parseInt(cpf.charAt(i)) * (11 - i);
-    }
-    resto = soma % 11;
-    let digito2 = resto < 2 ? 0 : 11 - resto;
-    
-    if (digito2 !== parseInt(cpf.charAt(10))) {
-        return { valido: false, mensagem: 'CPF inválido! Segundo dígito verificador incorreto.' };
-    }
-    
-    return { valido: true, mensagem: 'CPF válido!' };
-}
-
-// =====================================================
-// VALIDAÇÃO DE CNPJ
-// =====================================================
-function validarCNPJ(cnpj) {
-    cnpj = cnpj.replace(/\D/g, '');
-    
-    if (cnpj.length !== 14) {
-        return { valido: false, mensagem: 'CNPJ deve conter 14 dígitos.' };
-    }
-    
-    if (/^(\d)\1{13}$/.test(cnpj)) {
-        return { valido: false, mensagem: 'CNPJ inválido.' };
-    }
-    
-    let tamanho = cnpj.length - 2;
-    let numeros = cnpj.substring(0, tamanho);
-    let digitos = cnpj.substring(tamanho);
-    let soma = 0;
-    let pos = tamanho - 7;
-    
-    for (let i = tamanho; i >= 1; i--) {
-        soma += numeros.charAt(tamanho - i) * pos--;
-        if (pos < 2) pos = 9;
-    }
-    
-    let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-    if (resultado != digitos.charAt(0)) {
-        return { valido: false, mensagem: 'CNPJ inválido! Dígito verificador incorreto.' };
-    }
-    
-    tamanho = tamanho + 1;
-    numeros = cnpj.substring(0, tamanho);
-    soma = 0;
-    pos = tamanho - 7;
-    
-    for (let i = tamanho; i >= 1; i--) {
-        soma += numeros.charAt(tamanho - i) * pos--;
-        if (pos < 2) pos = 9;
-    }
-    
-    resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-    if (resultado != digitos.charAt(1)) {
-        return { valido: false, mensagem: 'CNPJ inválido! Dígito verificador incorreto.' };
-    }
-    
-    return { valido: true, mensagem: 'CNPJ válido!' };
-}
+// validarCPF() e validarCNPJ() fornecidos por js/libs/validations.js
 
 // =====================================================
 // ALTERNAR TIPO DE PESSOA - CORRIGIDO
@@ -226,14 +99,7 @@ function toggleDropdown(event, element) {
     }
 }
 
-function mudarAba(aba) {
-    console.log('Mudando para aba:', aba);
-    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-    
-    document.querySelector(`[data-tab="${aba}"]`).classList.add('active');
-    document.getElementById(`tab-${aba}`).classList.add('active');
-}
+// mudarAba() fornecido por js/libs/ui.js
 
 function aplicarOrdenacao(tipo) {
     event.preventDefault();
@@ -929,190 +795,9 @@ async function gerarRelatorioIndividual(id) {
     }
 }
 
-function alertSirius(mensagem) {
-    const existente = document.getElementById('alertSirius');
-    if (existente) existente.remove();
-    
-    const overlay = document.createElement('div');
-    overlay.id = 'alertSirius';
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.6);
-        z-index: 99999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    `;
-    
-    const box = document.createElement('div');
-    box.style.cssText = `
-        background: white;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        max-width: 500px;
-        width: 90%;
-    `;
-    
-    box.innerHTML = `
-        <h3 style="color: #667eea; margin: 0 0 20px 0; font-size: 1.5em;">🏢 Sirius Web informa:</h3>
-        <p style="color: #333; font-size: 1.1em; margin: 0 0 25px 0; line-height: 1.5;">${mensagem}</p>
-        <button onclick="document.getElementById('alertSirius').remove()" 
-                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                       color: white; 
-                       border: none; 
-                       padding: 12px 30px; 
-                       border-radius: 8px; 
-                       cursor: pointer; 
-                       font-size: 16px;
-                       font-weight: bold;
-                       width: 100%;">
-            OK
-        </button>
-    `;
-    
-    overlay.appendChild(box);
-    document.body.appendChild(overlay);
-    
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) overlay.remove();
-    });
-}
+// alertSirius() fornecido por js/libs/ui.js
 
-function siriusPrompt(mensagem, valorPadrao = '', titulo = 'Digite:') {
-    return new Promise((resolve) => {
-        const existente = document.getElementById('alertSirius');
-        if (existente) existente.remove();
-        
-        const overlay = document.createElement('div');
-        overlay.id = 'alertSirius';
-        overlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        `;
-        
-        const box = document.createElement('div');
-        box.style.cssText = `
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            max-width: 500px;
-            width: 90%;
-        `;
-        
-        const inputId = 'siriusPromptInput_' + Date.now();
-        
-        box.innerHTML = `
-            <h3 style="color: #667eea; margin: 0 0 10px 0; font-size: 1.3em;">🔍 ${titulo}</h3>
-            <p style="color: #666; margin: 0 0 15px 0;">${mensagem}</p>
-            <input type="text" 
-                   id="${inputId}"
-                   value="${valorPadrao}"
-                   style="width: 100%;
-                          padding: 12px;
-                          border: 2px solid #ddd;
-                          border-radius: 8px;
-                          font-size: 16px;
-                          margin-bottom: 20px;">
-            <div style="display: flex; gap: 10px;">
-                <button id="btnCancelar"
-                        style="background: #6c757d; 
-                               color: white; 
-                               border: none; 
-                               padding: 12px 30px; 
-                               border-radius: 8px; 
-                               cursor: pointer; 
-                               font-size: 16px;
-                               font-weight: bold;
-                               flex: 1;">
-                    Cancelar
-                </button>
-                <button id="btnOk"
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                               color: white; 
-                               border: none; 
-                               padding: 12px 30px; 
-                               border-radius: 8px; 
-                               cursor: pointer; 
-                               font-size: 16px;
-                               font-weight: bold;
-                               flex: 1;">
-                    OK
-                </button>
-            </div>
-        `;
-        
-        overlay.appendChild(box);
-        document.body.appendChild(overlay);
-        
-        const input = document.getElementById(inputId);
-        const btnOk = document.getElementById('btnOk');
-        const btnCancelar = document.getElementById('btnCancelar');
-        
-        setTimeout(() => {
-            input.focus();
-            input.select();
-        }, 100);
-        
-        const confirmar = () => {
-            const valor = input.value.trim();
-            overlay.remove();
-            resolve(valor || null);
-        };
-        
-        const cancelar = () => {
-            overlay.remove();
-            resolve(null);
-        };
-        
-        btnOk.onclick = confirmar;
-        btnCancelar.onclick = cancelar;
-        
-        input.onkeypress = (e) => {
-            if (e.key === 'Enter') {
-                confirmar();
-            }
-        };
-        
-        overlay.onkeydown = (e) => {
-            if (e.key === 'Escape') {
-                cancelar();
-            }
-        };
-    });
-}
-
-function mostrarLoading(show) {
-    document.getElementById('loading').style.display = show ? 'block' : 'none';
-    document.getElementById('tabelaContainer').style.display = show ? 'none' : 'block';
-}
-
-function mostrarMensagem(texto, tipo) {
-    const div = document.getElementById('mensagem');
-    div.textContent = texto;
-    div.className = `mensagem ${tipo}`;
-    div.style.display = 'block';
-    
-    setTimeout(() => {
-        div.style.display = 'none';
-    }, 5000);
-    
-    console.log(`📢 Mensagem (${tipo}):`, texto);
-}
-// TODO: remover trecho abaixo
+// siriusPrompt(), mostrarLoading(), mostrarMensagem() fornecidos por js/libs/ui.js
 // window.onclick = function(event) {
 //     const modal = document.getElementById('modal');
 //     if (event.target == modal) {

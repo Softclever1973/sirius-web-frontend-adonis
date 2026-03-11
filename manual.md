@@ -327,12 +327,14 @@ Acesse o módulo **Vendedores**, localize o vendedor na listagem, clique em edit
 ---
 
 **Como cancelo uma venda já finalizada?**
-No momento, vendas finalizadas não podem ser canceladas diretamente pelo sistema. Entre em contato com o suporte da Soft Clever para tratativas específicas.
+Está versão gratuita não possui rotinas de cancelamento de pedidos. Entre em contato com a Soft Clever para conhecer todos os recursos disponíveis nas versões pagas.
 
 ---
 
 **Por que o sistema bloqueou uma venda por falta de estoque?**
-O parâmetro **PERMITE_SALDO_NEGATIVO** da sua empresa está configurado como `N`, impedindo vendas sem estoque disponível. Para liberar, solicite ao suporte o ajuste deste parâmetro ou realize uma entrada de estoque para o produto.
+O parâmetro **PERMITE_SALDO_NEGATIVO** da sua empresa está configurado como N, impedindo vendas sem estoque disponível. É possível alterar esse parâmetro em Configurações / Parâmetros.
+Observar que somente quem está com a senha de SuperAdmin pode alterar os parâmetros.
+Também é possível contornar a limitação do saldo negativo realizando uma entrada em estoque para esse produto.
 
 ---
 
@@ -352,7 +354,7 @@ Acesse o **Dashboard** para uma visão resumida por período, ou acesse o módul
 ---
 
 **Posso usar o sistema sem internet?**
-O SIRIUS WEB é um sistema web e requer conexão com a internet para funcionar. Para uso offline, consulte a Soft Clever sobre as opções dos modelos **Local ou Híbrido** disponíveis nos planos do sistema.
+O SIRIUS WEB, versão gratuita é um sistema web e requer conexão com a internet para funcionar. Para uso offline, consulte a Soft Clever sobre as opções dos modelos **Local ou Híbrido** disponíveis nos planos pagos.
 
 ---
 

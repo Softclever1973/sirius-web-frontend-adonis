@@ -2,15 +2,7 @@
 // SIRIUS WEB - Formas de Pagamento
 // =====================================================
 
-const isDev = window.location.hostname === 'localhost' 
-           || window.location.hostname === '127.0.0.1'
-           || window.location.hostname === ''
-           || window.location.protocol === 'file:';
-
-const API_URL = isDev ? 'http://localhost:3000' : 'https://sirius-web-api-adonis.vercel.app';
-
-console.log('🔍 Ambiente:', isDev ? 'DESENVOLVIMENTO' : 'PRODUÇÃO');
-console.log('📡 API URL:', API_URL);
+// isDev e API_URL fornecidos por js/libs/api.js
 
 let formasPagamento = [];
 let formasPagamentoFiltradas = [];
@@ -472,13 +464,7 @@ function fecharModalInput() {
 // MENSAGENS
 // =====================================================
 
-function mostrarMensagem(texto, tipo) {
-    const mensagem = document.getElementById('mensagem');
-    mensagem.textContent = texto;
-    mensagem.className = `mensagem ${tipo}`;
-    mensagem.style.display = 'block';
-    setTimeout(() => { mensagem.style.display = 'none'; }, 5000);
-}
+// mostrarMensagem() fornecido por js/libs/ui.js
 
 // =====================================================
 // RELATÓRIO

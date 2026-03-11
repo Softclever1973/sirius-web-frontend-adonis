@@ -5,21 +5,7 @@
 
 'use strict';
 
-// ================================================================
-// CONFIGURAÇÃO DA API (dual: local + Vercel)
-// ================================================================
-const isDev = window.location.hostname === 'localhost'
-           || window.location.hostname === '127.0.0.1'
-           || window.location.hostname === ''
-           || window.location.protocol === 'file:';
-
-// Local: http://localhost:3000  |  Produção: API separada no Vercel
-const API_URL = isDev
-    ? 'http://localhost:3000'
-    : 'https://sirius-web-api-adonis.vercel.app';
-
-console.log('📍 Ambiente:', isDev ? 'DESENVOLVIMENTO' : 'PRODUÇÃO');
-console.log('📡 API URL:', API_URL);
+// isDev e API_URL fornecidos por js/libs/api.js
 
 // ================================================================
 // ESTADO GLOBAL

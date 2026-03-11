@@ -404,13 +404,4 @@ async function resetarTodosValores() {
 // =====================================================
 // MENSAGENS
 // =====================================================
-function mostrarMensagem(texto, tipo = 'info') {
-    const div = document.getElementById('mensagem');
-    div.textContent = texto;
-    div.className = `mensagem ${tipo}`;
-    div.style.display = 'block';
-    
-    setTimeout(() => {
-        div.style.display = 'none';
-    }, 5000);
-}
+// mostrarMensagem() fornecido por js/libs/ui.js
