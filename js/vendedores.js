@@ -17,19 +17,30 @@ let ordenacaoAtiva = 'nome';
 // INICIALIZAÇÃO
 // =====================================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    verificarAutenticacao();
-    carregarVendedores();
+document.addEventListener('DOMContentLoaded', async () => {
+    await verificarAutenticacao();
+    await carregarVendedores();
     aplicarMascaras();
 });
 
-function verificarAutenticacao() {
+async function verificarAutenticacao() {
     const token = localStorage.getItem('sirius_token');
-    if (!token) {
-        window.location.href = 'index.html';
+    const empresas = JSON.parse(localStorage.getItem('sirius_empresas') || '[]');
+
+    empresaId = empresas[0].id;
+    const permResp = await fetch(`${API_URL}/clientes`,{
+        headers: { 'Authorization': `Beater ${token}`, 'X-Empresa-id': empresaId}
+
+    });
+    if (!permResp.ok){
+        if (permResp.status === 403){
+            alert('Acesso negado! Apenas administradores podem acessar os clientes.');
+        }
+        window.history.back();
         return;
     }
 }
+console.log('✅ Autenticado - Token:', token ? 'OK' : 'FALTA', 'EmpresaID:', empresaId);
 
 // =====================================================
 // MÁSCARAS E VALIDAÇÕES
