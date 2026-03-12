@@ -153,7 +153,6 @@ function carregarUsuario() {
             document.getElementById('linkParametros').style.display = 'flex';
             document.getElementById('btnConfiguracoes').style.display = 'flex';
             document.getElementById('linkVend').style.display = 'flex';
-            document.getElementById('linkClient').style.display = 'flex';
             document.getElementById('linkProduct').style.display = 'flex';
         }
     } catch (e) { console.error('Erro ao carregar usuário:', e); }
