@@ -74,8 +74,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!token) { window.location.href = 'index.html'; return; }
 
     const empresas = JSON.parse(localStorage.getItem('sirius_empresas') || '[]');
-    if (!empresas[0]?.is_admin) {
-        window.location.href = 'menu-principal.html';
+    const empresaId = empresas[0]?.id;
+    const permResp = await fetch(`${API_URL}/dashboard`, {
+        headers: { 'Authorization': `Bearer ${token}`, 'X-Empresa-Id': empresaId }
+    });
+    if (!permResp.ok) {
+        if (permResp.status === 403) {
+            alert('Acesso negado! Apenas administradores podem acessar o dashboard.');
+        }
+        window.history.back();;
         return;
     }
 

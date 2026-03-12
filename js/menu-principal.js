@@ -148,7 +148,14 @@ function carregarUsuario() {
         document.getElementById('userName').textContent   = nome;
         document.getElementById('userAvatar').textContent = nome.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase() || '?';
         document.getElementById('userPlano').textContent  = empresa?.plano || 'Gratuito';
-        if (empresa?.is_admin) document.getElementById('linkParametros').style.display = 'flex';
+        if (empresa?.is_admin || usuario?.is_super_admin) {
+            document.getElementById('linkDashboard').style.display = 'flex';
+            document.getElementById('linkParametros').style.display = 'flex';
+            document.getElementById('btnConfiguracoes').style.display = 'flex';
+            document.getElementById('linkVend').style.display = 'flex';
+            document.getElementById('linkClient').style.display = 'flex';
+            document.getElementById('linkProduct').style.display = 'flex';
+        }
     } catch (e) { console.error('Erro ao carregar usuário:', e); }
 }
 

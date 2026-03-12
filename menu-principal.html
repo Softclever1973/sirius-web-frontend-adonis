@@ -33,17 +33,17 @@
         <nav class="sidebar-nav">
             <div class="nav-label">Principal</div>
             <div class="nav-item">
-                <a href="dashboard.html" class="menu-nav-link">
+                <a href="dashboard.html" class="menu-nav-link" id="linkDashboard" style="display:none;">
                     <span class="nav-icone">📊</span><span class="nav-texto">Dashboard</span>
                 </a>
             </div>
             <div class="nav-item">
-                <a href="produtos.html" class="menu-nav-link">
+                <a href="produtos.html" class="menu-nav-link" id="linkProd" style="display: none;">
                     <span class="nav-icone">📦</span><span class="nav-texto">Produtos</span>
                 </a>
             </div>
             <div class="nav-item">
-                <a href="clientes.html" class="menu-nav-link">
+                <a href="clientes.html" class="menu-nav-link" id="linkClient" style="display: none;">
                     <span class="nav-icone">👥</span><span class="nav-texto">Clientes</span>
                 </a>
             </div>
@@ -61,13 +61,13 @@
             <div class="nav-separador"></div>
             <div class="nav-label">Sistema</div>
             <div class="nav-item">
-                <div class="menu-nav-link" id="btnConfiguracoes" onclick="toggleSubmenu()">
+                <div class="menu-nav-link" id="btnConfiguracoes" style="display: none" onclick="toggleSubmenu()">
                     <span class="nav-icone">⚙️</span>
                     <span class="nav-texto">Configurações</span>
                     <span class="nav-seta">›</span>
                 </div>
                 <div class="submenu" id="submenuConfiguracoes">
-                    <a href="vendedores.html" class="submenu-link"><span class="sub-icone">👨‍💼</span> Vendedores</a>
+                    <a href="vendedores.html" class="submenu-link" id="linkVend" style="display: none;"><span class="sub-icone">👨‍💼</span> Vendedores</a>
                     <!-- <a href="formas-pagamento.html" class="submenu-link"><span class="sub-icone">💳</span> Formas de Pagamento</a> -->
                     <!-- <a href="regimes-tributarios.html" class="submenu-link"><span class="sub-icone">📋</span> Regimes Tributários</a> -->
                     <!-- <a href="#" onclick="showMessage('Módulo Caixas Cadastradas em desenvolvimento!'); return false;" class="submenu-link"><span class="sub-icone">💰</span> Caixas Cadastradas</a> -->
