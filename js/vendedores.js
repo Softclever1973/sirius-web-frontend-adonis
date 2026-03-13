@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function verificarAutenticacao() {
     const token = localStorage.getItem('sirius_token');
     if (!token){
-        window.history.back();
+        window.location.href='menu-principal.html'
         return;
     }
     const empresas = JSON.parse(localStorage.getItem('sirius_empresas') || '[]');
@@ -42,7 +42,7 @@ async function verificarAutenticacao() {
         if (permResp.status === 403){
             alert('Acesso negado! Apenas administradores podem acessar os vendedores.');
         }
-        window.history.back();
+        window.location.href='menu-principal.html'
         return;
     }
 }
