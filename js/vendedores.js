@@ -12,6 +12,8 @@ let paginaAtual = 1;
 const itensPorPagina = 10;
 let filtroAtivo = null;
 let ordenacaoAtiva = 'nome';
+const usuario = JSON.parse(localStorage.getItem('sirius_usuario') || '[]')
+
 
 // =====================================================
 // INICIALIZAÇÃO
@@ -191,6 +193,12 @@ function mudarPagina(direcao) {
 
 function abrirModal() {
     vendedorEditando = null;
+    if (usuario.is_super_admin){
+        document.getElementById('divisAdmin').style.display = 'flex'
+    }
+    else{
+        document.getElementById('divisAdmin').style.display = 'none'
+    }
     document.getElementById('modalTitle').textContent = 'Novo Vendedor';
     document.getElementById('vendedorForm').reset();
     document.getElementById('ativo').checked = true;
@@ -235,7 +243,8 @@ async function salvarVendedor(event) {
         meta_vendas: parseFloat(document.getElementById('meta_vendas').value) || null,
         observacoes: document.getElementById('observacoes').value.trim() || null,
         status: document.getElementById('ativo').checked ? 'A' : 'I',
-        senha: document.getElementById('password').value || null
+        senha: document.getElementById('password').value || null,
+        isAdmin: document.getElementById('isAdmin').checked || false
     };
     
     try {
@@ -307,7 +316,13 @@ async function editarVendedor(id) {
     document.getElementById('meta_vendas').value = vendedor.meta_vendas || '';
     document.getElementById('observacoes').value = vendedor.observacoes || '';
     document.getElementById('ativo').checked = vendedor.status === 'A';
-    
+    if (usuario.is_super_admin){
+        document.getElementById('divisAdmin').style.display = 'flex'
+    }
+    else{
+        document.getElementById('divisAdmin').style.display = 'none'
+    }
+    document.getElementById('isAdmin').checked = vendedor.isAdmin || false;
     mudarAba('basico');
     document.getElementById('modal').style.display = 'block';
 }
