@@ -73,6 +73,12 @@ const MODULOS = {
     }
 };
 
+// Primeiro acesso após cadastro → redirecionar para o manual
+if (localStorage.getItem('sirius_primeiro_acesso') === 'true') {
+    localStorage.removeItem('sirius_primeiro_acesso');
+    window.location.href = 'manual.html';
+}
+
 function abrirPainel(modulo) {
     const dados = MODULOS[modulo];
     if (!dados) return;
