@@ -27,16 +27,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function verificarAutenticacao() {
     const token = localStorage.getItem('sirius_token');
+    if (!token){
+        window.history.back();
+        return;
+    }
     const empresas = JSON.parse(localStorage.getItem('sirius_empresas') || '[]');
 
     empresaId = empresas[0].id;
-    const permResp = await fetch(`${API_URL}/clientes`,{
-        headers: { 'Authorization': `Beater ${token}`, 'X-Empresa-id': empresaId}
+    const permResp = await fetch(`${API_URL}/vendedores`,{
+        headers: { 'Authorization': `Bearer ${token}`, 'X-Empresa-id': empresaId}
 
     });
     if (!permResp.ok){
         if (permResp.status === 403){
-            alert('Acesso negado! Apenas administradores podem acessar os clientes.');
+            alert('Acesso negado! Apenas administradores podem acessar os vendedores.');
         }
         window.history.back();
         return;
