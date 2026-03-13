@@ -30,7 +30,6 @@ function checkAuth() {
 
 // logout() fornecido por js/libs/api.js (ou auth.js)
 
-// ✅ CORREÇÃO: Navegar direto sem usar history.back()
 function voltarProdutos() {
     window.location.href = 'produtos.html';
 }

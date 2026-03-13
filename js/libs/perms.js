@@ -12,7 +12,7 @@ async function isSuperAdmin() {
         if (!response.ok){
             if (response.status === 403){
                 alert('Acesso Negado! Apenas Super Admins podem acessar está página!');
-                window.history.back();
+                window.location.href='menu-principal.html'
                 return;
             }
             throw new Error(data.message || 'Erro ao carregar empresa');
@@ -37,7 +37,7 @@ async function isSuperAdmin() {
         if (!response.ok){
             if (response.status === 403){
                 alert('Acesso Negado! Apenas Super Admins podem acessar está página!');
-                window.history.back();
+                window.location.href='menu-principal.html'
                 return;
             }
             throw new Error(data.message || 'Erro ao carregar empresa');

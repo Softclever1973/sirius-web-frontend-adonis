@@ -6,7 +6,7 @@
 
 // Elementos
 const cadastroForm = document.getElementById('cadastroForm');
-const btnCadastrar = document.getElementById('btnCadastrar');
+const btnCadastrar = document.getElementById('btnConfirmarCadastro');
 const messageEl = document.getElementById('message');
 
 // Step atual
@@ -209,6 +209,58 @@ function setLoading(loading) {
 }
 
 // =====================================================
+// MODAL DE TERMOS
+// =====================================================
+
+function mdParaHtml(md) {
+    return md
+        .replace(/^# (.+)$/gm,   '<h2>$1</h2>')
+        .replace(/^## (.+)$/gm,  '<h3>$1</h3>')
+        .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+        .replace(/^(.+)$/gm, (linha) => {
+            if (linha.startsWith('<h')) return linha;
+            if (linha.trim() === '') return '';
+            return `<p>${linha}</p>`;
+        });
+}
+
+async function abrirModalTermos() {
+    if (!validateStep(currentStep)) return;
+
+    // Resetar estado do modal
+    document.getElementById('termosModal').checked = false;
+    btnCadastrar.disabled = true;
+
+    // Carregar termos do .md (apenas uma vez)
+    const conteudo = document.getElementById('termosConteudo');
+    if (conteudo.dataset.carregado !== 'true') {
+        try {
+            const resp = await fetch('termos-de-uso.md');
+            const texto = await resp.text();
+            conteudo.innerHTML = mdParaHtml(texto);
+            conteudo.dataset.carregado = 'true';
+        } catch {
+            conteudo.innerHTML = '<p>Não foi possível carregar os termos. Tente novamente.</p>';
+        }
+    }
+
+    document.getElementById('modalTermos').classList.remove('hidden');
+}
+
+function fecharModalTermos() {
+    document.getElementById('modalTermos').classList.add('hidden');
+}
+
+function toggleBtnConfirmar() {
+    btnCadastrar.disabled = !document.getElementById('termosModal').checked;
+}
+
+function confirmarCadastro() {
+    fecharModalTermos();
+    submeterCadastro();
+}
+
+// =====================================================
 // CADASTRO
 // =====================================================
 
@@ -258,6 +310,9 @@ function mostrarSucesso(data) {
         </div>
     `;
     
+    // Sinalizar que é o primeiro acesso (será consumido no dashboard)
+    localStorage.setItem('sirius_primeiro_acesso', 'true');
+
     // Redirecionar após 3 segundos
     setTimeout(() => {
         window.location.href = 'index.html';
@@ -268,16 +323,7 @@ function mostrarSucesso(data) {
 // SUBMIT DO FORMULÁRIO
 // =====================================================
 
-cadastroForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    // Validar termos
-    if (!document.getElementById('termos').checked) {
-        showMessage('Você precisa aceitar os termos de uso!', 'error');
-        return;
-    }
-    
-    // Coletar dados
+async function submeterCadastro() {
     const dados = {
         // Pessoais
         nome: document.getElementById('nome').value.trim(),
@@ -285,14 +331,14 @@ cadastroForm.addEventListener('submit', async (e) => {
         email: document.getElementById('email').value.trim(),
         celular: document.getElementById('celular').value.replace(/\D/g, ''),
         senha: document.getElementById('senha').value,
-        
+
         // Empresa
         razao_social: document.getElementById('razao_social').value.trim(),
         nome_fantasia: document.getElementById('nome_fantasia').value.trim(),
         cnpj: document.getElementById('cnpj').value.replace(/\D/g, ''),
         telefone: document.getElementById('telefone').value.replace(/\D/g, ''),
         email_empresa: document.getElementById('email_empresa').value.trim(),
-        
+
         // Endereço
         cep: document.getElementById('cep').value.replace(/\D/g, ''),
         logradouro_tipo: document.getElementById('logradouro_tipo').value,
@@ -314,7 +360,7 @@ cadastroForm.addEventListener('submit', async (e) => {
     
     // Cadastrar
     await cadastrar(dados);
-});
+}
 
 // =====================================================
 // INICIALIZAÇÃO

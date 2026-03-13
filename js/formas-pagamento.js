@@ -2,6 +2,9 @@
 // SIRIUS WEB - Formas de Pagamento
 // =====================================================
 
+// PÁGINA BLOQUEADA — redireciona qualquer acesso
+window.location.replace('menu-principal.html');
+
 // isDev e API_URL fornecidos por js/libs/api.js
 
 let formasPagamento = [];
