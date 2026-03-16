@@ -11,7 +11,7 @@
 | Ambiente | URL Base |
 |---|---|
 | **Local (desenvolvimento)** | `http://localhost:3000` |
-| **Produção (Vercel)** | `https://sirius-web-api-adonis.vercel.app` |
+| **Produção (Vercel)** | `https://sirius-web-api-adonis-pearl.vercel.app` |
 
 ### Como usar no código JS:
 ```javascript
@@ -22,7 +22,7 @@ const isDev = window.location.hostname === 'localhost'
 
 const API_URL = isDev
     ? 'http://localhost:3000'
-    : 'https://sirius-web-api-adonis.vercel.app';
+    : 'https://sirius-web-api-adonis-pearl.vercel.app';
 ```
 
 > ⚠️ **ATENÇÃO:** Nunca usar `/api` como prefixo. As rotas não têm esse prefixo.
