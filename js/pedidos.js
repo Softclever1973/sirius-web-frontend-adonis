@@ -166,7 +166,7 @@ function renderizarPaginacao(pagination) {
         return;
     }
 
-    paginacaoDiv.style.display = 'flex';
+    paginacaoDiv.style.display = 'grid';
     paginacaoDiv.innerHTML = `
         <button ${!pagination.hasPrev ? 'disabled' : ''} onclick="carregarPedidos(${pagination.page - 1})">
             ◀ Anterior
