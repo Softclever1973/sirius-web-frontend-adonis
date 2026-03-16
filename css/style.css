@@ -4186,6 +4186,11 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
     appearance: auto;
 }
 
+.valor-select option{
+    background: black;
+    color: white;
+}
+
 .valor-select:focus {
     outline: none;
     border-color: #2563eb;
