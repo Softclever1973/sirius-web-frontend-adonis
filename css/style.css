@@ -2439,7 +2439,7 @@ body.page-dashboard .pedidos-table tbody tr:hover { background: rgba(37,99,235,0
 @media (max-width: 1024px) {
     .container { padding: 20px; }
     .table-container { overflow-x: auto; }
-    table { min-width: 800px; }
+    table { min-width: 80%; }
 }
 
 @media (max-width: 768px) {
@@ -2567,7 +2567,7 @@ body.page-dashboard .pedidos-table tbody tr:hover { background: rgba(37,99,235,0
 
     /* table-container sem margin negativo — scroll já tratado internamente */
 
-    table { font-size: 11px; min-width: 600px; }
+    table { font-size: 11px; min-width: 60%; }
     th { padding: 6px 4px; font-size: 9px; }
     td { padding: 6px 4px; font-size: 11px; }
 
@@ -5729,6 +5729,7 @@ body.pdv-page html {
 
 .relatorio-secao {
     margin-bottom: 4px;
+    overflow-x:auto;
 }
 
 .relatorio-secao-titulo {
