@@ -5761,6 +5761,15 @@ body.pdv-page html {
 .relatorio-tabela td {
     padding: 8px;
     border-bottom: 1px solid var(--cinza-2);
+    vertical-align: top;
+}
+
+.relatorio-tabela td:first-child,
+.relatorio-tabela th:first-child {
+    max-width: 160px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .relatorio-totais {
