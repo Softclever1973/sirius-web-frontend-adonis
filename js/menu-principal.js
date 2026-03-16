@@ -155,7 +155,7 @@ function carregarUsuario() {
         document.getElementById('userAvatar').textContent = nome.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase() || '?';
         document.getElementById('userPlano').textContent  = empresa?.plano || 'Gratuito';
         if (empresa?.is_admin || usuario?.is_super_admin) {
-            ['linkDashboard', 'linkParametros', 'btnConfiguracoes', 'linkVend', 'linkProduct'].forEach(id => {
+            ['linkDashboard', 'linkParametros', 'linkVend', 'linkProduct'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.style.display = 'flex';
             });

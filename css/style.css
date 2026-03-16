@@ -9743,3 +9743,25 @@ body.page-promo .fundo::after {
     /* Paginação empilhada */
     /* pagination usa grid 3 colunas — não precisa de ajuste mobile */
 }
+
+/* =====================================================
+   Alterar Senha — botão olho (toggle visibilidade)
+   ===================================================== */
+.btn-toggle-senha {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+    line-height: 1;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.btn-toggle-senha:hover {
+    opacity: 1;
+}

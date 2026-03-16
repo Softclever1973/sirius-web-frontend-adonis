@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIRIUS WEB - Alterar Senha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-dashboard">
+
+<!-- ============================================================
+     LOADING OVERLAY
+     ============================================================ -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-logo">SIRIUS WEB</div>
+    <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+    <div class="loading-txt">Carregando...</div>
+</div>
+
+<!-- ============================================================
+     FUNDO ANIMADO
+     ============================================================ -->
+<div class="fundo"></div>
+<canvas id="particulas"></canvas>
+
+<!-- ============================================================
+     APP
+     ============================================================ -->
+<div class="app-layout">
+
+    <!-- menu lateral -->
+    <aside class="sidebar-icones">
+
+        <div class="sidebar-modulo-logo" title="Alterar Senha">🔒</div>
+
+        <div class="sidebar-divisor"></div>
+        <div class="sidebar-spacer"></div>
+        <div class="sidebar-divisor"></div>
+
+        <button class="sidebar-btn btn-voltar"
+                data-tooltip="Voltar ao Menu"
+                onclick="window.location.href='menu-principal.html'">
+            <span class="btn-icone">↩</span>
+            <span class="btn-label">Voltar</span>
+        </button>
+
+    </aside>
+
+    <div class="app">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <a href="menu-principal.html" class="topbar-logo">
+            <div class="logo-badge">🔒</div>
+            <div>
+                <div class="logo-nome">SIRIUS WEB</div>
+                <div class="logo-sub">ALTERAR SENHA</div>
+            </div>
+        </a>
+
+        <div class="topbar-spacer"></div>
+
+        <div class="topbar-right">
+            <div class="relogio">
+                <div class="relogio-hora" id="relogioHora">00:00:00</div>
+                <div class="relogio-data" id="relogioData">—</div>
+            </div>
+            <div class="topbar-divisor"></div>
+            <div class="usuario-info">
+                <div class="usuario-avatar" id="userAvatar">?</div>
+                <div>
+                    <div class="usuario-nome" id="userNome">Carregando...</div>
+                    <div class="usuario-cargo">Usuário</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CORPO -->
+    <div class="dash-body">
+        <div class="page-header">
+            <div>
+                <h2>🔒 Alterar Senha</h2>
+            </div>
+        </div>
+
+        <!-- Mensagem de feedback -->
+        <div id="mensagem" class="mensagem" style="display: none; max-width: 480px;"></div>
+
+        <!-- Card do formulário -->
+        <div class="empresa-info" style="max-width: 480px;">
+            <div class="info-header">
+                <h3>👤 <span id="nomeUsuario">Usuário</span></h3>
+                <span id="emailUsuario" style="color: #64748b; font-size: 0.85rem;"></span>
+            </div>
+
+            <form id="formAlterarSenha" autocomplete="off" style="margin-top: 16px;">
+
+                <div class="form-group">
+                    <label for="senhaAtual">Senha Atual</label>
+                    <div style="position: relative;">
+                        <input
+                            type="password"
+                            id="senhaAtual"
+                            placeholder="Digite sua senha atual"
+                            autocomplete="current-password"
+                            required
+                            style="padding-right: 44px;"
+                        />
+                        <button type="button" class="btn-toggle-senha" onclick="toggleSenha('senhaAtual', this)" title="Mostrar/ocultar senha">👁</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="novaSenha">Nova Senha</label>
+                    <div style="position: relative;">
+                        <input
+                            type="password"
+                            id="novaSenha"
+                            placeholder="Mínimo 6 caracteres"
+                            autocomplete="new-password"
+                            required
+                            style="padding-right: 44px;"
+                        />
+                        <button type="button" class="btn-toggle-senha" onclick="toggleSenha('novaSenha', this)" title="Mostrar/ocultar senha">👁</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmarSenha">Confirmar Nova Senha</label>
+                    <div style="position: relative;">
+                        <input
+                            type="password"
+                            id="confirmarSenha"
+                            placeholder="Repita a nova senha"
+                            autocomplete="new-password"
+                            required
+                            style="padding-right: 44px;"
+                        />
+                        <button type="button" class="btn-toggle-senha" onclick="toggleSenha('confirmarSenha', this)" title="Mostrar/ocultar senha">👁</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem;">
+                    <button type="submit" class="btn btn-success" id="btnSalvar" style="flex: 1;">
+                        💾 Salvar Nova Senha
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="limparFormulario()">
+                        ✕ Limpar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div><!-- /dash-body -->
+    </div><!-- /app -->
+
+</div><!-- /.app-layout -->
+
+<script src="js/libs/api.js"></script>
+<script src="js/libs/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/alterar-senha.js"></script>
+</body>
+</html>
