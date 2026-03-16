@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (permResp.status === 403) {
             alert('Acesso negado! Apenas administradores podem acessar o dashboard.');
         }
-        window.history.back();;
+        window.location.href='menu-principal.html'
         return;
     }
 

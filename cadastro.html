@@ -171,20 +171,12 @@
                         </div>
                     </div>
 
-                    <div class="terms">
-                        <label>
-                            <input type="checkbox" id="termos" required>
-                            Li e aceito os <a href="#" target="_blank">termos de uso</a>
-                        </label>
-                    </div>
-
                     <div class="btn-group">
                         <button type="button" class="btn-secondary" onclick="prevStep(2)">
                             ← Voltar
                         </button>
-                        <button type="submit" id="btnCadastrar" class="btn-primary">
-                            <span class="btn-text">Criar Conta</span>
-                            <span class="btn-loading hidden">Criando...</span>
+                        <button type="button" class="btn-primary" onclick="abrirModalTermos()">
+                            Criar Conta
                         </button>
                     </div>
                 </div>
@@ -200,6 +192,33 @@
             <!-- Rodapé -->
             <div class="footer">
                 <p>SIRIUS WEB © 2026 - Plano FREE: 200 NFCe/mês ou R$ 50.000/mês</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Termos de Uso -->
+    <div id="modalTermos" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h2>Termos de Uso</h2>
+            <div class="modal-termos-conteudo" id="termosConteudo">
+                <p style="color:#94a3b8">Carregando termos...</p>
+            </div>
+
+            <div class="modal-termos-aceite">
+                <label>
+                    <input type="checkbox" id="termosModal" onchange="toggleBtnConfirmar()">
+                    Li e aceito os Termos de Uso do SIRIUS WEB
+                </label>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn-secondary" onclick="fecharModalTermos()">
+                    Cancelar
+                </button>
+                <button type="button" id="btnConfirmarCadastro" class="btn-primary" disabled onclick="confirmarCadastro()">
+                    <span class="btn-text">Confirmar e Criar Conta</span>
+                    <span class="btn-loading hidden">Criando...</span>
+                </button>
             </div>
         </div>
     </div>
