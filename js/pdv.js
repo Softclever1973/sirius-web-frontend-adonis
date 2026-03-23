@@ -8,6 +8,30 @@
 // isDev e API_URL fornecidos por js/libs/api.js
 
 // ================================================================
+// AJUDA — Manual e Vídeo
+// ================================================================
+const VIDEO_URL_PDV = 'https://youtube.com/embed/qcXwzRJNu9s'; // Cole aqui o link do YouTube (ex: https://www.youtube.com/embed/SEU_ID)
+
+function abrirModalAjuda() {
+    document.getElementById('modalAjuda').style.display = 'flex';
+}
+
+function fecharModalAjuda() {
+    document.getElementById('modalAjuda').style.display = 'none';
+}
+
+function abrirVideoAjuda() {
+    if (!VIDEO_URL_PDV) { alert('Nenhum vídeo cadastrado ainda.'); return; }
+    document.getElementById('videoIframe').src = VIDEO_URL_PDV;
+    document.getElementById('modalVideo').style.display = 'flex';
+}
+
+function fecharVideoAjuda() {
+    document.getElementById('videoIframe').src = '';
+    document.getElementById('modalVideo').style.display = 'none';
+}
+
+// ================================================================
 // ESTADO GLOBAL
 // ================================================================
 let empresaId = null;

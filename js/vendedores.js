@@ -4,6 +4,22 @@
 
 // isDev e API_URL fornecidos por js/libs/api.js
 
+// =====================================================
+// AJUDA — Manual e Vídeo
+// =====================================================
+const VIDEO_URL_VENDEDORES = ''; // Cole aqui o link do YouTube (ex: https://www.youtube.com/embed/SEU_ID)
+
+function abrirVideoAjuda() {
+    if (!VIDEO_URL_VENDEDORES) { alert('Nenhum vídeo cadastrado ainda.'); return; }
+    document.getElementById('videoIframe').src = VIDEO_URL_VENDEDORES;
+    document.getElementById('modalVideo').classList.add('visivel');
+}
+
+function fecharVideoAjuda() {
+    document.getElementById('videoIframe').src = '';
+    document.getElementById('modalVideo').classList.remove('visivel');
+}
+
 // Estado da aplicação
 let vendedores = [];
 let vendedoresFiltrados = [];

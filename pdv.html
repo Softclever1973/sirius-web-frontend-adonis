@@ -30,6 +30,10 @@
                     <span class="btn-icone">←</span>
                     <span>Voltar</span>
                 </button>
+                <button class="btn-inicial btn-secundario" onclick="abrirModalAjuda()" tabindex="2">
+                    <span class="btn-icone">❓</span>
+                    <span>Ajuda</span>
+                </button>
             </div>
         </div>
     </div>
@@ -72,6 +76,7 @@
                 <span class="total-label">TOTAL</span>
                 <span class="total-valor" id="totalMini">R$ 0,00</span>
             </div>
+            <button class="btn-cancelar-pdv btn-ajuda-pdv" onclick="abrirModalAjuda()" title="Ajuda" tabindex="-1">❓ Ajuda</button>
             <button class="btn-cancelar-pdv" onclick="cancelarVendaConfirmar()" title="Cancelar Venda (ESC)" tabindex="0">✕ Cancelar</button>
         </div>
     </div>
@@ -494,6 +499,41 @@
             <div class="relatorio-rodape">
                 <div>Obrigado pela preferência!</div>
                 <div>SIRIUS WEB ERP</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ajuda -->
+<div id="modalAjuda" class="modal-overlay" style="display:none;" onclick="if(event.target===this)fecharModalAjuda()">
+    <div class="modal-caixa modal-pequeno">
+        <div class="modal-header">
+            <h3>❓ Ajuda</h3>
+            <button class="modal-fechar" onclick="fecharModalAjuda()">✕</button>
+        </div>
+        <div class="modal-corpo modal-ajuda-opcoes">
+            <a href="manual.html" class="btn-modal-confirmar btn-ajuda-opcao">
+                📚 Acessar Manual
+            </a>
+            <button class="btn-modal-cancelar btn-ajuda-opcao" onclick="fecharModalAjuda(); abrirVideoAjuda();">
+                ▶️ Assistir Vídeo
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Vídeo -->
+<div id="modalVideo" class="modal-overlay" style="display:none;" onclick="if(event.target===this)fecharVideoAjuda()">
+    <div class="modal-caixa modal-video-grande">
+        <div class="modal-header">
+            <h3>▶️ Tutorial em Vídeo</h3>
+            <button class="modal-fechar" onclick="fecharVideoAjuda()">✕</button>
+        </div>
+        <div class="modal-corpo">
+            <div class="modal-video-wrapper">
+                <iframe id="videoIframe" src="" frameborder="0" allowfullscreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                </iframe>
             </div>
         </div>
     </div>

@@ -25,6 +25,10 @@
             <span class="btn-icone">📄</span>
             <span class="btn-label">Relat.</span>
         </button>
+        <button class="sidebar-btn" id="btnAjuda" data-tooltip="Ajuda" onclick="toggleDrop('dropAjuda', this)">
+            <span class="btn-icone">❓</span>
+            <span class="btn-label">Ajuda</span>
+        </button>
         <div class="sidebar-spacer"></div>
         <div class="sidebar-divisor"></div>
         <button class="sidebar-btn btn-voltar" data-tooltip="Voltar ao Menu" onclick="window.location.href='menu-principal.html'">
@@ -45,6 +49,12 @@
         <a href="#" onclick="fecharDropdowns(); aplicarFiltroHoje();    return false;">📅 Hoje</a>
         <a href="#" onclick="fecharDropdowns(); abrirFiltroData();      return false;">📆 A partir de...</a>
         <a href="#" onclick="fecharDropdowns(); abrirFiltroCliente();   return false;">👤 Por Cliente</a>
+    </div>
+
+    <div id="dropAjuda" class="dropdown-flutuante">
+        <div class="dropdown-flutuante-titulo">❓ Ajuda</div>
+        <a href="manual.html">📚 Manual</a>
+        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;">▶️ Assistir Vídeo</a>
     </div>
 
     <div id="dropRelatorios" class="dropdown-flutuante">
@@ -166,6 +176,21 @@
         <div class="modal-footer">
             <button class="btn-cancel" onclick="fecharModal('modalVisualizarPedido')">Fechar</button>
             <button class="btn-relatorio" onclick="imprimirPedidoAtual()">🖨️ Reimprimir Pedido</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Vídeo -->
+<div id="modalVideo" onclick="if(event.target===this)fecharVideoAjuda()">
+    <div class="modal-video-box">
+        <div class="modal-header">
+            <span class="modal-titulo">▶️ Tutorial em Vídeo</span>
+            <span class="modal-fechar" onclick="fecharVideoAjuda()">&times;</span>
+        </div>
+        <div class="modal-video-wrapper">
+            <iframe id="videoIframe" src="" frameborder="0" allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
         </div>
     </div>
 </div>

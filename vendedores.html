@@ -55,6 +55,15 @@
             <span class="btn-label">Relat.</span>
         </button>
 
+        <!-- Ajuda -->
+        <button class="sidebar-btn"
+                id="btnAjuda"
+                data-tooltip="Ajuda"
+                onclick="toggleDrop('dropAjuda', this)">
+            <span class="btn-icone">❓</span>
+            <span class="btn-label">Ajuda</span>
+        </button>
+
         <!-- Espaçador empurra Voltar para o rodapé -->
         <div class="sidebar-spacer"></div>
 
@@ -73,6 +82,12 @@
     <!-- ============================================================
          DROPDOWNS FLUTUANTES (surgem à direita da sidebar)
          ============================================================ -->
+
+    <div id="dropAjuda" class="dropdown-flutuante">
+        <div class="dropdown-flutuante-titulo">❓ Ajuda</div>
+        <a href="manual.html">📚 Manual</a>
+        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;">▶️ Assistir Vídeo</a>
+    </div>
 
     <div id="dropFiltros" class="dropdown-flutuante">
         <div class="dropdown-flutuante-titulo">🔍 Filtros</div>
@@ -320,6 +335,21 @@
         </div>
         <p class="modal-box-mensagem" id="mensagemAviso"></p>
         <button class="modal-box-ok" onclick="closeMessage()">OK</button>
+    </div>
+</div>
+
+<!-- Modal Vídeo -->
+<div id="modalVideo" onclick="if(event.target===this)fecharVideoAjuda()">
+    <div class="modal-video-box">
+        <div class="modal-header">
+            <span class="modal-titulo">▶️ Tutorial em Vídeo</span>
+            <span class="modal-fechar" onclick="fecharVideoAjuda()">&times;</span>
+        </div>
+        <div class="modal-video-wrapper">
+            <iframe id="videoIframe" src="" frameborder="0" allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+        </div>
     </div>
 </div>
 

@@ -5,6 +5,22 @@
 // API_URL já está declarado em auth.js
 
 // =====================================================
+// AJUDA — Manual e Vídeo
+// =====================================================
+const VIDEO_URL_PEDIDOS = 'https://drive.google.com/file/d/1vXYMFbivjr5w28WVza8XNKvoXZZ-LklX/view?usp=sharing'; // Cole aqui o link do YouTube (ex: https://www.youtube.com/embed/SEU_ID)
+
+function abrirVideoAjuda() {
+    if (!VIDEO_URL_PEDIDOS) { alert('Nenhum vídeo cadastrado ainda.'); return; }
+    document.getElementById('videoIframe').src = VIDEO_URL_PEDIDOS;
+    document.getElementById('modalVideo').classList.add('visivel');
+}
+
+function fecharVideoAjuda() {
+    document.getElementById('videoIframe').src = '';
+    document.getElementById('modalVideo').classList.remove('visivel');
+}
+
+// =====================================================
 // ESTADO GLOBAL
 // =====================================================
 let paginaAtual = 1;

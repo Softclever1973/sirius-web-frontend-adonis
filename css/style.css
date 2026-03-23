@@ -9765,3 +9765,63 @@ body.page-promo .fundo::after {
 .btn-toggle-senha:hover {
     opacity: 1;
 }
+/* Modal Ajuda — PDV */
+.btn-ajuda-pdv { background: #1e3a5f; }
+
+#modalAjuda .modal-header,
+#modalVideo .modal-header { background: #2563eb; }
+
+.modal-ajuda-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+}
+
+.btn-ajuda-opcao {
+    font-size: 15px;
+    padding: 16px;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Modal Vídeo — PDV (usa modal-overlay nativo do PDV) */
+.modal-video-grande { max-width: 800px; width: 90%; }
+
+/* Modal de Vídeo */
+#modalVideo {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+#modalVideo.visivel { display: flex; }
+
+.modal-video-box {
+    background: #0d1f3c;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    border-radius: 14px;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+}
+
+.modal-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    margin-top: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.modal-video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 8px;
+}

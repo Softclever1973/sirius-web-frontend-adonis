@@ -3,6 +3,22 @@
 // Depende de: js/libs/api.js, js/libs/ui.js, js/auth.js
 // =====================================================
 
+// =====================================================
+// AJUDA — Manual e Vídeo
+// =====================================================
+const VIDEO_URL_ALTERAR_SENHA = ''; // Cole aqui o link do YouTube (ex: https://www.youtube.com/embed/SEU_ID)
+
+function abrirVideoAjuda() {
+    if (!VIDEO_URL_ALTERAR_SENHA) { alert('Nenhum vídeo cadastrado ainda.'); return; }
+    document.getElementById('videoIframe').src = VIDEO_URL_ALTERAR_SENHA;
+    document.getElementById('modalVideo').classList.add('visivel');
+}
+
+function fecharVideoAjuda() {
+    document.getElementById('videoIframe').src = '';
+    document.getElementById('modalVideo').classList.remove('visivel');
+}
+
 /* ============================================================
    PARTÍCULAS
    ============================================================ */

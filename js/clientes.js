@@ -5,6 +5,22 @@
 
 // isDev e API_URL fornecidos por js/libs/api.js
 
+// =====================================================
+// AJUDA — Manual e Vídeo
+// =====================================================
+const VIDEO_URL_CLIENTES = ''; // Cole aqui o link do YouTube (ex: https://www.youtube.com/embed/SEU_ID)
+
+function abrirVideoAjuda() {
+    if (!VIDEO_URL_CLIENTES) { alert('Nenhum vídeo cadastrado ainda.'); return; }
+    document.getElementById('videoIframe').src = VIDEO_URL_CLIENTES;
+    document.getElementById('modalVideo').classList.add('visivel');
+}
+
+function fecharVideoAjuda() {
+    document.getElementById('videoIframe').src = '';
+    document.getElementById('modalVideo').classList.remove('visivel');
+}
+
 let token = null;
 let empresaId = null;
 let clienteEditando = null;
