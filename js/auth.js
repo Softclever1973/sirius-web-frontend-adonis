@@ -202,6 +202,73 @@ async function login(email, senha) {
 }
 
 // =====================================================
+// MODAL ESQUECEU A SENHA
+// =====================================================
+
+function abrirModalSenha() {
+    const modal = document.getElementById('modalEsqueceuSenha');
+    if (!modal) return;
+    // Pré-preenche com o email digitado no login, se houver
+    const emailLogin = document.getElementById('email');
+    document.getElementById('emailReset').value = emailLogin ? emailLogin.value : '';
+    document.getElementById('msgReset').style.display = 'none';
+    const btn = document.getElementById('btnEnviarReset');
+    btn.disabled = false;
+    btn.textContent = 'Enviar Link';
+    modal.style.display = 'flex';
+    setTimeout(() => document.getElementById('emailReset').focus(), 50);
+}
+
+function fecharModalSenha() {
+    const modal = document.getElementById('modalEsqueceuSenha');
+    if (modal) modal.style.display = 'none';
+}
+
+async function enviarResetSenha() {
+    const email = document.getElementById('emailReset').value.trim();
+    const btn = document.getElementById('btnEnviarReset');
+    const msg = document.getElementById('msgReset');
+
+    function mostrarMsgReset(texto, tipo) {
+        msg.textContent = texto;
+        msg.className = `reset-msg ${tipo}`;
+    }
+
+    if (!email || !email.includes('@')) {
+        mostrarMsgReset('Informe um e-mail válido.', 'erro');
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    msg.className = 'reset-msg';
+
+    try {
+        const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+
+        const resp = await fetch(`${API_URL}/auth/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, baseUrl })
+        });
+        const data = await resp.json();
+
+        if (data.success) {
+            mostrarMsgReset(data.message, 'sucesso');
+            btn.textContent = 'Enviado!';
+        } else {
+            mostrarMsgReset(data.message, 'erro');
+            btn.disabled = false;
+            btn.textContent = 'Enviar Link';
+        }
+    } catch {
+        mostrarMsgReset('Erro de conexão. Tente novamente.', 'erro');
+        btn.disabled = false;
+        btn.textContent = 'Enviar Link';
+    }
+}
+
+// =====================================================
 // EVENTOS (apenas se os elementos existirem)
 // =====================================================
 
@@ -250,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (linkEsqueceuSenha) {
         linkEsqueceuSenha.addEventListener('click', (e) => {
             e.preventDefault();
-            alert('Funcionalidade em desenvolvimento!');
+            abrirModalSenha();
         });
     }
     

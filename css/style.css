@@ -20,6 +20,21 @@
     --shadow-lg:      0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-heavy:   0 20px 60px rgba(0, 0, 0, 0.3);
     --gradient-brand: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+
+    /* Dark theme */
+    --dark-bg:        #0d1f3c;
+    --dark-card:      #1e293b;
+    --dark-border:    #334155;
+    --dark-text:      #e2e8f0;
+    --dark-text-2:    #94a3b8;
+    --dark-text-3:    #64748b;
+    --dark-accent:    #60a5fa;
+
+    /* Feedback */
+    --success-bg:     #d1fae5;
+    --success-text:   #065f46;
+    --error-bg:       #fee2e2;
+    --error-text:     #dc2626;
 }
 
 /* Reset */
@@ -326,6 +341,55 @@ body.page-centered {
     border-radius: 16px;
     padding: 40px;
     box-shadow: var(--shadow-lg);
+}
+
+/* Modal Esqueceu a Senha */
+#modalEsqueceuSenha {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+#modalEsqueceuSenha .modal-box {
+    max-width: 420px;
+    width: 100%;
+}
+
+.reset-email-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--dark-border);
+    background: var(--dark-card);
+    color: var(--dark-text);
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    margin-bottom: 16px;
+}
+
+.reset-msg {
+    display: none;
+    font-size: 13px;
+    margin-bottom: 14px;
+    padding: 10px 12px;
+    border-radius: 6px;
+}
+
+.reset-msg.erro {
+    display: block;
+    background: var(--error-bg);
+    color: var(--error-text);
+}
+
+.reset-msg.sucesso {
+    display: block;
+    background: var(--success-bg);
+    color: var(--success-text);
 }
 
 /* =====================================================

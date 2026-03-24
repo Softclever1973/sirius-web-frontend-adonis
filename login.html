@@ -64,6 +64,26 @@
         </div>
     </div>
 
+    <!-- Modal Esqueceu a Senha -->
+    <div id="modalEsqueceuSenha">
+        <div class="modal-box">
+            <div class="modal-box-header">
+                <span class="modal-box-titulo">Redefinir Senha</span>
+                <span class="modal-box-fechar" onclick="fecharModalSenha()">&times;</span>
+            </div>
+            <p class="modal-box-mensagem">Informe seu e-mail cadastrado. Enviaremos um link para você criar uma nova senha.</p>
+            <input
+                type="email"
+                id="emailReset"
+                class="reset-email-input"
+                placeholder="seu@email.com"
+                onkeydown="if(event.key==='Enter') enviarResetSenha()"
+            >
+            <div id="msgReset" class="reset-msg"></div>
+            <button class="modal-box-ok" id="btnEnviarReset" onclick="enviarResetSenha()">Enviar Link</button>
+        </div>
+    </div>
+
     <script src="js/libs/api.js"></script>
     <script src="js/auth.js"></script>
 </body>
