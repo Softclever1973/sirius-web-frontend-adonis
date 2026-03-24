@@ -142,7 +142,7 @@ async function salvarSenha() {
 
     const btn = document.getElementById('btnSalvar');
     btn.disabled = true;
-    btn.textContent = '⏳ Salvando...';
+    btn.textContent = 'Salvando...';
 
     try {
         const response = await apiFetch('/auth/change-password', {
@@ -154,7 +154,7 @@ async function salvarSenha() {
         const data = await response.json();
 
         if (response.ok && data.success) {
-            mostrarMensagem('✅ Senha alterada com sucesso!', 'success');
+            mostrarMensagem('Senha alterada com sucesso!', 'success');
             limparFormulario();
         } else {
             mostrarMensagem(data.message || 'Erro ao alterar a senha.', 'error');
@@ -164,7 +164,7 @@ async function salvarSenha() {
         mostrarMensagem('Erro de conexão. Verifique sua internet e tente novamente.', 'error');
     } finally {
         btn.disabled = false;
-        btn.textContent = '💾 Salvar Nova Senha';
+        btn.textContent = 'Salvar Nova Senha';
     }
 }
 
@@ -183,9 +183,9 @@ function toggleSenha(inputId, btn) {
     if (!input) return;
     if (input.type === 'password') {
         input.type = 'text';
-        btn.textContent = '⌣';
+        btn.innerHTML = '<span class="material-symbols-outlined">visibility_off</span>';
     } else {
         input.type = 'password';
-        btn.textContent = '👁';
+        btn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
     }
 }

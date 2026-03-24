@@ -180,9 +180,9 @@ function renderizarTabela() {
                 </span>
             </td>
             <td>
-                <button class="btn-small btn-view" onclick="visualizarDetalhes(${vendedor.id_vendedor})" title="Ver detalhes">👁️</button>
-                <button class="btn-small btn-edit" onclick="editarVendedor(${vendedor.id_vendedor})" title="Editar">✏️</button>
-                <button class="btn-small btn-delete" onclick="confirmarExclusao(${vendedor.id_vendedor})" title="Excluir">🗑️</button>
+                <button class="btn-small btn-view" onclick="visualizarDetalhes(${vendedor.id_vendedor})" title="Ver detalhes"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">visibility</span></button>
+                <button class="btn-small btn-edit" onclick="editarVendedor(${vendedor.id_vendedor})" title="Editar"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">edit</span></button>
+                <button class="btn-small btn-delete" onclick="confirmarExclusao(${vendedor.id_vendedor})" title="Excluir"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">delete</span></button>
             </td>
         </tr>
     `).join('');
@@ -382,7 +382,7 @@ function confirmarExclusao(id) {
                 max-width: 500px;
             ">
                 <h3 style="color: #667eea; margin-bottom: 20px; text-align: center;">
-                    ⚠️ Confirmar Exclusão
+                    Confirmar Exclusão
                 </h3>
                 <p style="font-size: 16px; margin-bottom: 30px; text-align: center; color: #333;">
                     Tem certeza que deseja excluir o vendedor<br><strong>"${vendedor.nome}"</strong>?
@@ -407,7 +407,7 @@ function confirmarExclusao(id) {
                         cursor: pointer;
                         font-size: 16px;
                         font-weight: bold;
-                    ">🗑️ Excluir</button>
+                    ">Excluir</button>
                 </div>
             </div>
         </div>
@@ -481,7 +481,7 @@ function aplicarFiltro(tipo) {
                 min-width: 400px;
             ">
                 <h3 style="color: #667eea; margin-bottom: 20px; text-align: center;">
-                    🔍 ${tipo === 'nome' ? 'Filtrar por Nome' : 'Filtrar por ID'}
+                    ${tipo === 'nome' ? 'Filtrar por Nome' : 'Filtrar por ID'}
                 </h3>
                 <input 
                     type="text" 
@@ -608,7 +608,7 @@ function visualizarDetalhes(id) {
     
     const detalhes = `
         <div style="padding: 20px;">
-            <h3 style="color: #667eea; margin-bottom: 20px;">📋 Informações Gerais</h3>
+            <h3 style="color: #667eea; margin-bottom: 20px;">Informações Gerais</h3>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px;">
                 <div><strong>ID:</strong> ${vendedor.id_vendedor}</div>
                 <div><strong>Status:</strong> <span class="badge ${vendedor.status === 'A' ? 'ativo' : 'inativo'}">${vendedor.status === 'A' ? 'Ativo' : 'Inativo'}</span></div>
@@ -618,7 +618,7 @@ function visualizarDetalhes(id) {
                 <div><strong>E-mail:</strong> ${vendedor.email || '-'}</div>
             </div>
             
-            <h3 style="color: #667eea; margin-bottom: 20px;">📍 Endereço</h3>
+            <h3 style="color: #667eea; margin-bottom: 20px;">Endereço</h3>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px;">
                 <div><strong>CEP:</strong> ${vendedor.cep ? mascaraCEP(vendedor.cep) : '-'}</div>
                 <div><strong>Cidade/UF:</strong> ${vendedor.cidade && vendedor.uf ? `${vendedor.cidade}/${vendedor.uf}` : '-'}</div>
@@ -626,14 +626,14 @@ function visualizarDetalhes(id) {
                 <div style="grid-column: 1 / -1;"><strong>Complemento:</strong> ${vendedor.complemento || '-'}</div>
             </div>
             
-            <h3 style="color: #667eea; margin-bottom: 20px;">💼 Informações Comerciais</h3>
+            <h3 style="color: #667eea; margin-bottom: 20px;">Informações Comerciais</h3>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px;">
                 <div><strong>Comissão:</strong> ${vendedor.comissao ? vendedor.comissao + '%' : '-'}</div>
                 <div><strong>Meta de Vendas:</strong> ${vendedor.meta_vendas ? 'R$ ' + parseFloat(vendedor.meta_vendas).toLocaleString('pt-BR', {minimumFractionDigits: 2}) : '-'}</div>
             </div>
             
             ${vendedor.observacoes ? `
-                <h3 style="color: #667eea; margin-bottom: 20px;">📝 Observações</h3>
+                <h3 style="color: #667eea; margin-bottom: 20px;">Observações</h3>
                 <div style="padding: 15px; background: #f9f9f9; border-radius: 8px; margin-bottom: 20px;">
                     ${vendedor.observacoes}
                 </div>
@@ -693,7 +693,7 @@ function gerarRelatorio() {
             </style>
         </head>
         <body>
-            <h1>📊 Relatório de Vendedores</h1>
+            <h1>Relatório de Vendedores</h1>
             <div class="empresa">
                 <strong>${empresa.nome_fantasia || empresa.razao_social}</strong><br>
                 Gerado em: ${new Date().toLocaleString('pt-BR')}
@@ -740,7 +740,7 @@ function gerarRelatorio() {
             
             <div style="text-align: center; margin-top: 20px;">
                 <button onclick="window.print()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
-                    🖨️ Imprimir
+                    Imprimir
                 </button>
                 <button onclick="window.close()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; margin-left: 10px;">
                     Fechar

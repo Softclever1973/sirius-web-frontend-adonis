@@ -163,7 +163,7 @@ function renderizarPedidos(pedidos) {
                 <td><span class="status-badge ${statusClass}">${statusTexto}</span></td>
                 <td>
                     <button class="btn-small btn-visualizar" onclick="visualizarPedido(${pedidoId})">
-                        👁️ Visualizar
+                        <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">visibility</span> Visualizar
                     </button>
                 </td>
             </tr>
@@ -338,7 +338,7 @@ function mostrarFiltroAtivo() {
     const filtroTexto = document.getElementById('filtroTexto');
 
     if (filtroAtivo.texto) {
-        filtroTexto.textContent = `🔍 Filtro Ativo: ${filtroAtivo.texto}`;
+        filtroTexto.textContent = `Filtro Ativo: ${filtroAtivo.texto}`;
         filtroDiv.style.display = 'flex';
     } else {
         filtroDiv.style.display = 'none';
@@ -446,7 +446,7 @@ function renderizarDetalhesPedido(pedido) {
             </div>
         </div>
 
-        <h3 class="section-subtitle">📦 Itens do Pedido</h3>
+        <h3 class="section-subtitle">Itens do Pedido</h3>
         <table class="pedido-itens-table">
             <thead>
                 <tr><th>Seq</th><th>Código</th><th>Descrição</th><th>Qtd</th><th>Vlr Unit.</th><th>Vlr Total</th></tr>
@@ -503,7 +503,7 @@ function renderizarDetalhesPedido(pedido) {
     // Pagamentos
     if (pedido.pagamentos && pedido.pagamentos.length > 0) {
         html += `
-            <h3 class="section-subtitle">💳 Pagamentos</h3>
+            <h3 class="section-subtitle">Pagamentos</h3>
             <table class="pedido-itens-table">
                 <thead>
                     <tr><th>Forma de Pagamento</th><th>Valor</th><th>Troco</th></tr>
@@ -526,7 +526,7 @@ function renderizarDetalhesPedido(pedido) {
 
     if (pedido.observacoes) {
         html += `
-            <h3 class="section-subtitle">📝 Observações</h3>
+            <h3 class="section-subtitle">Observações</h3>
             <p>${pedido.observacoes}</p>
         `;
     }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRIUS WEB - Produtos</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 </head>
 <body class="page-app">
 
@@ -16,7 +17,7 @@
     <aside class="sidebar-icones">
 
         <!-- Ícone/logo do módulo -->
-        <div class="sidebar-modulo-logo" title="Gestão de Produtos">📦</div>
+        <div class="sidebar-modulo-logo" title="Gestão de Produtos"><span class="material-symbols-outlined">inventory_2</span></div>
 
         <div class="sidebar-divisor"></div>
 
@@ -24,7 +25,7 @@
         <button class="sidebar-btn"
                 data-tooltip="Novo Produto"
                 onclick="abrirModal()">
-            <span class="btn-icone">➕</span>
+            <span class="btn-icone material-symbols-outlined">add</span>
             <span class="btn-label">Novo</span>
         </button>
 
@@ -33,7 +34,7 @@
                 id="btnOrdenacao"
                 data-tooltip="Ordenação"
                 onclick="toggleDrop('dropOrdenacao', this)">
-            <span class="btn-icone">📊</span>
+            <span class="btn-icone material-symbols-outlined">sort</span>
             <span class="btn-label">Ordenar</span>
         </button>
 
@@ -42,7 +43,7 @@
                 id="btnFiltros"
                 data-tooltip="Filtros"
                 onclick="toggleDrop('dropFiltros', this)">
-            <span class="btn-icone">🔍</span>
+            <span class="btn-icone material-symbols-outlined">filter_list</span>
             <span class="btn-label">Filtros</span>
         </button>
 
@@ -51,7 +52,7 @@
                 id="btnRelatorios"
                 data-tooltip="Relatórios"
                 onclick="toggleDrop('dropRelatorios', this)">
-            <span class="btn-icone">📄</span>
+            <span class="btn-icone material-symbols-outlined">description</span>
             <span class="btn-label">Relat.</span>
         </button>
 
@@ -60,7 +61,7 @@
                 id="btnAjuda"
                 data-tooltip="Ajuda"
                 onclick="toggleDrop('dropAjuda', this)">
-            <span class="btn-icone">❓</span>
+            <span class="btn-icone material-symbols-outlined">help</span>
             <span class="btn-label">Ajuda</span>
         </button>
 
@@ -73,7 +74,7 @@
         <button class="sidebar-btn btn-voltar"
                 data-tooltip="Voltar ao Menu"
                 onclick="window.location.href='menu-principal.html'">
-            <span class="btn-icone">↩</span>
+            <span class="btn-icone material-symbols-outlined">arrow_back</span>
             <span class="btn-label">Voltar</span>
         </button>
 
@@ -84,31 +85,31 @@
          ============================================================ -->
 
     <div id="dropAjuda" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">❓ Ajuda</div>
-        <a href="manual.html">📚 Manual</a>
-        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;">▶️ Assistir Vídeo</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">help</span> Ajuda</div>
+        <a href="manual.html"><span class="material-symbols-outlined">menu_book</span> Manual</a>
+        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;"><span class="material-symbols-outlined">play_circle</span> Assistir Vídeo</a>
     </div>
 
     <div id="dropOrdenacao" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">📊 Ordenação</div>
-        <a href="#" onclick="aplicarOrdenacao('codigo');       fecharDropdowns(); return false;">🔢 Por Código</a>
-        <a href="#" onclick="aplicarOrdenacao('descricao');    fecharDropdowns(); return false;">📝 Por Descrição</a>
-        <a href="#" onclick="aplicarOrdenacao('data_criacao'); fecharDropdowns(); return false;">📅 Ordem de Inserção</a>
-        <a href="#" onclick="aplicarOrdenacao('ultimos');      fecharDropdowns(); return false;">⏱️ Últimos Lançamentos</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">sort</span> Ordenação</div>
+        <a href="#" onclick="aplicarOrdenacao('codigo');       fecharDropdowns(); return false;"><span class="material-symbols-outlined">tag</span> Por Código</a>
+        <a href="#" onclick="aplicarOrdenacao('descricao');    fecharDropdowns(); return false;"><span class="material-symbols-outlined">notes</span> Por Descrição</a>
+        <a href="#" onclick="aplicarOrdenacao('data_criacao'); fecharDropdowns(); return false;"><span class="material-symbols-outlined">calendar_today</span> Ordem de Inserção</a>
+        <a href="#" onclick="aplicarOrdenacao('ultimos');      fecharDropdowns(); return false;"><span class="material-symbols-outlined">schedule</span> Últimos Lançamentos</a>
     </div>
 
     <div id="dropFiltros" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">🔍 Filtros</div>
-        <a href="#" onclick="aplicarFiltro('codigo');         fecharDropdowns(); return false;">🔢 Por Código</a>
-        <a href="#" onclick="aplicarFiltro('descricao');      fecharDropdowns(); return false;">📝 Por Descrição</a>
-        <a href="#" onclick="aplicarFiltro('ean');            fecharDropdowns(); return false;">📊 Por EAN/Barras</a>
-        <a href="#" onclick="aplicarFiltro('estoque_zero');   fecharDropdowns(); return false;">⚠️ Estoque Zero</a>
-        <a href="#" onclick="aplicarFiltro('estoque_baixo'); fecharDropdowns(); return false;">📉 Abaixo do Mínimo</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">filter_list</span> Filtros</div>
+        <a href="#" onclick="aplicarFiltro('codigo');         fecharDropdowns(); return false;"><span class="material-symbols-outlined">tag</span> Por Código</a>
+        <a href="#" onclick="aplicarFiltro('descricao');      fecharDropdowns(); return false;"><span class="material-symbols-outlined">notes</span> Por Descrição</a>
+        <a href="#" onclick="aplicarFiltro('ean');            fecharDropdowns(); return false;"><span class="material-symbols-outlined">qr_code</span> Por EAN/Barras</a>
+        <a href="#" onclick="aplicarFiltro('estoque_zero');   fecharDropdowns(); return false;"><span class="material-symbols-outlined">warning</span> Estoque Zero</a>
+        <a href="#" onclick="aplicarFiltro('estoque_baixo'); fecharDropdowns(); return false;"><span class="material-symbols-outlined">trending_down</span> Abaixo do Mínimo</a>
     </div>
 
     <div id="dropRelatorios" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">📄 Relatórios</div>
-        <a href="#" onclick="gerarRelatorio(); fecharDropdowns(); return false;">📊 Produtos sob Filtro</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">description</span> Relatórios</div>
+        <a href="#" onclick="gerarRelatorio(); fecharDropdowns(); return false;"><span class="material-symbols-outlined">bar_chart</span> Produtos sob Filtro</a>
     </div>
 
     <!-- ============================================================
@@ -118,7 +119,7 @@
 
         <!-- Barra de título -->
         <div class="page-topbar">
-            <span class="page-titulo">📦 Gestão de Produtos</span>
+            <span class="page-titulo"><span class="material-symbols-outlined">inventory_2</span> Gestão de Produtos</span>
             <span class="page-subtitulo">/ Cadastro e controle de estoque</span>
         </div>
 
@@ -175,10 +176,10 @@
         </div>
 
         <div class="tabs">
-            <button class="tab-button active" data-tab="basico"  onclick="mudarAba('basico')">📋 Dados Básicos</button>
-            <button class="tab-button"         data-tab="estoque" onclick="mudarAba('estoque')">📦 Estoque</button>
-            <button class="tab-button"         data-tab="fiscais" onclick="mudarAba('fiscais')">🧾 Dados Fiscais</button>
-            <button class="tab-button"         data-tab="config"  onclick="mudarAba('config')">⚙️ Configurações</button>
+            <button class="tab-button active" data-tab="basico"  onclick="mudarAba('basico')"><span class="material-symbols-outlined">list_alt</span> Dados Básicos</button>
+            <button class="tab-button"         data-tab="estoque" onclick="mudarAba('estoque')"><span class="material-symbols-outlined">inventory</span> Estoque</button>
+            <button class="tab-button"         data-tab="fiscais" onclick="mudarAba('fiscais')"><span class="material-symbols-outlined">receipt_long</span> Dados Fiscais</button>
+            <button class="tab-button"         data-tab="config"  onclick="mudarAba('config')"><span class="material-symbols-outlined">settings</span> Configurações</button>
         </div>
 
         <div class="modal-body">
@@ -244,7 +245,7 @@
                             <input type="number" id="saldo" step="0.001" min="0" placeholder="0,000"
                                    readonly style="background:#f1f5f9;cursor:not-allowed;color:#64748b;">
                             <small style="color:#ef4444;font-size:12px;display:block;margin-top:4px;">
-                                ⚠️ O saldo só pode ser alterado através de movimentações de estoque
+                                <span class="material-symbols-outlined">warning</span> O saldo só pode ser alterado através de movimentações de estoque
                             </small>
                         </div>
                     </div>
@@ -347,7 +348,7 @@
 
                 <div class="form-buttons">
                     <button type="button" class="btn-cancel" onclick="fecharModal()">Cancelar</button>
-                    <button type="submit" class="btn-submit">💾 Salvar Produto</button>
+                    <button type="submit" class="btn-submit"><span class="material-symbols-outlined">save</span> Salvar Produto</button>
                 </div>
 
             </form>
@@ -359,7 +360,7 @@
 <div id="modalAviso">
     <div class="modal-box">
         <div class="modal-box-header">
-            <span class="modal-box-titulo">ℹ️ Informação</span>
+            <span class="modal-box-titulo"><span class="material-symbols-outlined">info</span> Informação</span>
             <span class="modal-box-fechar" onclick="closeMessage()">&times;</span>
         </div>
         <p class="modal-box-mensagem" id="mensagemAviso"></p>
@@ -371,7 +372,7 @@
 <div id="modalVideo" onclick="if(event.target===this)fecharVideoAjuda()">
     <div class="modal-video-box">
         <div class="modal-header">
-            <span class="modal-titulo">▶️ Tutorial em Vídeo</span>
+            <span class="modal-titulo"><span class="material-symbols-outlined">play_circle</span> Tutorial em Vídeo</span>
             <span class="modal-fechar" onclick="fecharVideoAjuda()">&times;</span>
         </div>
         <div class="modal-video-wrapper">

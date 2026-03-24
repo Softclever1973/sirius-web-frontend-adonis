@@ -157,7 +157,7 @@ async function iniciarNovoPedido() {
     // ✅ Resetar botão finalizar
     const btnFinalizar = document.getElementById('btnFinalizar');
     if (btnFinalizar) {
-        btnFinalizar.textContent = '✅ Finalizar Pedido';
+        btnFinalizar.textContent = 'Finalizar Pedido';
         btnFinalizar.disabled = true;
     }
 
@@ -239,7 +239,7 @@ function confirmarCliente() {
     }
     // Atualizar badge do cliente na aba Produtos
     const nomeCliente = pedidoAtual.cliente.razao_social || 'Consumidor Final';
-    document.getElementById('clienteBadge').textContent = `👤 ${nomeCliente}`;
+    document.getElementById('clienteBadge').textContent = nomeCliente;
     document.getElementById('clienteBadgePag').textContent = nomeCliente;
 
     irParaAba('produtos');
@@ -679,7 +679,7 @@ function renderizarItens() {
             <td>R$ ${item.valor_unitario.toFixed(2)}</td>
             <td class="item-total">R$ ${item.valor_total.toFixed(2)}</td>
             <td>
-                <button class="btn-remover-item" onclick="removerItem(${idx})" title="Remover">🗑️</button>
+                <button class="btn-remover-item" onclick="removerItem(${idx})" title="Remover"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">delete</span></button>
             </td>
         </tr>
     `).join('');
@@ -966,7 +966,7 @@ function renderizarPagamentos() {
                 <div class="pagamento-valor">R$ ${pag.valor.toFixed(2)}</div>
                 ${pag.troco > 0 ? `<div class="pagamento-troco">Troco: R$ ${pag.troco.toFixed(2)}</div>` : ''}
             </div>
-            <button class="btn-remover-pag" onclick="removerPagamento(${idx})" title="Remover">🗑️</button>
+            <button class="btn-remover-pag" onclick="removerPagamento(${idx})" title="Remover"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">delete</span></button>
         </div>
     `).join('');
 }
@@ -991,7 +991,7 @@ function atualizarStatusPagamento() {
     btnFinalizar.disabled = !pago;
     // ✅ Garantir que o texto do botão está correto sempre que o status é atualizado
     if (!btnFinalizar.disabled) {
-        btnFinalizar.textContent = '✅ Finalizar Pedido';
+        btnFinalizar.textContent = 'Finalizar Pedido';
     }
 }
 
@@ -1066,7 +1066,7 @@ async function finalizarPedido() {
 
         if (data.success) {
             // ✅ Restaurar botão ANTES de mostrar relatório
-            btnFinalizar.textContent = '✅ Finalizar Pedido';
+            btnFinalizar.textContent = 'Finalizar Pedido';
             btnFinalizar.disabled = false;
             mostrarRelatorioPedido(data.data);
         } else {
@@ -1076,7 +1076,7 @@ async function finalizarPedido() {
         console.error('❌ Erro ao finalizar pedido:', e);
         showMessage(e.message || 'Erro ao finalizar pedido', 'error');
         btnFinalizar.disabled = false;
-        btnFinalizar.textContent = '✅ Finalizar Pedido';
+        btnFinalizar.textContent = 'Finalizar Pedido';
     }
 }
 
@@ -1177,10 +1177,10 @@ function showMessage(mensagem, tipo = 'info', callback = null) {
     const titulo = document.getElementById('mensagemTitulo');
 
     const config = {
-        success: { texto: '✅ Sucesso',      cor: '#10b981' },
-        error:   { texto: '❌ Erro',          cor: '#ef4444' },
-        warning: { texto: '⚠️ Atenção',      cor: '#f59e0b' },
-        info:    { texto: 'ℹ️ Informação',   cor: '#2563eb' }
+        success: { texto: 'Sucesso',      cor: '#10b981' },
+        error:   { texto: 'Erro',          cor: '#ef4444' },
+        warning: { texto: 'Atenção',      cor: '#f59e0b' },
+        info:    { texto: 'Informação',   cor: '#2563eb' }
     };
 
     const c = config[tipo] || config.info;

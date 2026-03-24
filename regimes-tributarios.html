@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRIUS WEB - Regimes Tributários</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="page-app">
@@ -15,7 +16,7 @@
          ============================================================ -->
     <aside class="sidebar-icones">
 
-        <div class="sidebar-modulo-logo" title="Regimes Tributários">📋</div>
+        <div class="sidebar-modulo-logo" title="Regimes Tributários"><span class="material-symbols-outlined">list_alt</span></div>
 
         <div class="sidebar-divisor"></div>
 
@@ -23,7 +24,7 @@
         <button class="sidebar-btn"
                 data-tooltip="Novo Regime Tributário"
                 onclick="abrirModal()">
-            <span class="btn-icone">➕</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">add</span></span>
             <span class="btn-label">Novo</span>
         </button>
 
@@ -32,7 +33,7 @@
                 id="btnFiltros"
                 data-tooltip="Filtros"
                 onclick="toggleDrop('dropFiltros', this)">
-            <span class="btn-icone">🔍</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">filter_list</span></span>
             <span class="btn-label">Filtros</span>
         </button>
 
@@ -41,7 +42,7 @@
                 id="btnOrdenacao"
                 data-tooltip="Ordenação"
                 onclick="toggleDrop('dropOrdenacao', this)">
-            <span class="btn-icone">📊</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">sort</span></span>
             <span class="btn-label">Ordenar</span>
         </button>
 
@@ -50,7 +51,7 @@
                 id="btnRelatorios"
                 data-tooltip="Relatórios"
                 onclick="toggleDrop('dropRelatorios', this)">
-            <span class="btn-icone">📄</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">description</span></span>
             <span class="btn-label">Relat.</span>
         </button>
 
@@ -62,7 +63,7 @@
         <button class="sidebar-btn btn-voltar"
                 data-tooltip="Voltar ao Menu"
                 onclick="window.location.href='menu-principal.html'">
-            <span class="btn-icone">↩</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">arrow_back</span></span>
             <span class="btn-label">Voltar</span>
         </button>
 
@@ -72,21 +73,21 @@
          DROPDOWNS FLUTUANTES
          ============================================================ -->
     <div id="dropFiltros" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">🔍 Filtros</div>
-        <a href="#" onclick="aplicarFiltro('nome'); fecharDropdowns(); return false;">📝 Por Nome</a>
-        <a href="#" onclick="aplicarFiltro('id');   fecharDropdowns(); return false;">🔢 Por Identificador</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">filter_list</span> Filtros</div>
+        <a href="#" onclick="aplicarFiltro('nome'); fecharDropdowns(); return false;"><span class="material-symbols-outlined">notes</span> Por Nome</a>
+        <a href="#" onclick="aplicarFiltro('id');   fecharDropdowns(); return false;"><span class="material-symbols-outlined">tag</span> Por Identificador</a>
     </div>
 
     <div id="dropOrdenacao" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">📊 Ordenação</div>
-        <a href="#" onclick="aplicarOrdenacao('nome');        fecharDropdowns(); return false;">📝 Por Nome</a>
-        <a href="#" onclick="aplicarOrdenacao('data_criacao'); fecharDropdowns(); return false;">📅 Ordem de Digitação</a>
-        <a href="#" onclick="aplicarOrdenacao('ultimos');      fecharDropdowns(); return false;">⏱️ Últimos Lançamentos</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">sort</span> Ordenação</div>
+        <a href="#" onclick="aplicarOrdenacao('nome');        fecharDropdowns(); return false;"><span class="material-symbols-outlined">notes</span> Por Nome</a>
+        <a href="#" onclick="aplicarOrdenacao('data_criacao'); fecharDropdowns(); return false;"><span class="material-symbols-outlined">calendar_today</span> Ordem de Digitação</a>
+        <a href="#" onclick="aplicarOrdenacao('ultimos');      fecharDropdowns(); return false;"><span class="material-symbols-outlined">schedule</span> Últimos Lançamentos</a>
     </div>
 
     <div id="dropRelatorios" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">📄 Relatórios</div>
-        <a href="#" onclick="gerarRelatorio(); fecharDropdowns(); return false;">📊 Imprimir Relatório</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">description</span> Relatórios</div>
+        <a href="#" onclick="gerarRelatorio(); fecharDropdowns(); return false;"><span class="material-symbols-outlined">bar_chart</span> Imprimir Relatório</a>
     </div>
 
     <!-- ============================================================
@@ -95,7 +96,7 @@
     <div class="main-area">
 
         <div class="page-topbar">
-            <span class="page-titulo">📋 Regimes Tributários</span>
+            <span class="page-titulo"><span class="material-symbols-outlined">list_alt</span> Regimes Tributários</span>
             <span class="page-subtitulo">/ Gestão de regimes tributários</span>
         </div>
 
@@ -112,7 +113,7 @@
                 <div id="mensagem" class="mensagem" style="display:none;"></div>
 
                 <!-- Loading -->
-                <div id="loading" class="loading" style="display:none;">⏳ Carregando regimes tributários...</div>
+                <div id="loading" class="loading" style="display:none;"><span class="material-symbols-outlined">schedule</span> Carregando regimes tributários...</div>
 
                 <!-- Tabela -->
                 <div id="tabelaContainer" class="table-container">
@@ -172,7 +173,7 @@
 
                 <div class="form-buttons">
                     <button type="button" class="btn-cancel" onclick="fecharModal()">Cancelar</button>
-                    <button type="submit" class="btn-submit">💾 Salvar</button>
+                    <button type="submit" class="btn-submit"><span class="material-symbols-outlined">save</span> Salvar</button>
                 </div>
 
             </form>
@@ -186,7 +187,7 @@
 <div id="modalDetalhes" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="form-title">📄 Detalhes do Regime Tributário</h2>
+            <h2 class="form-title"><span class="material-symbols-outlined">description</span> Detalhes do Regime Tributário</h2>
             <span class="close" onclick="fecharModalDetalhes()">&times;</span>
         </div>
 
@@ -196,7 +197,7 @@
 
         <div class="form-buttons" style="padding: 16px 24px; border-top: 2px solid #e2e8f0; margin-top: 0;">
             <button type="button" class="btn-cancel" onclick="fecharModalDetalhes()">Fechar</button>
-            <button type="button" class="btn-submit" onclick="imprimirDetalhes()">🖨️ Imprimir</button>
+            <button type="button" class="btn-submit" onclick="imprimirDetalhes()"><span class="material-symbols-outlined">print</span> Imprimir</button>
         </div>
     </div>
 </div>
@@ -207,7 +208,7 @@
 <div id="modalConfirmacao" class="modal">
     <div class="modal-content modal-sm">
         <div class="modal-header">
-            <h3>⚠️ Confirmação</h3>
+            <h3><span class="material-symbols-outlined">warning</span> Confirmação</h3>
         </div>
         <div class="modal-body">
             <p id="mensagemConfirmacao"></p>
@@ -225,7 +226,7 @@
 <div id="modalInput" class="modal">
     <div class="modal-content modal-sm">
         <div class="modal-header">
-            <h3>🔍 Filtro</h3>
+            <h3><span class="material-symbols-outlined">filter_list</span> Filtro</h3>
         </div>
         <div class="modal-body">
             <p id="mensagemInput"></p>
@@ -244,7 +245,7 @@
 <div id="modalAviso">
     <div class="modal-box">
         <div class="modal-box-header">
-            <span class="modal-box-titulo">ℹ️ Informação</span>
+            <span class="modal-box-titulo"><span class="material-symbols-outlined">info</span> Informação</span>
             <span class="modal-box-fechar" onclick="closeMessage()">&times;</span>
         </div>
         <p class="modal-box-mensagem" id="mensagemAviso"></p>

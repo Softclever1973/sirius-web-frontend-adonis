@@ -203,8 +203,8 @@ function renderizarTabela(produtos) {
                 <td>R$ ${parseFloat(p.preco_venda || 0).toFixed(2)}</td>
                 <td>${statusBadge}</td>
                 <td style="white-space: nowrap;">
-                    <button class="btn-small btn-edit" onclick="editarProduto(${p.id})" title="Editar">✏️</button>
-                    <button class="btn-small btn-movimentacoes" onclick="window.location.href='produtos-movimentacoes.html?id=${p.id}'" title="Movimentações">📊</button>
+                    <button class="btn-small btn-edit" onclick="editarProduto(${p.id})" title="Editar"><span class="material-symbols-outlined">edit</span></button>
+                    <button class="btn-small btn-movimentacoes" onclick="window.location.href='produtos-movimentacoes.html?id=${p.id}'" title="Movimentações"><span class="material-symbols-outlined">bar_chart</span></button>
                     <button class="btn-small btn-ativo"
                             onclick="confirmarToggleStatus(${p.id}, '${p.descricao.replace(/'/g, "\\'")}', '${p.ativo}')"
                             title="${p.ativo === 'S' ? 'Inativar' : 'Ativar'}">
@@ -315,6 +315,7 @@ function gerarRelatorio() {
         <head>
             <meta charset="UTF-8">
             <title>Relatório de Produtos - SIRIUS WEB</title>
+            <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
             <style>
                 body { font-family: Arial, sans-serif; margin: 20px; }
                 h1 { color: #667eea; text-align: center; }
@@ -330,7 +331,7 @@ function gerarRelatorio() {
             </style>
         </head>
         <body>
-            <h1>🏢 SIRIUS WEB - Relatório de Produtos</h1>
+            <h1><span class="material-symbols-outlined" style="vertical-align:middle;font-size:28px;">inventory_2</span> SIRIUS WEB - Relatório de Produtos</h1>
             <div class="info">
                 <strong>Data:</strong> ${new Date().toLocaleDateString('pt-BR')} 
                 <strong>Hora:</strong> ${new Date().toLocaleTimeString('pt-BR')}
@@ -362,7 +363,7 @@ function gerarRelatorio() {
                 </tbody>
             </table>
             <br>
-            <button onclick="window.print()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">🖨️ Imprimir</button>
+            <button onclick="window.print()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; display:inline-flex; align-items:center; gap:6px;"><span class="material-symbols-outlined" style="font-size:18px;">print</span> Imprimir</button>
         </body>
         </html>
     `;
@@ -662,7 +663,7 @@ function confirmarToggleStatus(id, descricao, ativoAtual) {
     `;
 
     box.innerHTML = `
-        <h3 style="color: #667eea; margin: 0 0 20px 0; font-size: 1.5em;">🏢 Sirius Web informa:</h3>
+        <h3 style="color: #667eea; margin: 0 0 20px 0; font-size: 1.5em;"><span class="material-symbols-outlined" style="vertical-align:middle;">business</span> Sirius Web informa:</h3>
         <p style="color: #333; font-size: 1.1em; margin: 0 0 25px 0; line-height: 1.5;">
             Deseja realmente <strong>${acao}</strong> o produto:<br><strong>"${descricao}"</strong>?
         </p>

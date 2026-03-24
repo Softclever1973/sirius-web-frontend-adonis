@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="page-dashboard">
@@ -34,7 +35,7 @@
     <!-- menu lateral -->
     <aside class="sidebar-icones">
 
-        <div class="sidebar-modulo-logo" title="Alterar Senha">🔒</div>
+        <div class="sidebar-modulo-logo" title="Alterar Senha"><span class="material-symbols-outlined">lock</span></div>
 
         <div class="sidebar-divisor"></div>
 
@@ -43,7 +44,7 @@
                 id="btnAjuda"
                 data-tooltip="Ajuda"
                 onclick="toggleDrop('dropAjuda', this)">
-            <span class="btn-icone">❓</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">help</span></span>
             <span class="btn-label">Ajuda</span>
         </button>
 
@@ -53,16 +54,16 @@
         <button class="sidebar-btn btn-voltar"
                 data-tooltip="Voltar ao Menu"
                 onclick="window.location.href='menu-principal.html'">
-            <span class="btn-icone">↩</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">arrow_back</span></span>
             <span class="btn-label">Voltar</span>
         </button>
 
     </aside>
 
     <div id="dropAjuda" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">❓ Ajuda</div>
-        <a href="manual.html">📚 Manual</a>
-        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;">▶️ Assistir Vídeo</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">help</span> Ajuda</div>
+        <a href="manual.html"><span class="material-symbols-outlined">menu_book</span> Manual</a>
+        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;"><span class="material-symbols-outlined">play_circle</span> Assistir Vídeo</a>
     </div>
 
     <div class="app">
@@ -70,7 +71,7 @@
     <!-- TOPBAR -->
     <header class="topbar">
         <a href="menu-principal.html" class="topbar-logo">
-            <div class="logo-badge">🔒</div>
+            <div class="logo-badge"><span class="material-symbols-outlined">lock</span></div>
             <div>
                 <div class="logo-nome">SIRIUS WEB</div>
                 <div class="logo-sub">ALTERAR SENHA</div>
@@ -99,7 +100,7 @@
     <div class="dash-body">
         <div class="page-header">
             <div>
-                <h2>🔒 Alterar Senha</h2>
+                <h2><span class="material-symbols-outlined">lock</span> Alterar Senha</h2>
             </div>
         </div>
 
@@ -109,7 +110,7 @@
         <!-- Card do formulário -->
         <div class="empresa-info" style="max-width: 480px;">
             <div class="info-header">
-                <h3>👤 <span id="nomeUsuario">Usuário</span></h3>
+                <h3><span class="material-symbols-outlined">person</span> <span id="nomeUsuario">Usuário</span></h3>
                 <span id="emailUsuario" style="color: #64748b; font-size: 0.85rem;"></span>
             </div>
 
@@ -126,7 +127,7 @@
                             required
                             style="padding-right: 44px;"
                         />
-                        <button type="button" class="btn-toggle-senha" onclick="toggleSenha('senhaAtual', this)" title="Mostrar/ocultar senha">👁</button>
+                        <button type="button" class="btn-toggle-senha" onclick="toggleSenha('senhaAtual', this)" title="Mostrar/ocultar senha"><span class="material-symbols-outlined">visibility</span></button>
                     </div>
                 </div>
 
@@ -141,7 +142,7 @@
                             required
                             style="padding-right: 44px;"
                         />
-                        <button type="button" class="btn-toggle-senha" onclick="toggleSenha('novaSenha', this)" title="Mostrar/ocultar senha">👁</button>
+                        <button type="button" class="btn-toggle-senha" onclick="toggleSenha('novaSenha', this)" title="Mostrar/ocultar senha"><span class="material-symbols-outlined">visibility</span></button>
                     </div>
                 </div>
 
@@ -156,13 +157,13 @@
                             required
                             style="padding-right: 44px;"
                         />
-                        <button type="button" class="btn-toggle-senha" onclick="toggleSenha('confirmarSenha', this)" title="Mostrar/ocultar senha">👁</button>
+                        <button type="button" class="btn-toggle-senha" onclick="toggleSenha('confirmarSenha', this)" title="Mostrar/ocultar senha"><span class="material-symbols-outlined">visibility</span></button>
                     </div>
                 </div>
 
                 <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem;">
                     <button type="submit" class="btn btn-success" id="btnSalvar" style="flex: 1;">
-                        💾 Salvar Nova Senha
+                        <span class="material-symbols-outlined">save</span> Salvar Nova Senha
                     </button>
                     <button type="button" class="btn btn-secondary" onclick="limparFormulario()">
                         ✕ Limpar
@@ -181,7 +182,7 @@
 <div id="modalVideo" onclick="if(event.target===this)fecharVideoAjuda()">
     <div class="modal-video-box">
         <div class="modal-header">
-            <span class="modal-titulo">▶️ Tutorial em Vídeo</span>
+            <span class="modal-titulo"><span class="material-symbols-outlined">play_circle</span> Tutorial em Vídeo</span>
             <span class="modal-fechar" onclick="fecharVideoAjuda()">&times;</span>
         </div>
         <div class="modal-video-wrapper">

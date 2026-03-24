@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="page-dashboard">
@@ -35,7 +36,7 @@
     <aside class="sidebar-icones">
 
         <!-- Ícone/logo do módulo -->
-        <div class="sidebar-modulo-logo" title="Parâmetros">⚙️</div>
+        <div class="sidebar-modulo-logo" title="Parâmetros"><span class="material-symbols-outlined">settings</span></div>
 
         <div class="sidebar-divisor"></div>
         <!-- Espaçador empurra Voltar para o rodapé -->
@@ -47,7 +48,7 @@
         <button class="sidebar-btn btn-voltar"
                 data-tooltip="Voltar ao Menu"
                 onclick="window.location.href='menu-principal.html'">
-            <span class="btn-icone">↩</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">arrow_back</span></span>
             <span class="btn-label">Voltar</span>
         </button>
 
@@ -58,19 +59,12 @@
     <!-- TOPBAR -->
     <header class="topbar">
         <a href="dashboard.html" class="topbar-logo">
-            <div class="logo-badge">🚀</div>
+            <div class="logo-badge"><span class="material-symbols-outlined">rocket_launch</span></div>
             <div>
                 <div class="logo-nome">SIRIUS WEB</div>
                 <div class="logo-sub">PARÂMETROS</div>
             </div>
         </a>
-        <!-- <nav class="topbar-nav">
-            <a href="dashboard.html"   class="nav-link ativo">Dashboard</a>
-            <a href="pedidos.html"     class="nav-link">Pedidos</a>
-            <a href="produtos.html"    class="nav-link">Produtos</a>
-            <a href="clientes.html"    class="nav-link">Clientes</a>
-            <a href="outros-modulos.html" class="nav-link">Outros Módulos</a>
-        </nav> -->
 
         <div class="topbar-spacer"></div>
 
@@ -87,7 +81,6 @@
                     <div class="usuario-cargo">Usuário</div>
                 </div>
             </div>
-            <!--<button class="btn-sair" onclick="logout()">↩ Sair</button>-->
         </div>
     </header>
 
@@ -95,16 +88,16 @@
     <div class="dash-body">
         <div class="page-header">
             <div>
-                <h2>🎯 Configuração de Parâmetros da Empresa</h2>
+                <h2><span class="material-symbols-outlined">gps_fixed</span> Configuração de Parâmetros da Empresa</h2>
             </div>
         </div>
 
         <!-- Informações da Empresa -->
         <div id="empresaInfo" class="empresa-info">
             <div class="info-header">
-                <h3>🏢 Empresa Atual</h3>
+                <h3><span class="material-symbols-outlined">business</span> Empresa Atual</h3>
                 <button class="btn btn-refresh" onclick="carregarEmpresaAtual()" title="Atualizar empresa">
-                    🔄 Atualizar
+                    <span class="material-symbols-outlined">sync</span> Atualizar
                 </button>
             </div>
             <div class="info-content">
@@ -125,19 +118,19 @@
 
         <!-- Loading -->
         <div id="loading" class="loading" style="display: none;">
-            ⏳ Carregando parâmetros...
+            <span class="material-symbols-outlined">schedule</span> Carregando parâmetros...
         </div>
 
         <!-- Parâmetros -->
         <div id="parametrosContainer" style="display: none;">
             <div class="toolbar">
-                <h3>📋 Parâmetros Disponíveis</h3>
+                <h3><span class="material-symbols-outlined">list_alt</span> Parâmetros Disponíveis</h3>
                 <div class="toolbar-actions">
                     <button class="btn btn-secondary" onclick="resetarTodosValores()">
-                        🔄 Resetar Todos para Padrão
+                        <span class="material-symbols-outlined">sync</span> Resetar Todos para Padrão
                     </button>
                     <button class="btn btn-success" onclick="salvarTodasAlteracoes()">
-                        💾 Salvar Alterações
+                        <span class="material-symbols-outlined">save</span> Salvar Alterações
                     </button>
                 </div>
             </div>
@@ -148,7 +141,7 @@
 
         <!-- Empty State -->
         <div id="emptyState" class="empty-state">
-            <div class="empty-icon">🏢</div>
+            <div class="empty-icon"><span class="material-symbols-outlined">business</span></div>
             <h3>Carregando...</h3>
         </div>
     </div><!-- /dash-body -->

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRIUS WEB - Menu Principal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="page-menu">
@@ -15,7 +16,7 @@
     <aside class="sidebar">
         <div class="sidebar-logo">
             <div class="logo-marca">
-                <div class="logo-icone">⭐</div>
+                <div class="logo-icone"><span class="material-symbols-outlined">star</span></div>
                 <div class="logo-texto">
                     <span class="logo-titulo">SIRIUS</span>
                     <span class="logo-subtitulo">Web ERP</span>
@@ -34,62 +35,62 @@
             <div class="nav-label">Principal</div>
             <div class="nav-item">
                 <a href="dashboard.html" class="menu-nav-link" id="linkDashboard" style="display:none;">
-                    <span class="nav-icone">📊</span><span class="nav-texto">Dashboard</span>
+                    <span class="nav-icone"><span class="material-symbols-outlined">bar_chart</span></span><span class="nav-texto">Dashboard</span>
                 </a>
             </div>
             <div class="nav-item">
                 <a href="produtos.html" class="menu-nav-link" id="linkProd">
-                    <span class="nav-icone">📦</span><span class="nav-texto">Produtos</span>
+                    <span class="nav-icone"><span class="material-symbols-outlined">inventory_2</span></span><span class="nav-texto">Produtos</span>
                 </a>
             </div>
             <div class="nav-item">
                 <a href="clientes.html" class="menu-nav-link" id="linkClient">
-                    <span class="nav-icone">👥</span><span class="nav-texto">Clientes</span>
+                    <span class="nav-icone"><span class="material-symbols-outlined">group</span></span><span class="nav-texto">Clientes</span>
                 </a>
             </div>
             <div class="nav-item">
                 <div class="menu-nav-link" id="btnVendas" onclick="toggleSubmenuVendas()">
-                    <span class="nav-icone">💼</span>
+                    <span class="nav-icone"><span class="material-symbols-outlined">work</span></span>
                     <span class="nav-texto">Vendas</span>
                     <span class="nav-seta">›</span>
                 </div>
                 <div class="submenu" id="submenuVendas">
-                    <a href="pdv.html" class="submenu-link"><span class="sub-icone">🛒</span> PDV</a>
-                    <a href="pedidos.html" class="submenu-link"><span class="sub-icone">📋</span> Vendas Realizadas</a>
+                    <a href="pdv.html" class="submenu-link"><span class="sub-icone"><span class="material-symbols-outlined">shopping_cart</span></span> PDV</a>
+                    <a href="pedidos.html" class="submenu-link"><span class="sub-icone"><span class="material-symbols-outlined">list_alt</span></span> Vendas Realizadas</a>
                 </div>
             </div>
             <div class="nav-separador"></div>
             <div class="nav-label">Sistema</div>
             <div class="nav-item">
                 <div class="menu-nav-link" id="btnConfiguracoes" onclick="toggleSubmenu()">
-                    <span class="nav-icone">⚙️</span>
+                    <span class="nav-icone"><span class="material-symbols-outlined">settings</span></span>
                     <span class="nav-texto">Configurações</span>
                     <span class="nav-seta">›</span>
                 </div>
                 <div class="submenu" id="submenuConfiguracoes">
-                    <a href="alterar-senha.html" class="submenu-link"><span class="sub-icone">🔒</span> Alterar Senha</a>
-                    <a href="vendedores.html" class="submenu-link" id="linkVend" style="display: none;"><span class="sub-icone">👨‍💼</span> Vendedores</a>
-                    <!-- <a href="formas-pagamento.html" class="submenu-link"><span class="sub-icone">💳</span> Formas de Pagamento</a> -->
-                    <!-- <a href="regimes-tributarios.html" class="submenu-link"><span class="sub-icone">📋</span> Regimes Tributários</a> -->
-                    <!-- <a href="#" onclick="showMessage('Módulo Caixas Cadastradas em desenvolvimento!'); return false;" class="submenu-link"><span class="sub-icone">💰</span> Caixas Cadastradas</a> -->
-                    <!-- <a href="#" onclick="showMessage('Módulo Usuários em desenvolvimento!'); return false;" class="submenu-link" id="linkUsuarios"><span class="sub-icone">🔒</span> Usuários</a> -->
-                    <a href="parametros-config.html" class="submenu-link" id="linkParametros" style="display:none;"><span class="sub-icone">🛠️</span> Parâmetros</a>
+                    <a href="alterar-senha.html" class="submenu-link"><span class="sub-icone"><span class="material-symbols-outlined">lock</span></span> Alterar Senha</a>
+                    <a href="vendedores.html" class="submenu-link" id="linkVend" style="display: none;"><span class="sub-icone"><span class="material-symbols-outlined">badge</span></span> Vendedores</a>
+                    <!-- <a href="formas-pagamento.html" class="submenu-link"><span class="sub-icone"><span class="material-symbols-outlined">credit_card</span></span> Formas de Pagamento</a> -->
+                    <!-- <a href="regimes-tributarios.html" class="submenu-link"><span class="sub-icone"><span class="material-symbols-outlined">list_alt</span></span> Regimes Tributários</a> -->
+                    <!-- <a href="#" onclick="showMessage('Módulo Caixas Cadastradas em desenvolvimento!'); return false;" class="submenu-link"><span class="sub-icone"><span class="material-symbols-outlined">payments</span></span> Caixas Cadastradas</a> -->
+                    <!-- <a href="#" onclick="showMessage('Módulo Usuários em desenvolvimento!'); return false;" class="submenu-link" id="linkUsuarios"><span class="sub-icone"><span class="material-symbols-outlined">lock</span></span> Usuários</a> -->
+                    <a href="parametros-config.html" class="submenu-link" id="linkParametros" style="display:none;"><span class="sub-icone"><span class="material-symbols-outlined">handyman</span></span> Parâmetros</a>
                 </div>
             </div>
             <div class="nav-item">
                 <a href="outros-modulos.html" class="menu-nav-link destaque">
-                    <span class="nav-icone">🚀</span><span class="nav-texto">Outros Módulos</span>
+                    <span class="nav-icone"><span class="material-symbols-outlined">rocket_launch</span></span><span class="nav-texto">Outros Módulos</span>
                 </a>
             </div>
             <div class="nav-item">
                 <a href="manual.html" class="menu-nav-link">
-                    <span class="nav-icone">📚</span><span class="nav-texto">Manual</span>
+                    <span class="nav-icone"><span class="material-symbols-outlined">menu_book</span></span><span class="nav-texto">Manual</span>
                 </a>
             </div>
         </nav>
         <div class="sidebar-footer">
             <button class="btn-logout" onclick="logout()">
-                <span>🚪</span><span>Sair do Sistema</span>
+                <span><span class="material-symbols-outlined">logout</span></span><span>Sair do Sistema</span>
             </button>
         </div>
     </aside>
@@ -115,19 +116,19 @@
                 </svg>
                 <!-- Hub Central — clicável → outros-modulos.html -->
                 <div class="erp-hub" onclick="window.location.href='outros-modulos.html'" title="Ver Introdução">
-                    <div class="hub-icone">⭐</div>
+                    <div class="hub-icone"><span class="material-symbols-outlined">star</span></div>
                     <div class="hub-titulo">SIRIUS</div>
                     <div class="hub-sub">ERP</div>
                 </div>
                 <div class="hub-legenda">Módulos disponíveis nas versões pagas</div>
                 <!-- 7 Satélites -->
-                <div class="erp-node node-1" onclick="abrirPainel('varejo')"><div class="node-icone">🛒</div><div class="node-label">Varejo</div></div>
-                <div class="erp-node node-2" onclick="abrirPainel('atacado')"><div class="node-icone">🏭</div><div class="node-label">Atacado e Distribuição</div></div>
-                <div class="erp-node node-3" onclick="abrirPainel('servicos')"><div class="node-icone">🔧</div><div class="node-label">Serviços</div></div>
-                <div class="erp-node node-4" onclick="abrirPainel('fiscal')"><div class="node-icone">📑</div><div class="node-label">Fiscal</div></div>
-                <div class="erp-node node-5" onclick="abrirPainel('financeiro')"><div class="node-icone">💰</div><div class="node-label">Financeiro</div></div>
-                <div class="erp-node node-6" onclick="abrirPainel('compras')"><div class="node-icone">🛍️</div><div class="node-label">Compras</div></div>
-                <div class="erp-node node-7" onclick="abrirPainel('diferenciais')"><div class="node-icone">⚡</div><div class="node-label">Nossos Diferenciais</div></div>
+                <div class="erp-node node-1" onclick="abrirPainel('varejo')"><div class="node-icone"><span class="material-symbols-outlined">shopping_cart</span></div><div class="node-label">Varejo</div></div>
+                <div class="erp-node node-2" onclick="abrirPainel('atacado')"><div class="node-icone"><span class="material-symbols-outlined">factory</span></div><div class="node-label">Atacado e Distribuição</div></div>
+                <div class="erp-node node-3" onclick="abrirPainel('servicos')"><div class="node-icone"><span class="material-symbols-outlined">build</span></div><div class="node-label">Serviços</div></div>
+                <div class="erp-node node-4" onclick="abrirPainel('fiscal')"><div class="node-icone"><span class="material-symbols-outlined">article</span></div><div class="node-label">Fiscal</div></div>
+                <div class="erp-node node-5" onclick="abrirPainel('financeiro')"><div class="node-icone"><span class="material-symbols-outlined">payments</span></div><div class="node-label">Financeiro</div></div>
+                <div class="erp-node node-6" onclick="abrirPainel('compras')"><div class="node-icone"><span class="material-symbols-outlined">shopping_bag</span></div><div class="node-label">Compras</div></div>
+                <div class="erp-node node-7" onclick="abrirPainel('diferenciais')"><div class="node-icone"><span class="material-symbols-outlined">bolt</span></div><div class="node-label">Nossos Diferenciais</div></div>
             </div>
             <div class="main-footer">
                 <div class="footer-stats">
@@ -179,7 +180,7 @@
 <div id="modalAviso">
     <div class="modal-box">
         <div class="modal-header">
-            <span class="modal-titulo">ℹ️ Informação</span>
+            <span class="modal-titulo"><span class="material-symbols-outlined">info</span> Informação</span>
             <span class="modal-fechar" onclick="closeMessage()">&times;</span>
         </div>
         <p class="modal-mensagem" id="mensagemAviso"></p>

@@ -3684,11 +3684,6 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
 }
 
 .modulo-titulo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(50px,8vw,100px);
-    line-height: 0.88; letter-spacing: -2px;
-    color: transparent; margin-bottom: 10px;
-    -webkit-background-clip: text; background-clip: text;
     animation: entrarEsq 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s both;
 }
 
@@ -3726,7 +3721,19 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
 .tema-varejo .hex-a { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.30); }
 .tema-varejo .hex-b { background: rgba(16,185,129,0.04); border: 1px solid rgba(16,185,129,0.15); }
 .tema-varejo .modulo-badge    { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
-.tema-varejo .modulo-titulo   { background: linear-gradient(130deg,#fff,#6ee7b7,#10b981); }
+.tema-varejo .modulo-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(50px,8vw,100px);
+    line-height: 1.5;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+
+    background: linear-gradient(130deg, #ffffff, #6ee7b7, #10b981);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .tema-varejo .modulo-subtitulo { color: #6ee7b7; }
 .tema-varejo .modulo-separador { background: linear-gradient(90deg,#10b981,#6ee7b7); }
 
@@ -3734,7 +3741,17 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
 .tema-atacado .hex-a { background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.30); }
 .tema-atacado .hex-b { background: rgba(124,58,237,0.04); border: 1px solid rgba(124,58,237,0.15); }
 .tema-atacado .modulo-badge    { background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.3); color: #c4b5fd; }
-.tema-atacado .modulo-titulo   { background: linear-gradient(130deg,#fff,#c4b5fd,#7c3aed); }
+.tema-atacado .modulo-titulo   { 
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(50px,8vw,100px);
+    line-height: 1.5;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    background: linear-gradient(130deg,#fff,#c4b5fd,#7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .tema-atacado .modulo-subtitulo { color: #c4b5fd; }
 .tema-atacado .modulo-separador { background: linear-gradient(90deg,#7c3aed,#c4b5fd); }
 
@@ -3742,7 +3759,17 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
 .tema-distribuicao .hex-a { background: rgba(14,165,233,0.08); border: 1px solid rgba(14,165,233,0.30); }
 .tema-distribuicao .hex-b { background: rgba(14,165,233,0.04); border: 1px solid rgba(14,165,233,0.15); }
 .tema-distribuicao .modulo-badge    { background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.3); color: #7dd3fc; }
-.tema-distribuicao .modulo-titulo   { background: linear-gradient(130deg,#fff,#7dd3fc,#0ea5e9); }
+.tema-distribuicao .modulo-titulo   { 
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(50px,8vw,100px);
+    line-height: 1.5;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    background: linear-gradient(130deg,#fff,#7dd3fc,#0ea5e9); 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .tema-distribuicao .modulo-subtitulo { color: #7dd3fc; }
 .tema-distribuicao .modulo-separador { background: linear-gradient(90deg,#0ea5e9,#7dd3fc); }
 
@@ -3750,7 +3777,17 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
 .tema-industria .hex-a { background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.30); }
 .tema-industria .hex-b { background: rgba(249,115,22,0.04); border: 1px solid rgba(249,115,22,0.15); }
 .tema-industria .modulo-badge    { background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: #fdba74; }
-.tema-industria .modulo-titulo   { background: linear-gradient(130deg,#fff,#fdba74,#f97316); }
+.tema-industria .modulo-titulo   { 
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(50px,8vw,100px);
+    line-height: 1.5;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    background: linear-gradient(130deg,#fff,#fdba74,#f97316); 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .tema-industria .modulo-subtitulo { color: #fdba74; }
 .tema-industria .modulo-separador { background: linear-gradient(90deg,#f97316,#fdba74); }
 
@@ -3758,7 +3795,17 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
 .tema-fiscal .hex-a { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.30); }
 .tema-fiscal .hex-b { background: rgba(245,158,11,0.04); border: 1px solid rgba(245,158,11,0.15); }
 .tema-fiscal .modulo-badge    { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #fcd34d; }
-.tema-fiscal .modulo-titulo   { background: linear-gradient(130deg,#fff,#fcd34d,#f59e0b); }
+.tema-fiscal .modulo-titulo   { 
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(50px,8vw,100px);
+    line-height: 1.5;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    background: linear-gradient(130deg,#fff,#fcd34d,#f59e0b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent; 
+}
 .tema-fiscal .modulo-subtitulo { color: #fcd34d; }
 .tema-fiscal .modulo-separador { background: linear-gradient(90deg,#f59e0b,#fcd34d); }
 
@@ -3766,7 +3813,17 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
 .tema-financeiro .hex-a { background: rgba(22,163,74,0.08); border: 1px solid rgba(22,163,74,0.30); }
 .tema-financeiro .hex-b { background: rgba(22,163,74,0.04); border: 1px solid rgba(22,163,74,0.15); }
 .tema-financeiro .modulo-badge    { background: rgba(22,163,74,0.1); border: 1px solid rgba(22,163,74,0.3); color: #86efac; }
-.tema-financeiro .modulo-titulo   { background: linear-gradient(130deg,#fff,#86efac,#16a34a); }
+.tema-financeiro .modulo-titulo   { 
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(50px,8vw,100px);
+    line-height: 1.5;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    background: linear-gradient(130deg,#fff,#86efac,#16a34a); 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .tema-financeiro .modulo-subtitulo { color: #86efac; }
 .tema-financeiro .modulo-separador { background: linear-gradient(90deg,#16a34a,#86efac); }
 
@@ -3774,7 +3831,17 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
 .tema-compras .hex-a { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.30); }
 .tema-compras .hex-b { background: rgba(139,92,246,0.04); border: 1px solid rgba(139,92,246,0.15); }
 .tema-compras .modulo-badge    { background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.3); color: #c4b5fd; }
-.tema-compras .modulo-titulo   { background: linear-gradient(130deg,#fff,#c4b5fd,#8b5cf6); }
+.tema-compras .modulo-titulo   { 
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(50px,8vw,100px);
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    background: linear-gradient(130deg,#fff,#c4b5fd,#8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+ }
 .tema-compras .modulo-subtitulo { color: #c4b5fd; }
 .tema-compras .modulo-separador { background: linear-gradient(90deg,#8b5cf6,#c4b5fd); }
 
@@ -9765,6 +9832,25 @@ body.page-promo .fundo::after {
 .btn-toggle-senha:hover {
     opacity: 1;
 }
+/* Material Symbols — alinhamento global */
+.material-symbols-outlined {
+    font-size: 20px;
+    line-height: 1;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+}
+
+.sidebar-modulo-logo .material-symbols-outlined { font-size: 28px; }
+.btn-icone.material-symbols-outlined             { font-size: 22px; }
+.page-titulo .material-symbols-outlined          { font-size: 22px; }
+.tab-button .material-symbols-outlined           { font-size: 16px; }
+.dropdown-flutuante-titulo .material-symbols-outlined { font-size: 16px; }
+.dropdown-flutuante a .material-symbols-outlined { font-size: 16px; }
+.btn-submit .material-symbols-outlined,
+.modal-box-titulo .material-symbols-outlined,
+.modal-titulo .material-symbols-outlined         { font-size: 18px; }
+
 /* Modal Ajuda — PDV */
 .btn-ajuda-pdv { background: #1e3a5f; }
 

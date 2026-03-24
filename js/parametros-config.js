@@ -90,7 +90,7 @@ async function carregarEmpresaAtual() {
             document.getElementById('parametrosContainer').style.display = 'none';
             document.getElementById('emptyState').style.display = 'block';
             document.getElementById('emptyState').innerHTML = `
-                <div class="empty-icon">🚫</div>
+                <div class="empty-icon"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">block</span></div>
                 <h3>Empresa Não Encontrada</h3>
                 <p>Você não possui empresas associadas para configurar parâmetros.</p>
             `;
@@ -156,12 +156,12 @@ function renderizarParametros(porModulo) {
     grid.innerHTML = '';
     
     const icones = {
-        'PDV': '🛒',
-        'NFCe': '🧾',
-        'Estoque': '📦',
-        'Financeiro': '💰',
-        'Vendas': '💼',
-        'Geral': '⚙️'
+        'PDV': '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">shopping_cart</span>',
+        'NFCe': '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">receipt_long</span>',
+        'Estoque': '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">inventory_2</span>',
+        'Financeiro': '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">payments</span>',
+        'Vendas': '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">work</span>',
+        'Geral': '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">settings</span>'
     };
     
     Object.keys(porModulo).forEach(modulo => {
@@ -170,7 +170,7 @@ function renderizarParametros(porModulo) {
         
         section.innerHTML = `
             <div class="modulo-header">
-                <span class="modulo-icon">${icones[modulo] || '⚙️'}</span>
+                <span class="modulo-icon">${icones[modulo] || '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">settings</span>'}</span>
                 <h3 class="modulo-title">${modulo}</h3>
             </div>
             <div class="parametros-list" id="modulo-${modulo}"></div>
@@ -217,10 +217,10 @@ function criarItemParametro(param) {
                         ${opcoesHtml}
                     </select>
                     ${param.tem_valor_customizado ? `
-                        <button class="btn-reset" 
+                        <button class="btn-reset"
                                 onclick="resetarValor(${param.id_parametro})"
                                 title="Resetar para padrão (${param.valor_padrao})">
-                            🔄
+                            <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">sync</span>
                         </button>
                     ` : ''}
                 </div>
@@ -254,10 +254,10 @@ function atualizarContadorModificacoes() {
     const btnSalvar = document.querySelector('.btn-success');
     
     if (total > 0) {
-        btnSalvar.textContent = `💾 Salvar ${total} Alteraç${total > 1 ? 'ões' : 'ão'}`;
+        btnSalvar.textContent = `Salvar ${total} Alteraç${total > 1 ? 'ões' : 'ão'}`;
         btnSalvar.style.animation = 'pulse 1s infinite';
     } else {
-        btnSalvar.textContent = '💾 Salvar Todas Alterações';
+        btnSalvar.textContent = 'Salvar Todas Alterações';
         btnSalvar.style.animation = 'none';
     }
 }
@@ -311,13 +311,13 @@ async function salvarTodasAlteracoes() {
     }
     
     if (erros === 0) {
-        mostrarMensagem(`✅ ${sucessos} parâmetro(s) salvo(s) com sucesso!`, 'success');
+        mostrarMensagem(`${sucessos} parâmetro(s) salvo(s) com sucesso!`, 'success');
         parametrosModificados.clear();
         await carregarEmpresaAtual(); // Recarregar empresa e parâmetros
     } else {
-        mostrarMensagem(`⚠️ ${sucessos} salvo(s), ${erros} erro(s)`, 'error');
+        mostrarMensagem(`${sucessos} salvo(s), ${erros} erro(s)`, 'error');
     }
-    btnSalvar.textContent = `💾 Salvar Alterações`;
+    btnSalvar.textContent = `Salvar Alterações`;
 }
 
 // =====================================================

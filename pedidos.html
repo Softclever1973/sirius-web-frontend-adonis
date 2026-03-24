@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRIUS WEB - Pedidos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="page-app">
@@ -11,60 +12,60 @@
 <div class="app-layout">
 
     <aside class="sidebar-icones">
-        <div class="sidebar-modulo-logo" title="Pedidos de Venda">📋</div>
+        <div class="sidebar-modulo-logo" title="Pedidos de Venda"><span class="material-symbols-outlined">list_alt</span></div>
         <div class="sidebar-divisor"></div>
         <button class="sidebar-btn" id="btnOrdenacao" data-tooltip="Ordenação" onclick="toggleDrop('dropOrdenacao', this)">
-            <span class="btn-icone">📊</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">sort</span></span>
             <span class="btn-label">Ordenar</span>
         </button>
         <button class="sidebar-btn" id="btnFiltros" data-tooltip="Filtros" onclick="toggleDrop('dropFiltros', this)">
-            <span class="btn-icone">🔍</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">filter_list</span></span>
             <span class="btn-label">Filtros</span>
         </button>
         <button class="sidebar-btn" id="btnRelatorios" data-tooltip="Relatórios" onclick="toggleDrop('dropRelatorios', this)">
-            <span class="btn-icone">📄</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">description</span></span>
             <span class="btn-label">Relat.</span>
         </button>
         <button class="sidebar-btn" id="btnAjuda" data-tooltip="Ajuda" onclick="toggleDrop('dropAjuda', this)">
-            <span class="btn-icone">❓</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">help</span></span>
             <span class="btn-label">Ajuda</span>
         </button>
         <div class="sidebar-spacer"></div>
         <div class="sidebar-divisor"></div>
         <button class="sidebar-btn btn-voltar" data-tooltip="Voltar ao Menu" onclick="window.location.href='menu-principal.html'">
-            <span class="btn-icone">↩</span>
+            <span class="btn-icone"><span class="material-symbols-outlined">arrow_back</span></span>
             <span class="btn-label">Voltar</span>
         </button>
     </aside>
 
     <div id="dropOrdenacao" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">📊 Ordenação</div>
-        <a href="#" onclick="aplicarOrdenacao('numero_asc');  fecharDropdowns(); return false;">📈 Número Crescente</a>
-        <a href="#" onclick="aplicarOrdenacao('numero_desc'); fecharDropdowns(); return false;">📉 Número Decrescente</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">sort</span> Ordenação</div>
+        <a href="#" onclick="aplicarOrdenacao('numero_asc');  fecharDropdowns(); return false;"><span class="material-symbols-outlined">trending_up</span> Número Crescente</a>
+        <a href="#" onclick="aplicarOrdenacao('numero_desc'); fecharDropdowns(); return false;"><span class="material-symbols-outlined">trending_down</span> Número Decrescente</a>
     </div>
 
     <div id="dropFiltros" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">🔍 Filtros</div>
-        <a href="#" onclick="fecharDropdowns(); abrirFiltroNumero();   return false;">🔢 Por Número</a>
-        <a href="#" onclick="fecharDropdowns(); aplicarFiltroHoje();    return false;">📅 Hoje</a>
-        <a href="#" onclick="fecharDropdowns(); abrirFiltroData();      return false;">📆 A partir de...</a>
-        <a href="#" onclick="fecharDropdowns(); abrirFiltroCliente();   return false;">👤 Por Cliente</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">filter_list</span> Filtros</div>
+        <a href="#" onclick="fecharDropdowns(); abrirFiltroNumero();   return false;"><span class="material-symbols-outlined">tag</span> Por Número</a>
+        <a href="#" onclick="fecharDropdowns(); aplicarFiltroHoje();    return false;"><span class="material-symbols-outlined">calendar_today</span> Hoje</a>
+        <a href="#" onclick="fecharDropdowns(); abrirFiltroData();      return false;"><span class="material-symbols-outlined">calendar_today</span> A partir de...</a>
+        <a href="#" onclick="fecharDropdowns(); abrirFiltroCliente();   return false;"><span class="material-symbols-outlined">person</span> Por Cliente</a>
     </div>
 
     <div id="dropAjuda" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">❓ Ajuda</div>
-        <a href="manual.html">📚 Manual</a>
-        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;">▶️ Assistir Vídeo</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">help</span> Ajuda</div>
+        <a href="manual.html"><span class="material-symbols-outlined">menu_book</span> Manual</a>
+        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;"><span class="material-symbols-outlined">play_circle</span> Assistir Vídeo</a>
     </div>
 
     <div id="dropRelatorios" class="dropdown-flutuante">
-        <div class="dropdown-flutuante-titulo">📄 Relatórios</div>
-        <a href="#" onclick="gerarRelatorioPedidos(); fecharDropdowns(); return false;">📊 Pedidos sob Filtro Atual</a>
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">description</span> Relatórios</div>
+        <a href="#" onclick="gerarRelatorioPedidos(); fecharDropdowns(); return false;"><span class="material-symbols-outlined">bar_chart</span> Pedidos sob Filtro Atual</a>
     </div>
 
     <div class="main-area">
         <div class="page-topbar">
-            <span class="page-titulo">📋 Pedidos de Venda</span>
+            <span class="page-titulo"><span class="material-symbols-outlined">list_alt</span> Pedidos de Venda</span>
             <span class="page-subtitulo">/ Visualização e controle de pedidos</span>
             <span id="userName" style="margin-left:auto; font-size:12px; color:#475569; font-weight:600;"></span>
         </div>
@@ -111,7 +112,7 @@
 <div id="modalFiltroNumero" class="modal">
     <div class="modal-content modal-small">
         <div class="modal-header">
-            <h3>🔢 Filtrar por Número</h3>
+            <h3><span class="material-symbols-outlined">tag</span> Filtrar por Número</h3>
             <span class="modal-close" onclick="fecharModal('modalFiltroNumero')">&times;</span>
         </div>
         <div class="modal-body">
@@ -130,7 +131,7 @@
 <div id="modalFiltroData" class="modal">
     <div class="modal-content modal-small">
         <div class="modal-header">
-            <h3>📆 Filtrar a partir de...</h3>
+            <h3><span class="material-symbols-outlined">calendar_today</span> Filtrar a partir de...</h3>
             <span class="modal-close" onclick="fecharModal('modalFiltroData')">&times;</span>
         </div>
         <div class="modal-body">
@@ -149,14 +150,14 @@
 <div id="modalFiltroCliente" class="modal">
     <div class="modal-content modal-small">
         <div class="modal-header">
-            <h3>👤 Filtrar por Cliente</h3>
+            <h3><span class="material-symbols-outlined">person</span> Filtrar por Cliente</h3>
             <span class="modal-close" onclick="fecharModal('modalFiltroCliente')">&times;</span>
         </div>
         <div class="modal-body">
             <div class="form-group">
                 <label>Buscar Cliente:</label>
                 <input type="text" id="buscaCliente" placeholder="Digite o nome ou documento do cliente">
-                <small style="color:#64748b; font-size:11px; margin-top:4px; display:block;">💡 Clique no cliente desejado para aplicar o filtro</small>
+                <small style="color:#64748b; font-size:11px; margin-top:4px; display:block;"><span class="material-symbols-outlined" style="font-size:12px;vertical-align:middle;">lightbulb</span> Clique no cliente desejado para aplicar o filtro</small>
             </div>
             <div id="resultadosBuscaCliente" class="resultados-busca"></div>
         </div>
@@ -169,13 +170,13 @@
 <div id="modalVisualizarPedido" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>📋 Detalhes do Pedido</h3>
+            <h3><span class="material-symbols-outlined">list_alt</span> Detalhes do Pedido</h3>
             <span class="modal-close" onclick="fecharModal('modalVisualizarPedido')">&times;</span>
         </div>
         <div class="modal-body" id="conteudoPedido"></div>
         <div class="modal-footer">
             <button class="btn-cancel" onclick="fecharModal('modalVisualizarPedido')">Fechar</button>
-            <button class="btn-relatorio" onclick="imprimirPedidoAtual()">🖨️ Reimprimir Pedido</button>
+            <button class="btn-relatorio" onclick="imprimirPedidoAtual()"><span class="material-symbols-outlined">print</span> Reimprimir Pedido</button>
         </div>
     </div>
 </div>
@@ -184,7 +185,7 @@
 <div id="modalVideo" onclick="if(event.target===this)fecharVideoAjuda()">
     <div class="modal-video-box">
         <div class="modal-header">
-            <span class="modal-titulo">▶️ Tutorial em Vídeo</span>
+            <span class="modal-titulo"><span class="material-symbols-outlined">play_circle</span> Tutorial em Vídeo</span>
             <span class="modal-fechar" onclick="fecharVideoAjuda()">&times;</span>
         </div>
         <div class="modal-video-wrapper">

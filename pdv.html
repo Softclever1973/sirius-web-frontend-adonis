@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRIUS WEB - PDV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -22,7 +23,7 @@
             <p class="tela-inicial-subtitulo">Ponto de Venda</p>
             <div class="tela-inicial-acoes">
                 <button id="btn-novo-pedido" class="btn-inicial btn-primario" onclick="iniciarNovoPedido()" autofocus>
-                    <span class="btn-icone">🛒</span>
+                    <span class="btn-icone"><span class="material-symbols-outlined">shopping_cart</span></span>
                     <span>Novo Pedido</span>
                     <span class="btn-hint">Enter</span>
                 </button>
@@ -31,7 +32,7 @@
                     <span>Voltar</span>
                 </button>
                 <button class="btn-inicial btn-secundario" onclick="abrirModalAjuda()" tabindex="2">
-                    <span class="btn-icone">❓</span>
+                    <span class="btn-icone"><span class="material-symbols-outlined">help</span></span>
                     <span>Ajuda</span>
                 </button>
             </div>
@@ -48,7 +49,7 @@
     <!-- Header compacto -->
     <div class="pdv-header">
         <div class="pdv-header-esquerda">
-            <span class="pdv-logo-mini">⚡ SIRIUS PDV</span>
+            <span class="pdv-logo-mini"><span class="material-symbols-outlined">bolt</span> SIRIUS PDV</span>
             <span class="pdv-numero-pedido">Pedido #<strong id="numeroPedido">-</strong></span>
             <span class="pdv-data" id="dataPedido">-</span>
         </div>
@@ -76,7 +77,7 @@
                 <span class="total-label">TOTAL</span>
                 <span class="total-valor" id="totalMini">R$ 0,00</span>
             </div>
-            <button class="btn-cancelar-pdv btn-ajuda-pdv" onclick="abrirModalAjuda()" title="Ajuda" tabindex="-1">❓ Ajuda</button>
+            <button class="btn-cancelar-pdv btn-ajuda-pdv" onclick="abrirModalAjuda()" title="Ajuda" tabindex="-1"><span class="material-symbols-outlined">help</span> Ajuda</button>
             <button class="btn-cancelar-pdv" onclick="cancelarVendaConfirmar()" title="Cancelar Venda (ESC)" tabindex="0">✕ Cancelar</button>
         </div>
     </div>
@@ -93,13 +94,13 @@
                 <!-- Painel de busca -->
                 <div class="cliente-painel-busca">
                     <div class="cliente-busca-header">
-                        <h2 class="tab-titulo">👤 Selecionar Cliente</h2>
+                        <h2 class="tab-titulo"><span class="material-symbols-outlined">person</span> Selecionar Cliente</h2>
                         <p class="tab-subtitulo">Busque pelo nome, CPF/CNPJ ou deixe em branco para usar <strong>Consumidor Final</strong></p>
                     </div>
 
                     <div class="cliente-busca-grupo">
                         <div class="input-busca-wrapper">
-                            <span class="input-icone">🔍</span>
+                            <span class="input-icone"><span class="material-symbols-outlined">search</span></span>
                             <input
                                 type="text"
                                 id="inputBuscaCliente"
@@ -128,8 +129,8 @@
                 <!-- Coluna esquerda: busca + resultados -->
                 <div class="produtos-painel-busca">
                     <div class="produtos-busca-header">
-                        <h2 class="tab-titulo">🔍 Buscar Produto</h2>
-                        <div class="cliente-badge" id="clienteBadge">👤 -</div>
+                        <h2 class="tab-titulo"><span class="material-symbols-outlined">search</span> Buscar Produto</h2>
+                        <div class="cliente-badge" id="clienteBadge"><span class="material-symbols-outlined">person</span> -</div>
                     </div>
 
                     <div class="input-busca-wrapper">
@@ -151,7 +152,7 @@
                 <!-- Coluna direita: itens do pedido -->
                 <div class="produtos-painel-itens">
                     <div class="itens-header">
-                        <h2 class="tab-titulo">🛒 Itens do Pedido</h2>
+                        <h2 class="tab-titulo"><span class="material-symbols-outlined">shopping_cart</span> Itens do Pedido</h2>
                         <span class="badge-itens" id="quantidadeItens">0 itens</span>
                     </div>
 
@@ -223,8 +224,8 @@
                 <!-- Coluna esquerda: adicionar pagamento -->
                 <div class="pagamentos-painel-form">
                     <div class="pagamentos-form-header">
-                        <h2 class="tab-titulo">💳 Adicionar Pagamento</h2>
-                        <div class="cliente-badge">👤 <span id="clienteBadgePag">-</span></div>
+                        <h2 class="tab-titulo"><span class="material-symbols-outlined">credit_card</span> Adicionar Pagamento</h2>
+                        <div class="cliente-badge"><span class="material-symbols-outlined">person</span> <span id="clienteBadgePag">-</span></div>
                     </div>
 
                     <!-- Resumo do pedido -->
@@ -298,7 +299,7 @@
                 <!-- Coluna direita: lista de pagamentos + finalizar -->
                 <div class="pagamentos-painel-lista">
                     <div class="pagamentos-lista-header">
-                        <h2 class="tab-titulo">📋 Pagamentos Adicionados</h2>
+                        <h2 class="tab-titulo"><span class="material-symbols-outlined">list_alt</span> Pagamentos Adicionados</h2>
                     </div>
 
                     <div id="pagamentosLista" class="pagamentos-lista">
@@ -387,7 +388,7 @@
 <div id="modalConfirmacao" class="modal-overlay" style="display:none;">
     <div class="modal-caixa modal-pequeno">
         <div class="modal-header modal-header-aviso">
-            <h3>⚠️ Confirmar Cancelamento</h3>
+            <h3><span class="material-symbols-outlined">warning</span> Confirmar Cancelamento</h3>
             <button class="modal-fechar" onclick="fecharModalConfirmacao()">✕</button>
         </div>
         <div class="modal-corpo">
@@ -409,7 +410,7 @@
         <div class="modal-header modal-header-sucesso">
             <h3>✅ Pedido Finalizado com Sucesso!</h3>
             <div class="relatorio-acoes-header">
-                <button class="btn-imprimir" onclick="imprimirRelatorioPedido()">🖨️ Imprimir</button>
+                <button class="btn-imprimir" onclick="imprimirRelatorioPedido()"><span class="material-symbols-outlined">print</span> Imprimir</button>
                 <button class="btn-modal-fechar-relatorio" onclick="fecharRelatorioPedido()">Fechar e Nova Venda</button>
             </div>
         </div>
@@ -508,15 +509,15 @@
 <div id="modalAjuda" class="modal-overlay" style="display:none;" onclick="if(event.target===this)fecharModalAjuda()">
     <div class="modal-caixa modal-pequeno">
         <div class="modal-header">
-            <h3>❓ Ajuda</h3>
+            <h3><span class="material-symbols-outlined">help</span> Ajuda</h3>
             <button class="modal-fechar" onclick="fecharModalAjuda()">✕</button>
         </div>
         <div class="modal-corpo modal-ajuda-opcoes">
             <a href="manual.html" class="btn-modal-confirmar btn-ajuda-opcao">
-                📚 Acessar Manual
+                <span class="material-symbols-outlined">menu_book</span> Acessar Manual
             </a>
             <button class="btn-modal-cancelar btn-ajuda-opcao" onclick="fecharModalAjuda(); abrirVideoAjuda();">
-                ▶️ Assistir Vídeo
+                <span class="material-symbols-outlined">play_circle</span> Assistir Vídeo
             </button>
         </div>
     </div>
@@ -526,7 +527,7 @@
 <div id="modalVideo" class="modal-overlay" style="display:none;" onclick="if(event.target===this)fecharVideoAjuda()">
     <div class="modal-caixa modal-video-grande">
         <div class="modal-header">
-            <h3>▶️ Tutorial em Vídeo</h3>
+            <h3><span class="material-symbols-outlined">play_circle</span> Tutorial em Vídeo</h3>
             <button class="modal-fechar" onclick="fecharVideoAjuda()">✕</button>
         </div>
         <div class="modal-corpo">

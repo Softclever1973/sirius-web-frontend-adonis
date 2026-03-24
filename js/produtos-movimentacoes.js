@@ -113,14 +113,14 @@ async function loadMovimentacoes() {
             document.getElementById('tableBody').innerHTML = `
                 <tr>
                     <td colspan="7" style="text-align: center; color: #ef4444; padding: 48px;">
-                        ❌ ${error.message}
+                        ${error.message}
                     </td>
                 </tr>
             `;
         } else {
             document.getElementById('detailCards').innerHTML = `
                 <div style="text-align: center; color: #ef4444; padding: 48px;">
-                    ❌ ${error.message}
+                    ${error.message}
                 </div>
             `;
         }
@@ -134,7 +134,7 @@ function renderGridView() {
         tbody.innerHTML = `
             <tr>
                 <td colspan="7" class="empty-state">
-                    <div class="empty-state-icon">📦</div>
+                    <div class="empty-state-icon"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">inventory_2</span></div>
                     <p>Nenhuma movimentação registrada para este produto</p>
                 </td>
             </tr>
@@ -147,7 +147,7 @@ function renderGridView() {
             <td>${formatDateTime(mov.data)}</td>
             <td>
                 <span class="badge ${mov.tipo === 'ENTRADA' ? 'badge-entrada' : 'badge-saida'}">
-                    ${mov.tipo === 'ENTRADA' ? '📥 Entrada' : '📤 Saída'}
+                    ${mov.tipo === 'ENTRADA' ? '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">add_circle</span> Entrada' : '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">remove_circle</span> Saída'}
                 </span>
             </td>
             <td style="text-align: right; font-weight: 600;">${formatNumber(mov.quantidade)}</td>
@@ -165,7 +165,7 @@ function renderDetailView() {
     if (state.movimentacoes.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
-                <div class="empty-state-icon">📦</div>
+                <div class="empty-state-icon"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">inventory_2</span></div>
                 <p>Nenhuma movimentação registrada para este produto</p>
             </div>
         `;
@@ -177,7 +177,7 @@ function renderDetailView() {
             <div class="detail-header">
                 <div class="detail-title">
                     <span class="badge ${mov.tipo === 'ENTRADA' ? 'badge-entrada' : 'badge-saida'}">
-                        ${mov.tipo === 'ENTRADA' ? '📥 Entrada' : '📤 Saída'}
+                        ${mov.tipo === 'ENTRADA' ? '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">add_circle</span> Entrada' : '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">remove_circle</span> Saída'}
                     </span>
                     <span>${formatDateTime(mov.data)}</span>
                 </div>
@@ -372,7 +372,7 @@ async function confirmarMovimentacao() {
 
         if (response.ok && data.success) {
             fecharModal();
-            await siriusAlert(data.message, 'Sucesso ✅');
+            await siriusAlert(data.message, 'Sucesso');
             state.pagination.page = 1;
             await loadMovimentacoes();
         } else {

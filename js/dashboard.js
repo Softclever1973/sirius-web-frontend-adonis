@@ -426,10 +426,10 @@ function renderizarUltimosPedidos(pedidos) {
    ============================================================ */
 function renderizarFormasPgto(totalFat, pedidos) {
     const formas = [
-        { nome: 'Dinheiro',       icone: '💵', bg: 'rgba(16,185,129,0.15)',  cor: '#10b981', pct: 0.35 },
-        { nome: 'Cartão Débito',  icone: '💰', bg: 'rgba(37,99,235,0.15)',   cor: '#2563eb', pct: 0.28 },
-        { nome: 'Cartão Crédito', icone: '💳', bg: 'rgba(139,92,246,0.15)', cor: '#8b5cf6', pct: 0.22 },
-        { nome: 'PIX',            icone: '💸', bg: 'rgba(14,165,233,0.15)',  cor: '#0ea5e9', pct: 0.15 },
+        { nome: 'Dinheiro',       icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">local_atm</span>',   bg: 'rgba(16,185,129,0.15)',  cor: '#10b981', pct: 0.35 },
+        { nome: 'Cartão Débito',  icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">credit_card</span>', bg: 'rgba(37,99,235,0.15)',   cor: '#2563eb', pct: 0.28 },
+        { nome: 'Cartão Crédito', icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">contactless</span>', bg: 'rgba(139,92,246,0.15)', cor: '#8b5cf6', pct: 0.22 },
+        { nome: 'PIX',            icone: '<img src="pix.svg" style="width:18px;height:18px;vertical-align:middle;filter:brightness(0) invert(1);">', bg: 'rgba(14,165,233,0.15)',  cor: '#0ea5e9', pct: 0.15 },
     ];
 
     const html = formas.map(f => {

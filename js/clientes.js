@@ -204,7 +204,7 @@ function renderizarTabela(clientes) {
     
     tbody.innerHTML = clientes.map(c => {
         const statusBadge = c.ativo === 'S' ? '🟢 Ativo' : '⚪ Inativo';
-        const tipoBadge = c.tipo === 'F' ? '👤 PF' : '🏢 PJ';
+        const tipoBadge = c.tipo === 'F' ? '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">person</span> PF' : '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">business</span> PJ';
         const documento = c.tipo === 'F' ? (c.cpf || '-') : (c.cnpj || '-');
         const clienteId = c.id_cliente || c.id;
         const razaoEscapada = (c.razao_social || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
@@ -218,15 +218,17 @@ function renderizarTabela(clientes) {
                 <td>${c.contato || '-'}</td>
                 <td>${statusBadge}</td>
                 <td style="white-space: nowrap;">
-                    <button class="btn-small btn-ficha" 
-                            onclick="gerarRelatorioIndividual(${clienteId})" 
-                            title="Ficha Completa do Cliente">📄</button>
-                    <button class="btn-small btn-edit" 
-                            onclick="editarCliente(${clienteId})" 
-                            title="Editar Cliente">✏️</button>
-                    <button class="btn-small btn-delete" 
-                            onclick="confirmarAlteracaoStatus(${clienteId}, '${razaoEscapada}', '${c.ativo}')" 
-                            title="Alterar Status">🗑️</button>
+                    <button class="btn-small btn-ficha"
+                            onclick="gerarRelatorioIndividual(${clienteId})"
+                            title="Ficha Completa do Cliente"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">description</span></button>
+                    <button class="btn-small btn-edit"
+                            onclick="editarCliente(${clienteId})"
+                            title="Editar Cliente"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">edit</span></button>
+                    <button class="btn-small btn-ativo"
+                            onclick="confirmarAlteracaoStatus(${clienteId}, '${razaoEscapada}', '${c.ativo}')"
+                            title="${c.ativo === 'S' ? 'Inativar' : 'Ativar'}">
+                        ${c.ativo === 'S' ? '🟢' : '⚪'}
+                    </button>
                 </td>
             </tr>
         `;
@@ -551,7 +553,7 @@ function confirmarAlteracaoStatus(id, razao_social, statusAtual) {
     `;
     
     box.innerHTML = `
-        <h3 style="color: #667eea; margin: 0 0 20px 0; font-size: 1.5em;">🏢 Sirius Web informa:</h3>
+        <h3 style="color: #667eea; margin: 0 0 20px 0; font-size: 1.5em;"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">business</span> Sirius Web informa:</h3>
         <p style="color: #333; font-size: 1.1em; margin: 0 0 25px 0; line-height: 1.5;">
             Deseja realmente <strong>${acao}</strong> o cliente:<br>"${razao_social}"?
         </p>
@@ -665,7 +667,7 @@ async function gerarRelatorio(tipo) {
         </head>
         <body>
             <div class="header">
-                <h1>📋 Relatório de Clientes</h1>
+                <h1>Relatório de Clientes</h1>
                 <div class="info">Gerado em: ${new Date().toLocaleString('pt-BR')}</div>
                 <div class="info">Total de clientes: ${clientes.length}</div>
             </div>
@@ -695,7 +697,7 @@ async function gerarRelatorio(tipo) {
                 </tbody>
             </table>
             <br>
-            <button onclick="window.print()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">🖨️ Imprimir</button>
+            <button onclick="window.print()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">Imprimir</button>
         </body>
         </html>
         `;
@@ -766,12 +768,12 @@ async function gerarRelatorioIndividual(id) {
         </head>
         <body>
             <div class="header">
-                <h1>📄 Ficha Completa do Cliente</h1>
+                <h1>Ficha Completa do Cliente</h1>
                 <p>Gerado em: ${new Date().toLocaleString('pt-BR')}</p>
             </div>
             
             <div class="section">
-                <div class="section-title">👤 Dados Básicos</div>
+                <div class="section-title">Dados Básicos</div>
                 <div class="field"><strong>Tipo:</strong> <span>${tipoPessoa}</span></div>
                 <div class="field"><strong>Razão Social/Nome:</strong> <span>${c.razao_social}</span></div>
                 <div class="field"><strong>Nome Fantasia:</strong> <span>${c.nome_fantasia || '-'}</span></div>
@@ -781,21 +783,21 @@ async function gerarRelatorioIndividual(id) {
             </div>
             
             <div class="section">
-                <div class="section-title">📞 Contato</div>
+                <div class="section-title">Contato</div>
                 <div class="field"><strong>Telefone:</strong> <span>${c.contato || '-'}</span></div>
                 <div class="field"><strong>Nome Contato:</strong> <span>${c.nome_contato || '-'}</span></div>
             </div>
             
             <div class="section">
-                <div class="section-title">📋 Dados Fiscais</div>
+                <div class="section-title">Dados Fiscais</div>
                 <div class="field"><strong>Indicador IE:</strong> <span>${c.indicador_ie || c.ind_ie || '-'}</span></div>
                 <div class="field"><strong>Inscrição Estadual:</strong> <span>${c.inscricao_estadual || '-'}</span></div>
                 <div class="field"><strong>Inscrição Municipal:</strong> <span>${c.inscricao_municipal || '-'}</span></div>
             </div>
             
             <div style="text-align: center; margin-top: 30px;">
-                <button onclick="window.print()" style="padding: 12px 30px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin-right: 10px;">🖨️ Imprimir</button>
-                <button onclick="window.close()" style="padding: 12px 30px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">✖ Fechar</button>
+                <button onclick="window.print()" style="padding: 12px 30px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin-right: 10px;">Imprimir</button>
+                <button onclick="window.close()" style="padding: 12px 30px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">Fechar</button>
             </div>
         </body>
         </html>
