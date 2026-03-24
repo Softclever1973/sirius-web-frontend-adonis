@@ -2625,7 +2625,7 @@ body.page-manual {
     line-height: 1.6;
     min-height: 100vh;
     padding: 0;
-    overflow: auto;
+    overflow-x: hidden;
 }
 
 html { scroll-behavior: smooth; }
@@ -2720,6 +2720,8 @@ html { scroll-behavior: smooth; }
     display: flex;
     flex-direction: column;
     gap: 4px;
+    max-height: 60vh;
+    overflow-y: auto;
 }
 
 .manual-nav-item {
@@ -2755,6 +2757,9 @@ html { scroll-behavior: smooth; }
     border-radius: 12px;
     padding: 40px;
     box-shadow: var(--shadow);
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .manual-section {
@@ -3064,12 +3069,20 @@ html { scroll-behavior: smooth; }
 .manual-footer p { margin: 8px 0; }
 
 /* =====================================================
+   Manual - Toggle Sidebar (mobile only)
+   ===================================================== */
+
+.btn-toggle-sidebar { display: none; }
+
+/* =====================================================
    Manual - Responsivo
    ===================================================== */
 
 @media (max-width: 1024px) {
     .manual-container {
         grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
     }
 
     .manual-sidebar {
@@ -3081,12 +3094,48 @@ html { scroll-behavior: smooth; }
 }
 
 @media (max-width: 768px) {
-    .manual-header h1    { font-size: 18px; }
-    .manual-header-actions { flex-direction: column; gap: 8px; align-items: flex-end; }
-    .manual-section h2   { font-size: 24px; }
-    .manual-section h3   { font-size: 20px; }
-    .manual-step         { flex-direction: column; }
-    .permission-card     { padding: 16px; }
+    .manual-header          { padding: 10px 0; }
+    .manual-header-content  { padding: 0 14px; gap: 8px; flex-wrap: nowrap; }
+    .manual-header h1       { font-size: 14px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+    .manual-header-actions  { flex-shrink: 0; gap: 8px; }
+    .manual-header-actions > span { display: none; }
+    .btn-back               { padding: 6px 12px; font-size: 13px; white-space: nowrap; }
+
+    .manual-container { padding: 12px; gap: 10px; }
+
+    .btn-toggle-sidebar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .manual-sidebar         { display: none; }
+    .manual-sidebar.aberta  { display: block; }
+
+    .manual-content         { padding: 16px; }
+
+    .table-scroll-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 16px;
+        border-radius: 6px;
+    }
+
+    #conteudo ul,
+    #conteudo ol { margin-left: 20px; padding-left: 8px; }
+
+    #conteudo h2 { font-size: 22px; }
+    #conteudo h3 { font-size: 18px; }
 }
 
 /* =====================================================
@@ -4488,6 +4537,7 @@ body.pdv-page html {
     transition: all var(--transicao);
     position: relative;
     letter-spacing: 0.3px;
+    padding: 5px;
 }
 
 .btn-primario {
@@ -6051,6 +6101,8 @@ body.pdv-page html {
         font-size: 17px;
         border-radius: 14px;
     }
+
+    .btn-hint { display: none; }
 
     /* ===== HEADER PDV =============================== */
     .pdv-header {
@@ -8939,12 +8991,12 @@ body.page-promo .fundo::after {
         min-width: unset;
         height: 60px;
         flex-direction: row;
-        padding: 0 12px;
+        padding: 0 4px;
         border-right: none;
         border-top: 1px solid rgba(37, 99, 235, 0.25);
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
-        justify-content: space-around;
-        overflow-x: auto;
+        justify-content: stretch;
+        overflow: hidden;
         flex-shrink: 0;
     }
 
@@ -8966,10 +9018,20 @@ body.page-promo .fundo::after {
     }
 
     .sidebar-btn {
-        width: 44px;
-        height: 44px;
-        flex-shrink: 0;
+        flex: 1;
+        width: auto;
+        min-width: 0;
+        height: 52px;
+        padding: 6px 2px;
         font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .btn-label {
+        font-size: 8px;
+        white-space: normal;
+        text-align: center;
+        word-break: break-word;
     }
 
     /* Topbar compacta */
@@ -9046,14 +9108,19 @@ body.page-promo .fundo::after {
 
 @media (max-width: 480px) {
     .sidebar-icones {
-        height: 54px;
-        padding: 0 8px;
+        height: 56px;
+        padding: 0 2px;
     }
 
     .sidebar-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 14px;
+        height: 50px;
+        font-size: 13px;
+        padding: 5px 1px;
+    }
+
+    .btn-label {
+        font-size: 7px;
+        letter-spacing: 0;
     }
 
     .content-scroll {

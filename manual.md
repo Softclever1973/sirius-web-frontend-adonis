@@ -1,10 +1,10 @@
-# 📚 SIRIUS WEB — Manual do Usuário
+# <span class="material-symbols-outlined" style="vertical-align:middle;font-size:0.9em;">menu_book</span> SIRIUS WEB — Manual do Usuário
 
 > **SIRIUS WEB** é um sistema ERP completo de gestão empresarial, desenvolvido pela **Soft Clever Informática** para atender pequenas e médias empresas com foco em PDV e gestão comercial.
 
 ---
 
-## 🏠 Introdução
+## Introdução
 
 O SIRIUS WEB opera em modelo **multi-tenant (SaaS)**, onde uma única instalação atende múltiplas empresas, cada uma com seus dados completamente isolados.
 
@@ -12,21 +12,21 @@ O SIRIUS WEB opera em modelo **multi-tenant (SaaS)**, onde uma única instalaç�
 
 | Módulo | Descrição |
 |--------|-----------|
-| 🛒 PDV | Ponto de Venda — realização de vendas |
-| 👥 Clientes | Cadastro e gestão de clientes |
-| 📦 Produtos | Cadastro e controle de estoque |
-| 👨‍💼 Vendedores | Cadastro e gestão da equipe de vendas |
-| 📊 Dashboard | Painel gerencial com indicadores e gráficos |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">shopping_cart</span> PDV | Ponto de Venda — realização de vendas |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">group</span> Clientes | Cadastro e gestão de clientes |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">inventory_2</span> Produtos | Cadastro e controle de estoque |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">badge</span> Vendedores | Cadastro e gestão da equipe de vendas |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">bar_chart</span> Dashboard | Painel gerencial com indicadores e gráficos |
 
-> ⚠️ **Nota:** Na primeira vez que acessar o sistema após o cadastro, você será redirecionado para este manual para conhecer todas as funcionalidades antes de começar a usar.
+> <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">warning</span> **Nota:** Na primeira vez que acessar o sistema após o cadastro, você será redirecionado para este manual para conhecer todas as funcionalidades antes de começar a usar.
 
 ---
 
-## 👥 Hierarquia de Permissões
+## Hierarquia de Permissões
 
 O sistema possui **3 níveis de acesso**, cada um com permissões específicas.
 
-### 👑 Super Admin — Dono da Empresa
+### <span class="material-symbols-outlined" style="vertical-align:middle;font-size:0.85em;">military_tech</span> Super Admin — Dono da Empresa
 
 É criado automaticamente no momento do cadastro da empresa. Tem acesso total ao sistema.
 
@@ -40,7 +40,7 @@ O sistema possui **3 níveis de acesso**, cada um com permissões específicas.
 
 ---
 
-### 👨‍💼 Admin
+### <span class="material-symbols-outlined" style="vertical-align:middle;font-size:0.85em;">badge</span> Admin
 
 É um vendedor promovido pelo Super Admin. Tem as mesmas permissões de gestão, exceto promover outros admins.
 
@@ -56,7 +56,7 @@ O sistema possui **3 níveis de acesso**, cada um com permissões específicas.
 
 ---
 
-### 👤 Vendedor
+### <span class="material-symbols-outlined" style="vertical-align:middle;font-size:0.85em;">person</span> Vendedor
 
 Funcionário operacional. Acesso restrito às tarefas do dia a dia.
 
@@ -76,17 +76,17 @@ Funcionário operacional. Acesso restrito às tarefas do dia a dia.
 
 | Ação | Super Admin | Admin | Vendedor |
 |------|:-----------:|:-----:|:--------:|
-| Usar PDV | ✅ | ✅ | ✅ |
-| Consultar produtos e clientes | ✅ | ✅ | ✅ |
-| Ver registro de vendas | ✅ | ✅ | ✅ |
-| Cadastrar/editar produtos e clientes | ✅ | ✅ | ❌ |
-| Criar/editar/excluir vendedores | ✅ | ✅ | ❌ |
-| Acessar Dashboard | ✅ | ✅ | ❌ |
-| Promover vendedor a Admin | ✅ | ❌ | ❌ |
+| Usar PDV | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
+| Consultar produtos e clientes | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
+| Ver registro de vendas | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
+| Cadastrar/editar produtos e clientes | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
+| Criar/editar/excluir vendedores | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
+| Acessar Dashboard | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
+| Promover vendedor a Admin | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
 
 ---
 
-## 🛒 PDV — Ponto de Venda
+## PDV — Ponto de Venda
 
 O PDV é o módulo principal para realização de vendas e foi pensado para ser usado com apenas o teclado. Siga o fluxo abaixo:
 
@@ -122,10 +122,10 @@ Selecione a forma de pagamento e informe o valor. Formas disponíveis:
 
 | Forma | Troco |
 |-------|:-----:|
-| 💵 Dinheiro | ✅ Calcula troco automaticamente |
-| 💳 Cartão de Débito | ❌ |
-| 💳 Cartão de Crédito (à vista) | ❌ |
-| 💸 PIX | ❌ |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">local_atm</span> Dinheiro | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:16px;">check_circle</span> Calcula troco automaticamente |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">credit_card</span> Cartão de Débito | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:16px;">cancel</span> |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">contactless</span> Cartão de Crédito (à vista) | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:16px;">cancel</span> |
+| <img src="pix.svg" style="width:16px;height:16px;vertical-align:middle;"> PIX | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:16px;">cancel</span> |
 
 É possível dividir o pagamento em **múltiplas formas** (ex: parte em dinheiro, parte no PIX). Você também pode adicionar **observações** ao pedido antes de finalizar.
 
@@ -142,7 +142,7 @@ Após isso, você pode iniciar uma nova venda ou voltar ao menu.
 
 ---
 
-## 📦 Produtos
+## Produtos
 
 ### Listagem
 
@@ -171,13 +171,13 @@ Ao entrar no módulo, a tabela de produtos é carregada automaticamente. Recurso
 
 | Campo | Obrigatório |
 |-------|:-----------:|
-| Código | ✅ |
-| Código de Barras (EAN-13) | ❌ |
-| Descrição | ✅ |
-| Descrição Complementar | ❌ |
-| Unidade de Medida | ✅ |
-| Preço de Custo | ❌ |
-| Preço de Venda | ✅ |
+| Código | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
+| Código de Barras (EAN-13) | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
+| Descrição | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
+| Descrição Complementar | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
+| Unidade de Medida | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
+| Preço de Custo | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
+| Preço de Venda | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
 
 Unidades disponíveis: `UN` · `CX` · `KG` · `MT` · `LT` · `PC` · `PR` · `PT`
 
@@ -191,7 +191,7 @@ Unidades disponíveis: `UN` · `CX` · `KG` · `MT` · `LT` · `PC` · `PR` · `
 | Estoque Mínimo | Referência para o filtro "Abaixo do Mínimo" |
 | Estoque Máximo | Referência para controle interno |
 
-> ⚠️ O estoque é reduzido automaticamente ao finalizar uma venda no PDV.
+> <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">warning</span> O estoque é reduzido automaticamente ao finalizar uma venda no PDV.
 
 ---
 
@@ -208,7 +208,7 @@ NCM, CEST, CFOP, Origem da Mercadoria, ICMS, PIS e COFINS com seus respectivos C
 
 ---
 
-## 👥 Clientes
+## Clientes
 
 ### Listagem
 
@@ -244,7 +244,7 @@ Indicador de IE, Inscrição Estadual, Inscrição Municipal e ID Estrangeiro (p
 
 ---
 
-## 👨‍💼 Vendedores
+## Vendedores
 
 ### Listagem
 
@@ -262,11 +262,11 @@ Indicador de IE, Inscrição Estadual, Inscrição Municipal e ID Estrangeiro (p
 
 | Campo | Obrigatório |
 |-------|:-----------:|
-| Nome Completo | ✅ |
-| CPF | ❌ |
-| Telefone | ✅ |
-| E-mail | ✅ |
-| Senha | ✅ |
+| Nome Completo | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
+| CPF | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
+| Telefone | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
+| E-mail | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
+| Senha | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> |
 
 > O e-mail e a senha cadastrados aqui são as credenciais de acesso do vendedor ao sistema.
 
@@ -285,7 +285,7 @@ CEP (com busca automática), Endereço, Complemento, Cidade e UF.
 
 ---
 
-## 📊 Dashboard
+## Dashboard
 
 Painel gerencial disponível para **Super Admin e Admin**.
 
@@ -297,10 +297,10 @@ Hoje · 7 dias · 30 dias · Intervalo de datas personalizado
 
 | KPI | Descrição |
 |-----|-----------|
-| 📋 Pedidos | Total de pedidos no período |
-| 💰 Faturado | Valor total faturado |
-| 🎯 Ticket Médio | Valor médio por pedido |
-| ✅ Finalizados | Quantidade de pedidos concluídos |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">list_alt</span> Pedidos | Total de pedidos no período |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">payments</span> Faturado | Valor total faturado |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">gps_fixed</span> Ticket Médio | Valor médio por pedido |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">check_circle</span> Finalizados | Quantidade de pedidos concluídos |
 
 ### Gráficos
 
@@ -314,15 +314,15 @@ Hoje · 7 dias · 30 dias · Intervalo de datas personalizado
 
 ---
 
-## ❓ Perguntas Frequentes
+## Perguntas Frequentes
 
 **Como faço para cadastrar meu primeiro produto?**
-Acesse o menu principal, clique em **Produtos** e depois no botão **➕ Novo** na barra lateral. Preencha os campos obrigatórios (Código, Descrição, Unidade de Medida e Preço de Venda) e clique em Salvar.
+Acesse o menu principal, clique em **Produtos** e depois no botão <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">add</span> **Novo** na barra lateral. Preencha os campos obrigatórios (Código, Descrição, Unidade de Medida e Preço de Venda) e clique em Salvar.
 
 ---
 
 **O vendedor esqueceu a senha, como redefinir?**
-Acesse o módulo **Vendedores**, localize o vendedor na listagem, clique em editar (✏️) e informe uma nova senha na aba Dados Básicos. O vendedor deverá usar a nova senha no próximo acesso.
+Acesse o módulo **Vendedores**, localize o vendedor na listagem, clique em editar (<span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">edit</span>) e informe uma nova senha na aba Dados Básicos. O vendedor deverá usar a nova senha no próximo acesso.
 
 ---
 
@@ -339,7 +339,7 @@ Também é possível contornar a limitação do saldo negativo realizando uma en
 ---
 
 **Como promovo um vendedor a Admin?**
-Acesse o módulo **Vendedores**, localize o vendedor desejado, clique em editar (✏️) e ative a permissão de Admin. Apenas o **Super Admin** pode realizar esta ação.
+Acesse o módulo **Vendedores**, localize o vendedor desejado, clique em editar (<span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">edit</span>) e ative a permissão de Admin. Apenas o **Super Admin** pode realizar esta ação.
 
 ---
 
@@ -358,7 +358,7 @@ O SIRIUS WEB, versão gratuita é um sistema web e requer conexão com a interne
 
 ---
 
-## 📖 Glossário
+## Glossário
 
 **Super Admin** — Usuário criado no cadastro da empresa. Tem acesso total ao sistema.
 

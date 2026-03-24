@@ -3,6 +3,9 @@
 // Depende de: marked.js (CDN)
 // =====================================================
 
+// Bloqueia scroll horizontal somente nesta página
+document.documentElement.style.overflowX = 'hidden';
+
 // ── Autenticação ──────────────────────────────────────────
 (function verificarAutenticacao() {
     const token = localStorage.getItem('sirius_token');
@@ -29,18 +32,26 @@ async function carregarManual() {
 
         document.getElementById('conteudo').innerHTML = marked.parse(texto);
 
+        // Envolve tabelas em wrapper com scroll horizontal
+        document.querySelectorAll('#conteudo table').forEach(table => {
+            const wrap = document.createElement('div');
+            wrap.className = 'table-scroll-wrap';
+            table.parentNode.insertBefore(wrap, table);
+            wrap.appendChild(table);
+        });
+
         gerarSidebar();
         ativarScrollSpy();
 
     } catch (e) {
         document.getElementById('conteudo').innerHTML =
-            `<p style="color:var(--vermelho)">⚠️ Erro ao carregar o manual: ${e.message}</p>`;
+            `<p style="color:var(--vermelho)"><span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;">warning</span> Erro ao carregar o manual: ${e.message}</p>`;
         console.error('Erro manual:', e);
     }
 }
 
 // ── Gerar índice lateral a partir dos H2 do .md ─────────
-const ICONES = ['🏠','👥','⚙️','🎯','💡','❓','📖'];
+const ICONES = ['home', 'group', 'settings', 'gps_fixed', 'lightbulb', 'help', 'menu_book'];
 
 function gerarSidebar() {
     const titulos = document.querySelectorAll('#conteudo h2');
@@ -53,7 +64,7 @@ function gerarSidebar() {
         const texto = h.textContent.replace(/[\u{1F000}-\u{1FFFF}]|[\u2600-\u27BF]/gu, '').trim();
         html += `
             <a href="#${id}" class="manual-nav-item" data-secao="${id}">
-                <span class="nav-icon">${ICONES[i] || '📄'}</span>
+                <span class="material-symbols-outlined nav-icon">${ICONES[i] || 'description'}</span>
                 ${texto}
             </a>`;
     });
@@ -76,13 +87,20 @@ function ativarScrollSpy() {
                 const link = document.querySelector(`.manual-nav-item[data-secao="${entry.target.id}"]`);
                 if (link) {
                     link.classList.add('active');
-                    link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                    // Scroll apenas dentro do nav, sem mover a página
+                    const nav = document.getElementById('sidebar-nav');
+                    if (nav) nav.scrollTop = link.offsetTop - nav.clientHeight / 2;
                 }
             }
         });
     }, { rootMargin: '-20% 0px -70% 0px' });
 
     secoes.forEach(s => observer.observe(s));
+}
+
+// ── Toggle sidebar no mobile ──────────────────────────────
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('aberta');
 }
 
 carregarManual();

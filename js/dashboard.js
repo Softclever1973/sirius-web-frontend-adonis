@@ -213,19 +213,34 @@ async function carregarDados() {
             params.append('data_inicial', dataInicio.toISOString().split('T')[0]);
         }
 
-        const resp = await fetch(`${API_URL}/pdv/pedidos?${params}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'X-Empresa-Id': empresaId
-            }
-        });
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'X-Empresa-Id': empresaId
+        };
 
-        if (!resp.ok) throw new Error('API indisponível');
+        const [respPedidos, respFormas, respFormasAtivas] = await Promise.all([
+            fetch(`${API_URL}/pdv/pedidos?${params}`, { headers }),
+            fetch(`${API_URL}/pdv/pedidos/totais-formas?${params}`, { headers }),
+            fetch(`${API_URL}/pdv/formas-pagamento`, { headers })
+        ]);
 
-        const result = await resp.json();
+        if (!respPedidos.ok) throw new Error('API indisponível');
+
+        const result          = await respPedidos.json();
+        const resultFormas    = respFormas.ok        ? await respFormas.json()       : { data: [] };
+        const resultFormasAtivas = respFormasAtivas.ok ? await respFormasAtivas.json() : { data: [] };
+
         if (!result.success) throw new Error('Dados inválidos');
 
-        processarDados(result.data || []);
+        // Merge: todas as formas ativas, com o total real (ou 0)
+        const totaisMap = Object.fromEntries((resultFormas.data || []).map(f => [f.id_forma_pagamento, f]));
+        const totaisMerged = (resultFormasAtivas.data || []).map(f => ({
+            id_forma_pagamento: f.id,
+            descricao: f.descricao,
+            total: parseFloat(totaisMap[f.id]?.total || 0)
+        })).sort((a, b) => b.total - a.total);
+
+        processarDados(result.data || [], totaisMerged);
 
     } catch(err) {
         console.warn('Usando dados de demonstração:', err.message);
@@ -236,7 +251,7 @@ async function carregarDados() {
 /* ============================================================
    PROCESSAR DADOS REAIS
    ============================================================ */
-function processarDados(pedidos) {
+function processarDados(pedidos, totaisFormas = []) {
     const total     = pedidos.length;
     const faturado  = pedidos.reduce((s, p) => s + parseFloat(p.valor_liquido || 0), 0);
     const ticket    = total > 0 ? faturado / total : 0;
@@ -274,7 +289,7 @@ function processarDados(pedidos) {
 
     desenharDonut([finalizados, abertos, cancelados]);
     renderizarUltimosPedidos(pedidos.slice(0, 8));
-    renderizarFormasPgto(faturado, pedidos);
+    renderizarFormasPgto(totaisFormas);
 }
 
 /* ============================================================
@@ -393,7 +408,12 @@ function usarDadosMock() {
         created_at: new Date(Date.now() - i * 3600000 * 2).toISOString()
     }));
     renderizarUltimosPedidos(pedidosMock);
-    renderizarFormasPgto(fat, null);
+    renderizarFormasPgto([
+        { descricao: 'Dinheiro',       total: fat * 0.35 },
+        { descricao: 'Cartão Débito',  total: fat * 0.28 },
+        { descricao: 'Cartão Crédito', total: fat * 0.22 },
+        { descricao: 'PIX',            total: fat * 0.15 },
+    ]);
 }
 
 /* ============================================================
@@ -424,32 +444,46 @@ function renderizarUltimosPedidos(pedidos) {
 /* ============================================================
    RENDERIZAR FORMAS DE PAGAMENTO
    ============================================================ */
-function renderizarFormasPgto(totalFat, pedidos) {
-    const formas = [
-        { nome: 'Dinheiro',       icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">local_atm</span>',   bg: 'rgba(16,185,129,0.15)',  cor: '#10b981', pct: 0.35 },
-        { nome: 'Cartão Débito',  icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">credit_card</span>', bg: 'rgba(37,99,235,0.15)',   cor: '#2563eb', pct: 0.28 },
-        { nome: 'Cartão Crédito', icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">contactless</span>', bg: 'rgba(139,92,246,0.15)', cor: '#8b5cf6', pct: 0.22 },
-        { nome: 'PIX',            icone: '<img src="pix.svg" style="width:18px;height:18px;vertical-align:middle;filter:brightness(0) invert(1);">', bg: 'rgba(14,165,233,0.15)',  cor: '#0ea5e9', pct: 0.15 },
-    ];
 
-    const html = formas.map(f => {
-        const val = totalFat * f.pct;
-        const largura = Math.round(f.pct * 100);
+// Mapeamento visual por palavras-chave na descrição
+const FORMAS_VISUAL = [
+    { chave: ['pix'],                    icone: '<img src="pix.svg" style="width:18px;height:18px;vertical-align:middle;filter:brightness(0) invert(1);">', bg: 'rgba(14,165,233,0.15)',  cor: '#0ea5e9' },
+    { chave: ['débito', 'debito'],       icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">credit_card</span>',  bg: 'rgba(37,99,235,0.15)',   cor: '#2563eb' },
+    { chave: ['crédito', 'credito'],     icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">contactless</span>',  bg: 'rgba(139,92,246,0.15)', cor: '#8b5cf6' },
+    { chave: ['dinheiro', 'espécie', 'especie', 'cash'], icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">local_atm</span>', bg: 'rgba(16,185,129,0.15)', cor: '#10b981' },
+];
+const FORMA_PADRAO = { icone: '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">payments</span>', bg: 'rgba(255,255,255,0.08)', cor: '#94a3b8' };
+
+function visualForma(descricao) {
+    const d = (descricao || '').toLowerCase();
+    return FORMAS_VISUAL.find(f => f.chave.some(c => d.includes(c))) || FORMA_PADRAO;
+}
+
+function renderizarFormasPgto(totaisFormas) {
+    const el = document.getElementById('listaFormasPgto');
+
+    if (!totaisFormas || totaisFormas.length === 0) return;
+
+    const somaTotal = totaisFormas.reduce((s, f) => s + parseFloat(f.total || 0), 0) || 1;
+
+    el.innerHTML = totaisFormas.map(f => {
+        const val     = parseFloat(f.total || 0);
+        const largura = Math.round((val / somaTotal) * 100);
+        const visual  = visualForma(f.descricao);
         return `
         <div class="pgto-item">
             <div class="pgto-left">
-                <div class="pgto-icone" style="background:${f.bg};">${f.icone}</div>
+                <div class="pgto-icone" style="background:${visual.bg};">${visual.icone}</div>
                 <div>
-                    <div class="pgto-nome">${f.nome}</div>
+                    <div class="pgto-nome">${f.descricao}</div>
                     <div class="pgto-barra-wrap" style="width:100px;">
-                        <div class="pgto-barra" style="width:${largura}%;background:${f.cor};"></div>
+                        <div class="pgto-barra" style="width:${largura}%;background:${visual.cor};"></div>
                     </div>
                 </div>
             </div>
             <div class="pgto-valor">R$ ${fmt(val)}</div>
         </div>`;
     }).join('');
-    document.getElementById('listaFormasPgto').innerHTML = html;
 }
 
 /* ============================================================
@@ -561,7 +595,8 @@ function desenharDonut(valores) {
 
     const cores  = ['#2563eb', '#10b981', '#ef4444'];
     const labels = ['Finalizados', 'Abertos', 'Cancelados'];
-    const total  = valores.reduce((a, b) => a + b, 0) || 1;
+    const totalReal = valores.reduce((a, b) => a + b, 0);
+    const total = totalReal || 1; // evita divisão por zero nos cálculos de %
 
     const cx = W / 2, cy = H / 2 - 4;
     const r  = Math.min(W, H) / 2 - 16;
@@ -601,7 +636,7 @@ function desenharDonut(valores) {
     ctx.fillStyle = '#e2e8f0';
     ctx.font = `bold 22px "Barlow Condensed", sans-serif`;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(total, cx, cy - 6);
+    ctx.fillText(totalReal, cx, cy - 6);
     ctx.fillStyle = '#475569';
     ctx.font = `10px Barlow, sans-serif`;
     ctx.fillText('PEDIDOS', cx, cy + 12);
@@ -615,7 +650,7 @@ function desenharDonut(valores) {
             </div>
             <div style="display:flex;align-items:center;gap:8px;">
                 <span style="font-size:13px;font-weight:700;color:var(--texto);font-family:'Barlow Condensed',sans-serif;">${v}</span>
-                <span style="font-size:10px;color:var(--texto-3);width:34px;text-align:right;">${Math.round(v/total*100)}%</span>
+                <span style="font-size:10px;color:var(--texto-3);width:34px;text-align:right;">${totalReal > 0 ? Math.round(v/total*100) : 0}%</span>
             </div>
         </div>
     `).join('');

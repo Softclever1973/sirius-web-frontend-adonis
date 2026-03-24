@@ -76,14 +76,27 @@ function fecharDropdowns() {
  * @param {number}      [margemInferior=180] - espaço mínimo para baixo
  */
 function toggleDrop(idDrop, btnEl, margemInferior = 180) {
-    const drop   = document.getElementById(idDrop);
+    const drop = document.getElementById(idDrop);
     if (!drop) return;
     const aberto = drop.classList.contains('visivel');
     fecharDropdowns();
     if (aberto) return;
-    const rect   = btnEl.getBoundingClientRect();
-    const maxTop = window.innerHeight - margemInferior;
-    drop.style.top = Math.min(rect.top, maxTop) + 'px';
+    const rect = btnEl.getBoundingClientRect();
+
+    // Mobile: botão na barra inferior — abre para cima colado na barra
+    if (rect.top > window.innerHeight * 0.6) {
+        drop.style.top    = 'auto';
+        drop.style.bottom = (window.innerHeight - rect.top + 4) + 'px';
+        const dropW = 220;
+        let left = Math.max(4, rect.left);
+        if (left + dropW > window.innerWidth - 4) left = window.innerWidth - dropW - 4;
+        drop.style.left = left + 'px';
+    } else {
+        drop.style.bottom = 'auto';
+        drop.style.top  = Math.min(rect.top, window.innerHeight - margemInferior) + 'px';
+        drop.style.left = '';
+    }
+
     drop.classList.add('visivel');
 }
 
@@ -169,7 +182,7 @@ function siriusPrompt(mensagem, valorPadrao = '', titulo = 'Digite:') {
         const inputId = 'siriusPromptInput_' + Date.now();
 
         box.innerHTML = `
-            <h3 style="color:#667eea;margin:0 0 10px 0;font-size:1.3em;">🔍 ${titulo}</h3>
+            <h3 style="color:#667eea;margin:0 0 10px 0;font-size:1.3em;display:flex;align-items:center;gap:6px;"><span class="material-symbols-outlined" style="font-size:1em;vertical-align:middle;">search</span> ${titulo}</h3>
             <p style="color:#666;margin:0 0 15px 0;">${mensagem}</p>
             <input type="text" id="${inputId}" value="${valorPadrao}"
                    style="width:100%;padding:12px;border:2px solid #ddd;border-radius:8px;
