@@ -7,7 +7,7 @@
 // =====================================================
 // AJUDA — Manual e Vídeo
 // =====================================================
-const VIDEO_URL_VENDEDORES = ''; // Cole aqui o link do YouTube (ex: https://www.youtube.com/embed/SEU_ID)
+const VIDEO_URL_VENDEDORES = ''; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
 
 function abrirVideoAjuda() {
     if (!VIDEO_URL_VENDEDORES) { alert('Nenhum vídeo cadastrado ainda.'); return; }
@@ -219,6 +219,8 @@ function abrirModal() {
     else{
         document.getElementById('divisAdmin').style.display = 'none'
     }
+    document.getElementById('divisPassword').style.display = '';
+    document.getElementById('password').required = true;
     document.getElementById('modalTitle').textContent = 'Novo Vendedor';
     document.getElementById('vendedorForm').reset();
     document.getElementById('ativo').checked = true;
@@ -343,6 +345,17 @@ async function editarVendedor(id) {
         document.getElementById('divisAdmin').style.display = 'none'
     }
     document.getElementById('isAdmin').checked = vendedor.isAdmin || false;
+
+    const divPassword = document.getElementById('divisPassword');
+    const passwordInput = document.getElementById('password');
+    if (vendedor.is_admin && !usuario.is_super_admin) {
+        divPassword.style.display = 'none';
+        passwordInput.required = false;
+    } else {
+        divPassword.style.display = '';
+        passwordInput.required = false;
+    }
+
     mudarAba('basico');
     document.getElementById('modal').style.display = 'block';
 }

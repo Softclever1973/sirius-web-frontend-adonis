@@ -6,7 +6,7 @@
 // =====================================================
 // AJUDA — Manual e Vídeo
 // =====================================================
-const VIDEO_URL_ALTERAR_SENHA = ''; // Cole aqui o link do YouTube (ex: https://www.youtube.com/embed/SEU_ID)
+const VIDEO_URL_ALTERAR_SENHA = ''; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
 
 function abrirVideoAjuda() {
     if (!VIDEO_URL_ALTERAR_SENHA) { alert('Nenhum vídeo cadastrado ainda.'); return; }
