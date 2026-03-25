@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === this) closeMessage();
     });
 
-    console.log('✅ Regimes Tributários | Sidebar ícones compacta | SIRIUS WEB');
 });
 
 function verificarAutenticacao() {
@@ -126,9 +125,9 @@ function renderizarTabela() {
             <td><strong>${rt.nome}</strong></td>
             <td>${rt.descricao || '-'}</td>
             <td>
-                <button class="btn-small btn-view"   onclick="visualizarRegimeTributario(${rt.id_rt})">👁️</button>
-                <button class="btn-small btn-edit"   onclick="editarRegimeTributario(${rt.id_rt})">✏️</button>
-                <button class="btn-small btn-delete" onclick="confirmarExclusao(${rt.id_rt})">🗑️</button>
+                <button class="btn-small btn-view"   onclick="visualizarRegimeTributario(${rt.id_rt})" title="Visualizar"><span class="material-symbols-outlined">visibility</span></button>
+                <button class="btn-small btn-edit"   onclick="editarRegimeTributario(${rt.id_rt})" title="Editar"><span class="material-symbols-outlined">edit</span></button>
+                <button class="btn-small btn-delete" onclick="confirmarExclusao(${rt.id_rt})" title="Excluir"><span class="material-symbols-outlined">delete</span></button>
             </td>
         </tr>
     `).join('');

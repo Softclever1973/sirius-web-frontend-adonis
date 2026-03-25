@@ -10,7 +10,7 @@
 // ================================================================
 // AJUDA — Manual e Vídeo
 // ================================================================
-const VIDEO_URL_PDV = 'https://drive.google.com/file/d/1vXYMFbivjr5w28WVza8XNKvoXZZ-LklX' + '/preview'; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
+const VIDEO_URL_PDV = 'PDV.mp4'; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
 
 function abrirModalAjuda() {
     document.getElementById('modalAjuda').style.display = 'flex';
@@ -79,8 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const empresa = Array.isArray(empresas) ? empresas[0] : empresas;
         // Suporte a id_empresa ou id
         empresaId = empresa.id_empresa || empresa.id || empresa.empresa_id;
-
-        console.log('🏢 empresaId carregado:', empresaId, '| estrutura:', JSON.stringify(empresa).substring(0, 100));
 
         if (!empresaId) {
             console.error('❌ empresaId não encontrado. Estrutura recebida:', empresa);
@@ -321,7 +319,6 @@ async function carregarParametros() {
             data.data.forEach(p => {
                 parametros[p.codigo] = p.valor_atual;
             });
-            console.log('✅ Parâmetros carregados:', parametros);
         }
     } catch (e) {
         console.warn('Parâmetros não disponíveis:', e.message);
@@ -384,7 +381,6 @@ async function buscarClientes(termo) {
         return;
     }
 
-    console.log('🔍 Buscando clientes | termo:', termo, '| empresaId:', empresaId, '| API_URL:', API_URL);
 
     // Indicador visual de carregando
     document.getElementById('resultadosBuscaCliente').innerHTML =
@@ -401,10 +397,8 @@ async function buscarClientes(termo) {
             }
         });
 
-        console.log('📡 Resposta clientes | status:', response.status);
 
         const data = await response.json();
-        console.log('📦 Dados clientes:', data);
 
         if (data.success) {
             renderizarResultadosClientes(data.data);
@@ -1048,7 +1042,6 @@ async function finalizarPedido() {
     btnFinalizar.textContent = 'Finalizando...';
 
     try {
-        console.log('📤 Enviando pedido ao backend...', { numero: pedidoAtual.numero });
 
         const response = await fetch(`${API_URL}/pdv/pedidos/finalizar`, {
             method: 'POST',
@@ -1060,7 +1053,6 @@ async function finalizarPedido() {
             body: JSON.stringify(pedidoAtual)
         });
 
-        console.log('📥 Resposta do backend | status:', response.status);
 
         const data = await response.json();
 

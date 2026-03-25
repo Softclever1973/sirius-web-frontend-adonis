@@ -62,7 +62,6 @@ async function verificarAutenticacao() {
         return;
     }
 }
-console.log('✅ Autenticado - Token:', token ? 'OK' : 'FALTA', 'EmpresaID:', empresaId);
 
 // =====================================================
 // MÁSCARAS E VALIDAÇÕES

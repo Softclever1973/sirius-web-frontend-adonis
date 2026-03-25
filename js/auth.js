@@ -4,8 +4,6 @@
 // =====================================================
 
 // isDev e API_URL são fornecidos por js/libs/api.js (carregado antes)
-console.log('🚀 SIRIUS WEB - Sistema iniciado');
-console.log('📡 API:', API_URL);
 
 // =====================================================
 // VERIFICAR COMPATIBILIDADE DE LOCALSTORAGE
@@ -97,8 +95,6 @@ function saveAuth(token, usuario, empresas, parametros) {
         localStorage.setItem('sirius_empresas', JSON.stringify(empresas));
         localStorage.setItem('sirius_parametros', JSON.stringify(parametros)); // ✅ NOVO!
         
-        console.log('✅ Autenticação salva no localStorage');
-        console.log(`✅ ${Object.keys(parametros).length} parâmetros carregados`);
     } catch (error) {
         console.error('❌ Erro ao salvar no localStorage:', error);
         showMessage('Erro ao salvar dados. Tente novamente.', 'error');
@@ -280,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return; // Bloqueia execução
     }
     
-    console.log('✅ localStorage disponível');
     
     // Elementos do DOM (apenas para página de login)
     const loginForm = document.getElementById('loginForm');

@@ -51,7 +51,6 @@ function verificarAutenticacao() {
         empresaId = empresas[0].id;
     }
     
-    console.log('✅ Autenticado - Token:', token ? 'OK' : 'FALTA', 'EmpresaID:', empresaId);
 }
 
 // =====================================================
@@ -86,7 +85,6 @@ function aplicarOrdenacao(tipo) {
         'ultimos': 'Últimos Lançamentos'
     };
     
-    console.log('Ordenação aplicada:', tipo);
     mostrarMensagem(`Ordenação: ${textos[tipo]}`, 'success');
     carregarProdutos(1);
 }
@@ -134,7 +132,6 @@ async function carregarProdutos(pagina = 1) {
             url += `&ean=${encodeURIComponent(valorFiltro)}`;
         }
         
-        console.log('🔄 Carregando produtos:', url);
         
         const response = await fetch(url, {
             headers: {
@@ -144,14 +141,9 @@ async function carregarProdutos(pagina = 1) {
         });
         
         const data = await response.json();
-        console.log('📦 Resposta da API:', data);
         
         if (data.success) {
             let produtos = data.data;
-            
-            if (produtos.length > 0) {
-                console.log('🔍 Estrutura do produto (primeiro item):', produtos[0]);
-            }
             
             // Filtros client-side (apenas para estoque_zero e estoque_baixo)
             if (filtroAtivo === 'estoque_zero') {
@@ -215,7 +207,6 @@ function renderizarTabela(produtos) {
         `;
     }).join('');
     
-    console.log('✅ Tabela renderizada:', produtos.length, 'produtos');
 }
 
 // =====================================================
@@ -228,12 +219,10 @@ function atualizarPaginacao(pagination) {
     document.getElementById('btnPrev').disabled = !pagination.hasPrev;
     document.getElementById('btnNext').disabled = !pagination.hasNext;
     
-    console.log('📄 Paginação:', pagination);
 }
 
 function mudarPagina(direcao) {
     const novaPagina = paginaAtual + direcao;
-    console.log('📄 Mudando página:', paginaAtual, '→', novaPagina);
     
     if (novaPagina >= 1 && novaPagina <= totalPaginas) {
         carregarProdutos(novaPagina);
@@ -409,7 +398,6 @@ function fecharModal() {
 // PREENCHER FORMULÁRIO
 // =====================================================
 function preencherFormulario(produto) {
-    console.log('📝 Preenchendo formulário com:', produto);
     
     // Helper function null-safe
     const preencherCampo = (id, valor) => {
@@ -559,14 +547,12 @@ async function salvarProduto(event) {
     const ativoPdvEl = document.getElementById('ativo_pdv');
     dados.ativo_pdv = ativoPdvEl ? ativoPdvEl.checked : false;
     
-    console.log('💾 Salvando produto:', dados);
     
     try {
         const produtoId = produtoEditando ? produtoEditando.id : null;
         const url = produtoId ? `${API_URL}/produtos/${produtoId}` : `${API_URL}/produtos`;
         const method = produtoId ? 'PUT' : 'POST';
         
-        console.log(`📤 ${method} ${url}`);
         
         const response = await fetch(url, {
             method,
@@ -579,7 +565,6 @@ async function salvarProduto(event) {
         });
         
         const data = await response.json();
-        console.log('📥 Resposta:', data);
         
         if (data.success) {
             mostrarMensagem(data.message, 'success');
@@ -598,7 +583,6 @@ async function salvarProduto(event) {
 // EDITAR PRODUTO
 // =====================================================
 async function editarProduto(id) {
-    console.log('✏️ Editando produto ID:', id);
     
     if (!id || id === 'undefined') {
         console.error('❌ ID inválido:', id);
@@ -608,7 +592,6 @@ async function editarProduto(id) {
     
     try {
         const url = `${API_URL}/produtos/${id}`;
-        console.log('🔄 Buscando:', url);
         
         const response = await fetch(url, {
             headers: {
@@ -618,7 +601,6 @@ async function editarProduto(id) {
         });
         
         const data = await response.json();
-        console.log('📦 Dados recebidos da API:', data);
         
         if (data.success) {
             abrirModal(data.data);
@@ -722,7 +704,6 @@ async function toggleStatusProduto(id) {
 //     }
 // }
 
-console.log('🚀 Produtos JS - VERSÃO CORRIGIDA COM ORDENAÇÃO FUNCIONANDO ✅');
 
 // ─────────────────────────────────────────────────────
 // MODAL DE AVISO

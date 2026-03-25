@@ -4,8 +4,6 @@
 
 // Configuração da API (usando isDev e API_URL do auth.js)
 
-console.log('🚀 Configuração de Parâmetros - Super Admin');
-console.log('📡 API:', API_URL);
 
 // Estado
 let empresaAtual = null;

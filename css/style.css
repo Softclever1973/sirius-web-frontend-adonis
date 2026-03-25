@@ -7858,7 +7858,7 @@ body.page-promo .fundo::after {
         linear-gradient(90deg,  transparent 68%, rgba(6,182,212,0.12) 68%, rgba(6,182,212,0.12) 70%, transparent 70%);
 }
 .deco-mapa::after {
-    content: '📍'; position: absolute; top: 28%; right: 28%;
+    content: ''; position: absolute; top: 28%; right: 28%;
     font-size: 28px; animation: pulsarPin 1.5s ease-in-out infinite;
 }
 @keyframes pulsarPin { 0%,100%{transform:scale(1);} 50%{transform:scale(1.18);} }
@@ -7875,7 +7875,7 @@ body.page-promo .fundo::after {
     animation: entrarDoc2 0.9s ease 0.8s forwards;
 }
 .deco-entrega::after {
-    content: '📦'; position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center; font-size: 30px;
 }
 @keyframes entrarDoc2 { from{opacity:0;transform:translateY(-44%) rotate(-4deg);} to{opacity:0.7;transform:translateY(-50%) rotate(-4deg);} }
@@ -10041,4 +10041,11 @@ body.page-promo .fundo::after {
     top: 0; left: 0;
     width: 100%; height: 100%;
     border-radius: 8px;
+}
+
+.btn-primary.ad{
+    display: inline-block;
+    width: auto;
+    border: none;
+    text-decoration: none;
 }

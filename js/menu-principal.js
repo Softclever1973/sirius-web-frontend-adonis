@@ -168,5 +168,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modalAviso').addEventListener('click', function(e) {
         if (e.target === this) closeMessage();
     });
-    console.log('✅ Menu Principal carregado |', isDev ? 'DEV' : 'PROD');
 });

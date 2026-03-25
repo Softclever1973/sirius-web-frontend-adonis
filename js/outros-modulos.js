@@ -191,4 +191,3 @@ if (abaParam && ORDEM_ABAS.includes(abaParam)) {
     irParaAba(abaParam);
 }
 
-console.log('✅ Outros Módulos carregado');

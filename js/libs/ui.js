@@ -19,7 +19,6 @@ function mostrarMensagem(texto, tipo) {
     div.className = `mensagem ${tipo}`;
     div.style.display = 'block';
     setTimeout(() => { div.style.display = 'none'; }, 5000);
-    console.log(`📢 Mensagem (${tipo}):`, texto);
 }
 
 // ─────────────────────────────────────────────────────
@@ -107,9 +106,9 @@ function toggleDrop(idDrop, btnEl, margemInferior = 180) {
 /**
  * Exibe um alerta modal estilizado (substituto de alert()).
  * @param {string} mensagem
- * @param {string} [titulo='🏢 Sirius Web informa:']
+ * @param {string} [titulo='Sirius Web informa:']
  */
-function alertSirius(mensagem, titulo = '🏢 Sirius Web informa:') {
+function alertSirius(mensagem, titulo = 'Sirius Web informa:') {
     const existente = document.getElementById('alertSirius');
     if (existente) existente.remove();
 

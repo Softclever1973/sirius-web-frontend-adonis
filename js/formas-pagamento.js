@@ -132,9 +132,9 @@ function renderizarTabela() {
                 </span>
             </td>
             <td>
-                <button class="btn-small btn-view"   onclick="visualizarFormaPagamento(${fp.id_forma_pagamento})" title="Visualizar">👁️</button>
-                <button class="btn-small btn-edit"   onclick="editarFormaPagamento(${fp.id_forma_pagamento})"    title="Editar">✏️</button>
-                <button class="btn-small btn-delete" onclick="confirmarExclusao(${fp.id_forma_pagamento})"       title="Excluir">🗑️</button>
+                <button class="btn-small btn-view"   onclick="visualizarFormaPagamento(${fp.id_forma_pagamento})" title="Visualizar"><span class="material-symbols-outlined">visibility</span></button>
+                <button class="btn-small btn-edit"   onclick="editarFormaPagamento(${fp.id_forma_pagamento})"    title="Editar"><span class="material-symbols-outlined">edit</span></button>
+                <button class="btn-small btn-delete" onclick="confirmarExclusao(${fp.id_forma_pagamento})"       title="Excluir"><span class="material-symbols-outlined">delete</span></button>
             </td>
         </tr>
     `).join('');
@@ -487,7 +487,6 @@ window.onclick = function(event) {
     if (event.target === document.getElementById('modalConfirmacao'))  fecharModalConfirmacao();
 };
 
-console.log('✅ Módulo Formas de Pagamento carregado');
 
 // ─────────────────────────────────────────────────────
 // MODAL DE AVISO

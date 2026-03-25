@@ -33,7 +33,6 @@ let pedidoAtualVisualizar = null;
 // INICIALIZAÇÃO
 // =====================================================
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Pedidos carregado');
     verificarAutenticacao();
     const empresaId = obterEmpresaId();
 
@@ -44,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (empresaId) {
-        console.log('✅ Empresa ID:', empresaId);
         carregarPedidos();
     } else {
         console.error('❌ Empresa ID não encontrado');

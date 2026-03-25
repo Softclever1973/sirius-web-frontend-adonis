@@ -50,7 +50,6 @@ function verificarAutenticacao() {
         empresaId = empresas[0].id;
     }
     
-    console.log('✅ Autenticado - Token:', token ? 'OK' : 'FALTA', 'EmpresaID:', empresaId);
 }
 
 // =====================================================
@@ -127,7 +126,6 @@ function aplicarOrdenacao(tipo) {
         'ultimos': 'Últimos Lançamentos'
     };
     
-    console.log('Ordenação aplicada:', tipo);
     mostrarMensagem(`Ordenação: ${textos[tipo]}`, 'success');
     carregarClientes(1);
 }
@@ -144,8 +142,6 @@ async function carregarClientes(pagina = 1) {
             url += `&search=${encodeURIComponent(valorFiltro)}`;
         }
         
-        console.log('🔄 Carregando clientes:', url);
-        
         const response = await fetch(url, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -154,14 +150,9 @@ async function carregarClientes(pagina = 1) {
         });
         
         const data = await response.json();
-        console.log('📦 Resposta da API:', data);
         
         if (data.success) {
             let clientes = data.data;
-            
-            if (clientes.length > 0) {
-                console.log('🔍 Estrutura do cliente (primeiro item):', clientes[0]);
-            }
             
             clientes = ordenarClientes(clientes);
             
@@ -234,7 +225,6 @@ function renderizarTabela(clientes) {
         `;
     }).join('');
     
-    console.log('✅ Tabela renderizada:', clientes.length, 'clientes');
 }
 
 function atualizarPaginacao(pagination) {
@@ -248,12 +238,10 @@ function atualizarPaginacao(pagination) {
     document.getElementById('btnPrev').disabled = !pagination.hasPrev;
     document.getElementById('btnNext').disabled = !pagination.hasNext;
     
-    console.log('📄 Paginação:', pagination);
 }
 
 function mudarPagina(direcao) {
     const novaPagina = paginaAtual + direcao;
-    console.log('📄 Mudando página:', paginaAtual, '→', novaPagina);
     
     if (novaPagina >= 1 && novaPagina <= totalPaginas) {
         carregarClientes(novaPagina);
@@ -324,7 +312,6 @@ function fecharModal() {
 }
 
 function preencherFormulario(cliente) {
-    console.log('📝 Preenchendo formulário com:', cliente);
     
     document.getElementById('tipo').value = cliente.tipo || '';
     alterarTipoPessoa();
@@ -373,12 +360,6 @@ async function salvarCliente(event) {
     // ✅ VALIDAÇÃO ESPECIAL CONSUMIDOR FINAL - CASE INSENSITIVE
     const razao_social_upper = razao_social.toUpperCase();
     const isConsumidorFinal = (razao_social_upper === 'CONSUMIDOR FINAL');
-    
-    console.log('🔍 Verificando Consumidor Final:', {
-        razao_social: razao_social,
-        razao_social_upper: razao_social_upper,
-        isConsumidorFinal: isConsumidorFinal
-    });
     
     // Validar CPF (Pessoa Física) - EXCETO para "Consumidor Final"
     if (tipo === 'F' && !isConsumidorFinal) {
@@ -441,10 +422,6 @@ async function salvarCliente(event) {
         ativo: document.getElementById('ativo').checked ? 'S' : 'N'
     };
     
-    console.log('💾 Salvando cliente:', dados);
-    if (isConsumidorFinal) {
-        console.log('🎯 CONSUMIDOR FINAL detectado - CPF não obrigatório');
-    }
     
     try {
         const clienteId = clienteEditando ? (clienteEditando.id_cliente || clienteEditando.id) : null;
@@ -455,7 +432,6 @@ async function salvarCliente(event) {
         
         const method = clienteId ? 'PUT' : 'POST';
         
-        console.log(`📤 ${method} ${url}`);
         
         const response = await fetch(url, {
             method,
@@ -468,7 +444,6 @@ async function salvarCliente(event) {
         });
         
         const data = await response.json();
-        console.log('📥 Resposta:', data);
         
         if (data.success) {
             mostrarMensagem(data.message, 'success');
@@ -484,7 +459,6 @@ async function salvarCliente(event) {
 }
 
 async function editarCliente(id) {
-    console.log('✏️ Editando cliente ID:', id);
     
     if (!id || id === 'undefined') {
         alertSirius('ID do cliente inválido!');
@@ -493,7 +467,6 @@ async function editarCliente(id) {
     
     try {
         const url = `${API_URL}/clientes/${id}`;
-        console.log('🔄 Buscando:', url);
         
         const response = await fetch(url, {
             headers: {
@@ -503,7 +476,6 @@ async function editarCliente(id) {
         });
         
         const data = await response.json();
-        console.log('📦 Dados recebidos:', data);
         
         if (data.success) {
             abrirModal(data.data);
@@ -624,7 +596,6 @@ async function alterarStatus(id, statusAtual) {
 
 async function gerarRelatorio(tipo) {
     try {
-        console.log('📊 Gerando relatório:', tipo);
         
         let url = `${API_URL}/clientes?page=1&limit=1000`;
         
@@ -713,7 +684,6 @@ async function gerarRelatorio(tipo) {
 }
 
 async function gerarRelatorioIndividual(id) {
-    console.log('📄 Gerando ficha do cliente ID:', id);
     
     if (!id || id === 'undefined') {
         alertSirius('ID do cliente inválido!');
@@ -722,7 +692,6 @@ async function gerarRelatorioIndividual(id) {
     
     try {
         const url = `${API_URL}/clientes/${id}`;
-        console.log('🔄 Buscando cliente:', url);
         
         const response = await fetch(url, {
             headers: {
@@ -732,7 +701,6 @@ async function gerarRelatorioIndividual(id) {
         });
         
         const data = await response.json();
-        console.log('📦 Dados recebidos:', data);
         
         if (!data.success) {
             alertSirius(data.message || 'Erro ao buscar cliente');
@@ -823,7 +791,6 @@ async function gerarRelatorioIndividual(id) {
 //     }
 // }
 
-console.log('🚀 Clientes JS - VERSÃO FINAL CORRIGIDA - TODOS OS PROBLEMAS RESOLVIDOS ✅');
 
 // ─────────────────────────────────────────────────────
 // MODAIS DE AVISO E CONFIRMAÇÃO

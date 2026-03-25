@@ -388,8 +388,6 @@ async function submeterCadastro() {
 // INICIALIZAÇÃO
 // =====================================================
 
-console.log('🚀 Cadastro SIRIUS WEB iniciado');
-console.log('📡 API:', API_URL);
 
 // Focar no primeiro campo
 document.getElementById('nome').focus();

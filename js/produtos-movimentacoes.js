@@ -408,7 +408,6 @@ function formatDateTime(datetime) {
 
 document.addEventListener('DOMContentLoaded', init);
 
-console.log('🚀 Movimentações carregado - VERSÃO CORRIGIDA ✅');
 
 // ─────────────────────────────────────────────────────
 // WRAPPER DE ORDENAÇÃO (sincroniza ícone da sidebar)
