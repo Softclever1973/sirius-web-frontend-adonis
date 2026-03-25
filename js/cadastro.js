@@ -77,8 +77,18 @@ function validateStep(step) {
             input.focus();
             return false;
         }
+
+        // Validação de confirmação de senha
+        if (input.name === 'confirmar_senha') {
+            const senha = document.getElementById('senha').value;
+            if (input.value !== senha) {
+                showMessage('As senhas não conferem!', 'error');
+                input.focus();
+                return false;
+            }
+        }
     }
-    
+
     return true;
 }
 
@@ -105,6 +115,18 @@ document.getElementById('celular').addEventListener('input', function(e) {
     }
     
     e.target.value = value;
+});
+
+// Feedback visual de confirmação de senha
+document.getElementById('confirmar_senha').addEventListener('input', function () {
+    const senha = document.getElementById('senha').value;
+    if (!this.value) {
+        this.style.borderColor = '';
+    } else if (this.value === senha) {
+        this.style.borderColor = '#22c55e';
+    } else {
+        this.style.borderColor = '#ef4444';
+    }
 });
 
 // Máscara de CNPJ: 00.000.000/0000-00
