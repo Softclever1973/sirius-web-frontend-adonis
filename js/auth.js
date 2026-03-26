@@ -252,6 +252,7 @@ async function enviarResetSenha() {
         if (data.success) {
             mostrarMsgReset(data.message, 'sucesso');
             btn.textContent = 'Enviado!';
+            fecharModalSenha()
         } else {
             mostrarMsgReset(data.message, 'erro');
             btn.disabled = false;
