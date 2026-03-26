@@ -65,10 +65,13 @@ function validateStep(step) {
         }
         
         // Validação de email
-        if (input.type === 'email' && !input.value.includes('@')) {
-            showMessage('E-mail inválido!', 'error');
-            input.focus();
-            return false;
+        if (input.type === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+            if (!emailRegex.test(input.value)) {
+                showMessage('E-mail inválido!', 'error');
+                input.focus();
+                return false;
+            }
         }
         
         // Validação de senha (mínimo 6 caracteres)
