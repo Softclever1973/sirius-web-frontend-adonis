@@ -7,7 +7,7 @@
 // =====================================================
 // AJUDA — Manual e Vídeo
 // =====================================================
-const VIDEO_URL_VENDEDORES = ''; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
+const VIDEO_URL_VENDEDORES = 'https://www.youtube.com/embed/3Yy40rIfe5Q?si=tnPF-2LvjzuPiCRO'; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
 
 function abrirVideoAjuda() {
     if (!VIDEO_URL_VENDEDORES) { alert('Nenhum vídeo cadastrado ainda.'); return; }
@@ -781,26 +781,6 @@ function toggleMenu() {
 function toggleDropdown(event, elemento) {
     event.stopPropagation();
     elemento.classList.toggle('active');
-}
-
-// Fechar dropdown ao clicar fora
-document.addEventListener('click', () => {
-    document.querySelectorAll('.dropdown').forEach(dropdown => {
-        dropdown.classList.remove('active');
-    });
-});
-
-// Fechar modal ao clicar fora
-window.onclick = function(event) {
-    const modal = document.getElementById('modal');
-    const modalDetalhes = document.getElementById('modalDetalhes');
-
-    if (event.target === modal) {
-        fecharModal();
-    }
-    if (event.target === modalDetalhes) {
-        fecharModalDetalhes();
-    }
 }
 
 // ─────────────────────────────────────────────────────

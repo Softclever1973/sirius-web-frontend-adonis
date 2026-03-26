@@ -10,7 +10,7 @@
 // ================================================================
 // AJUDA — Manual e Vídeo
 // ================================================================
-const VIDEO_URL_PDV = 'PDV.mp4'; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
+const VIDEO_URL_PDV = 'https://www.youtube.com/embed/gAhwziF2FoE?si=QUEDAYV-M1v75fgO'; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
 
 function abrirModalAjuda() {
     document.getElementById('modalAjuda').style.display = 'flex';

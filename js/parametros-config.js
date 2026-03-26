@@ -2,6 +2,19 @@
 // SIRIUS WEB - Configuração de Parâmetros (Super Admin)
 // =====================================================
 
+const VIDEO_URL_PARAMETROS_CONFIG = 'https://www.youtube.com/embed/FIj2oEv0G5M?si=DjM_lYZW1xn_NEGV'; // Cole aqui: https://www.youtube.com/embed/SEU_ID
+
+function abrirVideoAjuda() {
+    if (!VIDEO_URL_PARAMETROS_CONFIG) { alert('Nenhum vídeo cadastrado ainda.'); return; }
+    document.getElementById('videoIframe').src = VIDEO_URL_PARAMETROS_CONFIG;
+    document.getElementById('modalVideo').style.display = 'flex';
+}
+
+function fecharVideoAjuda() {
+    document.getElementById('modalVideo').style.display = 'none';
+    document.getElementById('videoIframe').src = '';
+}
+
 // Configuração da API (usando isDev e API_URL do auth.js)
 
 

@@ -39,6 +39,16 @@
         <div class="sidebar-modulo-logo" title="Parâmetros"><span class="material-symbols-outlined">settings</span></div>
 
         <div class="sidebar-divisor"></div>
+
+        <!-- Ajuda -->
+        <button class="sidebar-btn"
+                id="btnAjuda"
+                data-tooltip="Ajuda"
+                onclick="toggleDrop('dropAjuda', this)">
+            <span class="btn-icone"><span class="material-symbols-outlined">help</span></span>
+            <span class="btn-label">Ajuda</span>
+        </button>
+
         <!-- Espaçador empurra Voltar para o rodapé -->
         <div class="sidebar-spacer"></div>
 
@@ -53,6 +63,12 @@
         </button>
 
     </aside>
+
+    <div id="dropAjuda" class="dropdown-flutuante">
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">help</span> Ajuda</div>
+        <a href="manual.html"><span class="material-symbols-outlined">menu_book</span> Manual</a>
+        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;"><span class="material-symbols-outlined">play_circle</span> Assistir Vídeo</a>
+    </div>
 
     <div class="app">
 
@@ -148,6 +164,21 @@
 </div><!-- /app -->
 
 </div><!-- /.app-layout -->
+
+<!-- Modal Vídeo -->
+<div id="modalVideo" onclick="if(event.target===this)fecharVideoAjuda()">
+    <div class="modal-video-box">
+        <div class="modal-header">
+            <span class="modal-titulo"><span class="material-symbols-outlined">play_circle</span> Tutorial em Vídeo</span>
+            <span class="modal-fechar" onclick="fecharVideoAjuda()">&times;</span>
+        </div>
+        <div class="modal-video-wrapper">
+            <iframe id="videoIframe" src="" frameborder="0" allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+        </div>
+    </div>
+</div>
 
 <script src="js/libs/api.js"></script>
 <script src="js/libs/ui.js"></script>

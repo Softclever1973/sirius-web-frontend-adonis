@@ -7,7 +7,7 @@
 // =====================================================
 // AJUDA — Manual e Vídeo
 // =====================================================
-const VIDEO_URL_PEDIDOS = 'https://drive.google.com/file/d/1vXYMFbivjr5w28WVza8XNKvoXZZ-LklX' + '/preview'; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
+const VIDEO_URL_PEDIDOS = 'https://www.youtube.com/embed/-sq0wbX0LKY?si=9Xjz-CDTlNZYbFTv'; // Cole aqui: https://drive.google.com/file/d/SEU_ID/preview
 
 function abrirVideoAjuda() {
     if (!VIDEO_URL_PEDIDOS) { alert('Nenhum vídeo cadastrado ainda.'); return; }
