@@ -109,8 +109,8 @@ function mostrarTelaInicial() {
     }, 100);
 }
 
-function voltarDashboard() {
-    window.location.href = 'dashboard.html';
+function voltarMenu() {
+    window.location.href = 'menu-principal.html';
 }
 
 // ================================================================
