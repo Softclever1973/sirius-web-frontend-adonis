@@ -4682,6 +4682,16 @@ body.pdv-page html {
     color: var(--azul);
     letter-spacing: 1px;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pdv-logo-mini img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    filter: brightness(0) saturate(100%) invert(30%) sepia(78%) saturate(3700%) hue-rotate(216deg) brightness(96%) contrast(91%);
 }
 
 .pdv-numero-pedido {
