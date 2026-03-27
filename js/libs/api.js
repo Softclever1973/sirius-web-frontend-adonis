@@ -11,7 +11,7 @@ const isDev = window.location.hostname === 'localhost'
 
 const API_URL = isDev
     ? 'http://localhost:3000'
-    : 'https://sirius-web-api-adonis-pearl.vercel.app';
+    : 'sirius-web-api-adonis-git-new-db-schema-vaugusto273s-projects.vercel.app'/*'https://sirius-web-api-adonis-pearl.vercel.app'*/;
 
 /**
  * Fetch autenticado com os headers padrão da empresa.
