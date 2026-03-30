@@ -163,7 +163,7 @@
                 <h4>Produto:</h4>
                 <p id="modalProdutoDescricao">-</p>
             </div>
-            <form id="formMovimentacao">
+            <form id="formMovimentacao" onsubmit="confirmarMovimentacao(); return false;">
                 <div class="form-group">
                     <label for="quantidade">Quantidade *</label>
                     <input type="number" id="quantidade" name="quantidade"

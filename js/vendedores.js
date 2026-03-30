@@ -343,7 +343,7 @@ async function editarVendedor(id) {
     else{
         document.getElementById('divisAdmin').style.display = 'none'
     }
-    document.getElementById('isAdmin').checked = vendedor.isAdmin || false;
+    document.getElementById('isAdmin').checked = vendedor.is_admin || false;
 
     const divPassword = document.getElementById('divisPassword');
     const passwordInput = document.getElementById('password');

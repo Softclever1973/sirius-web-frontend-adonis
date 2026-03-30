@@ -335,8 +335,10 @@ async function salvarTodasAlteracoes() {
 // RESETAR VALOR
 // =====================================================
 async function resetarValor(idParametro) {
-    const param = parametrosOriginais.find(p => p.id_parametro === idParametro);
-    
+    const param = parametrosOriginais.find(p => Number(p.id_parametro) === Number(idParametro));
+
+    if (!param) return;
+
     if (!confirm(`Resetar "${param.descricao}" para o valor padrão (${param.valor_padrao})?`)) {
         return;
     }
