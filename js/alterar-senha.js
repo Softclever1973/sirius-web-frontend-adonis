@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function carregarUsuario() {
     try {
         const usuario = JSON.parse(localStorage.getItem('sirius_usuario') || '{}');
-        const nome = `${usuario.nome || ''} ${usuario.sobrenome || ''}`.trim() || 'Usuário';
+        const nome = `${usuario.nome || ''}`.trim() || 'Usuário';
         const email = usuario.email || '';
 
         const elAvatar = document.getElementById('userAvatar');
