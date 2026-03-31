@@ -163,6 +163,8 @@ function carregarUsuario() {
         if (usuario?.is_super_admin) {
             const el = document.getElementById('linkParametros');
             if (el) el.style.display = 'flex';
+            const elLog = document.getElementById('linkAuditLog');
+            if (elLog) elLog.style.display = 'flex';
         }
     } catch (e) { console.error('Erro ao carregar usuário:', e); }
 }

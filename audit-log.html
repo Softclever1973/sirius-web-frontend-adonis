@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIRIUS WEB - Log de Auditoria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-app audit-body">
+
+<div class="app-layout">
+
+    <aside class="sidebar-icones">
+        <div class="sidebar-modulo-logo" title="Log de Auditoria"><span class="material-symbols-outlined">manage_search</span></div>
+        <div class="sidebar-divisor"></div>
+        <button class="sidebar-btn" id="btnRelatorios" data-tooltip="Relatórios" onclick="toggleDrop('dropRelatorios', this)">
+            <span class="btn-icone"><span class="material-symbols-outlined">description</span></span>
+            <span class="btn-label">Relat.</span>
+        </button>
+        <button class="sidebar-btn" id="btnAjuda" data-tooltip="Ajuda" onclick="toggleDrop('dropAjuda', this)">
+            <span class="btn-icone"><span class="material-symbols-outlined">help</span></span>
+            <span class="btn-label">Ajuda</span>
+        </button>
+        <div class="sidebar-spacer"></div>
+        <div class="sidebar-divisor"></div>
+        <button class="sidebar-btn btn-voltar" data-tooltip="Voltar ao Menu" onclick="window.location.href='menu-principal.html'">
+            <span class="btn-icone"><span class="material-symbols-outlined">arrow_back</span></span>
+            <span class="btn-label">Voltar</span>
+        </button>
+    </aside>
+
+    <div id="dropRelatorios" class="dropdown-flutuante">
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">description</span> Relatórios</div>
+        <a href="#" onclick="abrirModalRelatorio(); fecharDropdowns(); return false;"><span class="material-symbols-outlined">bar_chart</span> Logs sob Filtro Atual</a>
+    </div>
+
+    <div id="dropAjuda" class="dropdown-flutuante">
+        <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">help</span> Ajuda</div>
+        <a href="manual.html"><span class="material-symbols-outlined">menu_book</span> Manual</a>
+    </div>
+
+    <div class="main-area">
+        <div class="page-topbar">
+            <span class="page-titulo"><span class="material-symbols-outlined">manage_search</span> Log de Auditoria</span>
+            <span class="page-subtitulo">/ Registro de ações da empresa</span>
+            <div class="usuario-info">
+                <div class="usuario-avatar" id="userAvatar">?</div>
+                <div>
+                    <div class="usuario-nome" id="userName">Carregando...</div>
+                    <div class="usuario-cargo" id="userCargo">Usuário</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-scroll">
+            <div class="card card-flush">
+
+                <!-- Barra de Filtros -->
+                <div class="filtros-barra">
+                    <div>
+                        <label>Módulo</label>
+                        <select id="filtroModulo">
+                            <option value="">Todos</option>
+                            <option value="Produtos">Produtos</option>
+                            <option value="Clientes">Clientes</option>
+                            <option value="Vendedores">Vendedores</option>
+                            <option value="Formas de Pagamento">Formas de Pagamento</option>
+                            <option value="Movimentações">Movimentações</option>
+                            <option value="PDV">PDV</option>
+                            <option value="Pedidos">Pedidos</option>
+                            <option value="Parâmetros">Parâmetros</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Ação</label>
+                        <select id="filtroAcao">
+                            <option value="">Todas</option>
+                            <option value="CRIOU">CRIOU</option>
+                            <option value="ALTEROU">ALTEROU</option>
+                            <option value="EXCLUIU">EXCLUIU</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Usuário</label>
+                        <input type="text" id="filtroUsuario" placeholder="Nome do usuário">
+                    </div>
+                    <div>
+                        <label>De</label>
+                        <input type="date" id="filtroDe">
+                    </div>
+                    <div>
+                        <label>Até</label>
+                        <input type="date" id="filtroAte">
+                    </div>
+                    <div class="filtros-barra-actions">
+                        <button class="btn-filtrar" onclick="aplicarFiltros()">
+                            <span class="material-symbols-outlined">search</span> Filtrar
+                        </button>
+                        <button class="btn-limpar" onclick="limparFiltros()">Limpar</button>
+                    </div>
+                </div>
+
+                <div id="mensagem-audit" class="mensagem"></div>
+
+                <div id="tabelaContainer" class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data / Hora</th>
+                                <th>Usuário</th>
+                                <th>Ação</th>
+                                <th>Módulo</th>
+                                <th>Descrição</th>
+                                <th>IP</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaLogs">
+                            <tr>
+                                <td colspan="6" class="td-vazio">Carregando logs...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="paginacao-audit" class="pagination"></div>
+
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.app-layout -->
+
+<!-- Modal Relatório -->
+<div id="modalRelatorio" class="modal">
+    <div class="modal-content modal-small">
+        <div class="modal-header">
+            <h3><span class="material-symbols-outlined">description</span> Gerar Relatório</h3>
+            <span class="modal-close" onclick="fecharModal('modalRelatorio')">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>O relatório será gerado com os <strong>filtros ativos</strong> no momento.</p>
+            <div class="form-group">
+                <label>Quantidade de páginas a incluir:</label>
+                <input type="number" id="qtdPaginasRelatorio" min="1" max="50" value="1" placeholder="Ex: 3">
+                <small>Cada página contém 30 registros. Ex: 3 páginas = até 90 registros.</small>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" onclick="fecharModal('modalRelatorio')">Cancelar</button>
+            <button class="btn" onclick="gerarRelatorioLogs()"><span class="material-symbols-outlined">print</span> Gerar</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/libs/api.js"></script>
+<script src="js/libs/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/audit-log.js"></script>
+</body>
+</html>
