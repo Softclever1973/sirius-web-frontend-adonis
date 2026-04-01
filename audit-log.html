@@ -38,6 +38,7 @@
     <div id="dropAjuda" class="dropdown-flutuante">
         <div class="dropdown-flutuante-titulo"><span class="material-symbols-outlined">help</span> Ajuda</div>
         <a href="manual.html"><span class="material-symbols-outlined">menu_book</span> Manual</a>
+        <a href="#" onclick="abrirVideoAjuda(); fecharDropdowns(); return false;"><span class="material-symbols-outlined">play_circle</span> Assistir Vídeo</a>
     </div>
 
     <div class="main-area">
@@ -130,6 +131,21 @@
     </div>
 
 </div><!-- /.app-layout -->
+
+<!-- Modal Vídeo -->
+<div id="modalVideo" class="modal" onclick="if(event.target===this)fecharVideoAjuda()">
+    <div class="modal-content modal-video-box">
+        <div class="modal-header">
+            <h3><span class="material-symbols-outlined">play_circle</span> Tutorial em Vídeo</h3>
+            <span class="modal-close" onclick="fecharVideoAjuda()">&times;</span>
+        </div>
+        <div class="modal-video-wrapper">
+            <iframe id="videoIframe" src="" frameborder="0" allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+        </div>
+    </div>
+</div>
 
 <!-- Modal Relatório -->
 <div id="modalRelatorio" class="modal">

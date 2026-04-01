@@ -214,6 +214,23 @@ function mostrarMensagem(texto, tipo = 'info') {
 }
 
 // =====================================================
+// VÍDEO
+// =====================================================
+const VIDEO_ID_AUDIT = 'wdsgAlz3Ea0'; // ← substitua pelo ID do YouTube
+
+function abrirVideoAjuda() {
+    const iframe = document.getElementById('videoIframe');
+    if (iframe) iframe.src = `https://www.youtube.com/embed/${VIDEO_ID_AUDIT}?autoplay=1`;
+    document.getElementById('modalVideo').style.display = 'flex';
+}
+
+function fecharVideoAjuda() {
+    const iframe = document.getElementById('videoIframe');
+    if (iframe) iframe.src = '';
+    document.getElementById('modalVideo').style.display = 'none';
+}
+
+// =====================================================
 // RELATÓRIO
 // =====================================================
 function abrirModalRelatorio() {
