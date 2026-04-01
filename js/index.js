@@ -9,8 +9,8 @@
 const TODAS_AS_TELAS = [
     'promo-comandas.html',
     'promo-delivery.html',
-    'promo-NFCe.html',
-    'promo-NFe.html',
+    'promo-nfce.html',
+    'promo-nfe.html',
     'promo-compras.html',
     'promo-financeiro.html',
     'promo-xml.html',
@@ -83,49 +83,60 @@ const telasSorteadas = sortearTelas(TODAS_AS_TELAS, QTDE_TELAS);
 const frame          = document.getElementById('frame-promo');
 const overlayFinal   = document.getElementById('overlay-final');
 
-let passoAtual = 0;
+let passoAtual      = 0;
+let timeoutFade     = null;
+let timeoutAvancar  = null;
+let timeoutFallback = null;
 
 criarIndicadores(QTDE_TELAS);
 
+function cancelarTimers() {
+    clearTimeout(timeoutFade);
+    clearTimeout(timeoutAvancar);
+    clearTimeout(timeoutFallback);
+    frame.onload = null;
+}
+
 function exibirTela(indice) {
+    cancelarTimers();
+
     if (indice >= telasSorteadas.length) {
         encerrar();
         return;
     }
 
     const arquivo = telasSorteadas[indice];
-
     frame.classList.remove('visivel');
 
-    setTimeout(() => {
+    timeoutFade = setTimeout(() => {
         frame.src = arquivo;
 
         atualizarIndicadores(indice);
         animarBarra(indice, QTDE_TELAS, DURACAO_MS);
 
-        frame.onload = () => {
+        let carregou = false;
+
+        function aoCarregar() {
+            if (carregou) return;
+            carregou = true;
+            clearTimeout(timeoutFallback);
             frame.classList.add('visivel');
-            setTimeout(() => {
+            timeoutAvancar = setTimeout(() => {
                 passoAtual++;
                 exibirTela(passoAtual);
             }, DURACAO_MS);
-        };
+        }
+
+        frame.onload = aoCarregar;
 
         // Fallback: se onload demorar mais de 500ms
-        setTimeout(() => {
-            if (!frame.classList.contains('visivel')) {
-                frame.classList.add('visivel');
-                setTimeout(() => {
-                    passoAtual++;
-                    exibirTela(passoAtual);
-                }, DURACAO_MS);
-            }
-        }, 500);
+        timeoutFallback = setTimeout(aoCarregar, 500);
 
     }, FADE_MS);
 }
 
 function encerrar() {
+    cancelarTimers();
     frame.classList.remove('visivel');
     overlayFinal.classList.add('ativo');
     setTimeout(() => { window.location.href = DESTINO_FINAL; }, 550);
