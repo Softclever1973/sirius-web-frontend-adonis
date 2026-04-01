@@ -17,6 +17,7 @@ O SIRIUS WEB opera em modelo **multi-tenant (SaaS)**, onde uma única instalaç�
 | <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">inventory_2</span> Produtos | Cadastro e controle de estoque |
 | <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">badge</span> Vendedores | Cadastro e gestão da equipe de vendas |
 | <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">bar_chart</span> Dashboard | Painel gerencial com indicadores e gráficos |
+| <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">manage_search</span> Log de Auditoria | Registro de todas as ações realizadas no sistema — exclusivo Super Admin |
 
 > <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">warning</span> **Nota:** Na primeira vez que acessar o sistema após o cadastro, você será redirecionado para este manual para conhecer todas as funcionalidades antes de começar a usar.
 
@@ -83,6 +84,7 @@ Funcionário operacional. Acesso restrito às tarefas do dia a dia.
 | Criar/editar/excluir vendedores | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
 | Acessar Dashboard | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
 | Promover vendedor a Admin | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
+| Acessar Log de Auditoria | <span class="material-symbols-outlined" style="color:#10b981;vertical-align:middle;font-size:18px;">check_circle</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> | <span class="material-symbols-outlined" style="color:#ef4444;vertical-align:middle;font-size:18px;">cancel</span> |
 
 ---
 
@@ -314,6 +316,72 @@ Hoje · 7 dias · 30 dias · Intervalo de datas personalizado
 
 ---
 
+## Log de Auditoria
+
+> <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">lock</span> **Acesso restrito — exclusivo para Super Admin.**
+
+O Log de Auditoria registra automaticamente **todas as ações realizadas no sistema**: criações, alterações e exclusões de produtos, clientes, vendedores, formas de pagamento, movimentações de estoque, vendas e parâmetros.
+
+### Como Acessar
+
+No **Menu Principal**, acesse **Configurações → Log de Auditoria**. O link só aparece para usuários Super Admin.
+
+---
+
+### Informações Exibidas
+
+Cada registro na tabela contém:
+
+| Coluna | Descrição |
+|--------|-----------|
+| **Data / Hora** | Momento exato em que a ação foi realizada |
+| **Usuário** | Nome de quem executou a ação |
+| **Ação** | <span class="badge-doc badge-CRIOU">CRIOU</span> / <span class="badge-doc badge-ALTEROU">ALTEROU</span> / <span class="badge-doc badge-EXCLUIU">EXCLUIU</span> |
+| **Módulo** | Módulo do sistema onde a ação ocorreu |
+| **Descrição** | Texto legível descrevendo o que foi feito |
+| **IP** | Endereço IP do dispositivo que realizou a ação |
+
+---
+
+### Filtros Disponíveis
+
+Use a barra de filtros no topo da tabela para refinar os resultados:
+
+| Filtro | Descrição |
+|--------|-----------|
+| **Módulo** | Filtra por módulo (Produtos, Clientes, Vendedores, etc.) |
+| **Ação** | Filtra por tipo de ação: CRIOU, ALTEROU ou EXCLUIU |
+| **Usuário** | Busca pelo nome do usuário (parcial) |
+| **De / Até** | Intervalo de datas para o período desejado |
+
+Clique em **Filtrar** para aplicar ou **Limpar** para remover todos os filtros.
+
+---
+
+### Paginação
+
+Os registros são exibidos em páginas de 30 itens. Use os botões de navegação na parte inferior:
+
+- **‹ Anterior** — vai para a página anterior (desabilitado na primeira página)
+- **Números** — navegação direta por página
+- **Próximo ›** — vai para a próxima página (desabilitado na última página)
+
+---
+
+### Gerar Relatório
+
+Clique no botão <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">description</span> **Relat.** na barra lateral e selecione **Logs sob Filtro Atual**.
+
+Na janela que abrir, informe a **quantidade de páginas** a incluir no relatório:
+
+> Cada página contém 30 registros. Ex: digitar `5` gera um relatório com até 150 registros.
+
+O relatório é gerado respeitando os filtros ativos no momento e abre em uma nova aba do navegador. Clique em **Imprimir / Salvar PDF** para imprimir ou salvar como arquivo.
+
+> <span class="material-symbols-outlined" style="vertical-align:middle;font-size:16px;">info</span> Quando o relatório tem mais de uma "página" (mais de 30 registros), a impressão insere uma **quebra de página automática** a cada 30 linhas, mantendo a leitura organizada.
+
+---
+
 ## Perguntas Frequentes
 
 **Como faço para cadastrar meu primeiro produto?**
@@ -345,6 +413,11 @@ Acesse o módulo **Vendedores**, localize o vendedor desejado, clique em editar 
 
 **O que é Consumidor Final no PDV?**
 Quando nenhum cliente é selecionado na etapa de identificação do PDV, a venda é registrada como **Consumidor Final** — um cliente genérico usado para vendas avulsas onde não é necessário identificar o comprador.
+
+---
+
+**Como acesso o Log de Auditoria?**
+Acesse **Configurações → Log de Auditoria** no menu principal. O link só é exibido para usuários **Super Admin**. Caso não apareça, seu usuário não tem essa permissão.
 
 ---
 
