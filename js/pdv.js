@@ -336,22 +336,7 @@ function paramAtivo(codigo) {
 // CLIENTE PADRÃO (Consumidor Final)
 // ================================================================
 async function carregarClientePadrao() {
-    try {
-        const response = await fetch(`${API_URL}/pdv/cliente-padrao`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('sirius_token')}`,
-                'X-Empresa-Id': empresaId
-            }
-        });
-        const data = await response.json();
-        if (data.success && data.data) {
-            pedidoAtual.cliente = data.data;
-        } else {
-            pedidoAtual.cliente = { id: 0, razao_social: 'Consumidor Final', documento: '' };
-        }
-    } catch (e) {
-        pedidoAtual.cliente = { id: 0, razao_social: 'Consumidor Final', documento: '' };
-    }
+    pedidoAtual.cliente = { id: 0, razao_social: 'Consumidor Final', documento: '' };
     renderizarClienteSelecionado();
 }
 
