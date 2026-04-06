@@ -1140,6 +1140,7 @@ html:has(body.page-app) {
     align-items: center;
     justify-content: center;
     font-size: 20px;
+    color: #ffffff;
     box-shadow: 0 0 16px rgba(37, 99, 235, 0.5);
     margin-bottom: 10px;
     flex-shrink: 0;
@@ -3764,6 +3765,7 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
     background: var(--bg-icone, rgba(37,99,235,0.15));
     border: 1px solid var(--borda-icone, rgba(37,99,235,0.3));
     box-shadow: 0 0 18px var(--sombra-icone, rgba(37,99,235,0.2));
+    color: var(--cor-icone, #60a5fa);
     position: relative; z-index: 1;
 }
 
@@ -3772,11 +3774,11 @@ html:has(body.page-outros-modulos) { height: 100%; width: 100%; }
 .topico-desc    { color: #64748b; font-size: 12px; line-height: 1.5; position: relative; z-index: 1; }
 
 /* Variantes de cor dos tópicos */
-.card-internet  { --cor-card:rgba(37,99,235,0.06);  --borda-card:rgba(37,99,235,0.4);  --bg-icone:rgba(37,99,235,0.15);  --borda-icone:rgba(37,99,235,0.3);  --sombra-icone:rgba(37,99,235,0.25);  --linha-card:#2563eb; }
-.card-mouse     { --cor-card:rgba(16,185,129,0.06);  --borda-card:rgba(16,185,129,0.4); --bg-icone:rgba(16,185,129,0.12); --borda-icone:rgba(16,185,129,0.3); --sombra-icone:rgba(16,185,129,0.2);  --linha-card:#10b981; }
-.card-seguranca { --cor-card:rgba(139,92,246,0.06);  --borda-card:rgba(139,92,246,0.4); --bg-icone:rgba(139,92,246,0.12); --borda-icone:rgba(139,92,246,0.3); --sombra-icone:rgba(139,92,246,0.2);  --linha-card:#8b5cf6; }
-.card-velocidade{ --cor-card:rgba(245,158,11,0.06);  --borda-card:rgba(245,158,11,0.4); --bg-icone:rgba(245,158,11,0.12); --borda-icone:rgba(245,158,11,0.3); --sombra-icone:rgba(245,158,11,0.2);  --linha-card:#f59e0b; }
-.card-modos     { --cor-card:rgba(14,165,233,0.06);  --borda-card:rgba(14,165,233,0.4); --bg-icone:rgba(14,165,233,0.12); --borda-icone:rgba(14,165,233,0.3); --sombra-icone:rgba(14,165,233,0.2);  --linha-card:#0ea5e9; }
+.card-internet  { --cor-card:rgba(37,99,235,0.06);  --borda-card:rgba(37,99,235,0.4);  --bg-icone:rgba(37,99,235,0.15);  --borda-icone:rgba(37,99,235,0.3);  --sombra-icone:rgba(37,99,235,0.25);  --linha-card:#2563eb; --cor-icone:#60a5fa; }
+.card-mouse     { --cor-card:rgba(16,185,129,0.06);  --borda-card:rgba(16,185,129,0.4); --bg-icone:rgba(16,185,129,0.12); --borda-icone:rgba(16,185,129,0.3); --sombra-icone:rgba(16,185,129,0.2);  --linha-card:#10b981; --cor-icone:#34d399; }
+.card-seguranca { --cor-card:rgba(139,92,246,0.06);  --borda-card:rgba(139,92,246,0.4); --bg-icone:rgba(139,92,246,0.12); --borda-icone:rgba(139,92,246,0.3); --sombra-icone:rgba(139,92,246,0.2);  --linha-card:#8b5cf6; --cor-icone:#a78bfa; }
+.card-velocidade{ --cor-card:rgba(245,158,11,0.06);  --borda-card:rgba(245,158,11,0.4); --bg-icone:rgba(245,158,11,0.12); --borda-icone:rgba(245,158,11,0.3); --sombra-icone:rgba(245,158,11,0.2);  --linha-card:#f59e0b; --cor-icone:#fbbf24; }
+.card-modos     { --cor-card:rgba(14,165,233,0.06);  --borda-card:rgba(14,165,233,0.4); --bg-icone:rgba(14,165,233,0.12); --borda-icone:rgba(14,165,233,0.3); --sombra-icone:rgba(14,165,233,0.2);  --linha-card:#0ea5e9; --cor-icone:#38bdf8; }
 
 /* =====================================================
    Outros Módulos - Seções de Módulo
@@ -9682,16 +9684,22 @@ body.page-promo .fundo::after {
     /* Hexágonos decorativos: ocultos no mobile */
     .deco-hexs { display: none; }
 
-    /* Nav rodapé: 2 linhas no mobile
+    /* Nav rodapé: fixo no rodapé, 2 linhas no mobile
        Linha 1: abas com scroll horizontal (ocupa 100%)
        Linha 2: Anterior | Próxima | Voltar lado a lado */
     .nav-rodape {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
         height: auto;
         padding: 6px 10px 8px;
         flex-wrap: wrap;
         gap: 6px;
         align-items: center;
+        z-index: 200;
     }
+
+    /* Padding-bottom na seção ativa para não ficar atrás do nav fixo */
+    .secao { padding-bottom: 110px; }
 
     /* Abas ocupam a primeira linha inteira */
     .nav-abas {
@@ -9720,7 +9728,7 @@ body.page-promo .fundo::after {
 
 /* Mobile pequeno */
 @media (max-width: 480px) {
-    .secao { padding: 24px 14px 16px; }
+    .secao { padding: 24px 14px 110px; }
 
     .titulo-principal {
         font-size: clamp(38px, 13vw, 56px);
