@@ -2,6 +2,8 @@
 
 > **SIRIUS WEB** é um sistema ERP completo de gestão empresarial, desenvolvido pela **Soft Clever Informática** para atender pequenas e médias empresas com foco em PDV e gestão comercial.
 
+*Esta versão gratuita não possui suporte técnico. As versões pagas contam com suporte humanizado.*
+
 ---
 
 ## Introdução
